@@ -1,0 +1,20 @@
+#HelpDesk 3 Robots File
+#Last change NO 05012020
+
+User-agent: *
+Disallow: /cache/
+Disallow: /include/
+Disallow: /class/
+Disallow: /css/
+Disallow: /operator/
+Disallow: /lang/
+Disallow: /js/
+Disallow: /css/
+Disallow: /files/
+Disallow: /package/
+Disallow: /rest/
+Disallow: /font/
+Disallow: /cron/
+Disallow: /template/
+Disallow: /uploader/
+Disallow: /sound/
