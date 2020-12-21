@@ -22,8 +22,8 @@
             </ul>
           </nav>
           <div class="copyright" id="copyright">
-            <?php echo date("Y");?>, Designed with <i class="fa fa-heart"></i>. Coded by
-            <a href="https://www.jakweb.ch" target="_blank">JAKWEB</a>.
+            <?php echo date("Y");?> <i class="fa fa-heart"></i> 
+            <a href="https://www.jakweb.ch" target="_blank">J&T Jawa Timur</a>.
           </div>
         </div>
       </footer>

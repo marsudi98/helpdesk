@@ -2,7 +2,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=<?php echo $jakwidget['h_font'];?>:regular,italic,bold,bolditalic" type="text/css">
 <?php } ?>
 
+
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 
 <style type="text/css">
 body, .navbar-brand, h1, h2, h3, h4, h5, h6, .lcj-chat-header .lcj-title { font-family: '<?php echo ($jakwidget['h_font'] == $jakwidget['c_font'] ? str_replace("+", " ", $jakwidget['h_font']) : $jakwidget['c_font']);?>', sans-serif; }

@@ -111,7 +111,7 @@
         <hr>
         <div class="copyright pull-center">
             <!-- Do not remove or edit except you have a copyright link free license -->
-            <p class="ctext">HelpDesk 3 Powered by <a href="https://www.jakweb.ch">JAKWEB</a></p>
+            <p class="ctext">All Rights Reserved. &#xA9;2020 PT. Karya Niaga Abadi - <a href="#">J&T Express Jawa Timur.</a></p>
         </div>
     </div>
 </footer>
@@ -123,7 +123,7 @@
         </div>
         
         <div class="copyright float-right">
-          <p class="ctext">HelpDesk 3 Powered by <a href="https://www.jakweb.ch">JAKWEB</a></p>
+          <p class="ctext">All Rights Reserved. &#xA9;2020 PT. Karya Niaga Abadi - <a href="#">J&T Express Jawa Timur.</a></p>
       </div>
   </div>
 </footer>

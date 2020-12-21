@@ -21,15 +21,15 @@
 						<?php if (defined('JAK_API_PROFILE') && !empty(JAK_API_PROFILE)) { ?>
 							<p><a href="<?php echo JAK_API_PROFILE;?>" class="btn btn-block btn-danger"><i class="fa fa-key"></i> <?php echo $jkl["hd19"];?></a></p>
 						<?php } else { ?>
-							<p><a href="javascript:void(0)" class="btn btn-block btn-danger lost-pwd"><i class="fa fa-key"></i> <?php echo $jkl["hd19"];?></a></p>
+							<p><a href="javascript:void(0)" class="btn-link lost-pwd"><i class="fa fa-key"></i> <?php echo $jkl["hd19"];?></a></p>
 						<?php } } ?>
 						<?php if (isset($errorsl)) { ?><div class="alert alert-danger"><?php echo $errorsl["recaptcha"];?></div><?php } ?>
 						<form id="login_form" method="post" action="<?php echo JAK_rewrite::jakParseurl(JAK_CLIENT_URL);?>">
-							<div class="form-group<?php if (isset($ErrLogin)) echo " has-danger";?>">
+							<div class="form-group<?php if (isset($ErrLogin)) echo "";?>">
 								<label for="email" class="bmd-label-floating"><?php echo $jkl["g5"];?></label>
 								<input type="text" name="email" class="form-control" id="email">
 							</div>
-							<div class="form-group<?php if (isset($ErrLogin)) echo " has-danger";?>">
+							<div class="form-group<?php if (isset($ErrLogin)) echo "";?>">
 								<label for="password" class="bmd-label-floating"><?php echo $jkl["g77"];?></label>
 								<input type="password" name="password" class="form-control" id="password">
 							</div>
@@ -71,8 +71,8 @@
 							<button type="submit" name="forgotP" class="btn btn-rose btn-round"><?php echo $jkl["hd22"];?></button>
 							<input type="hidden" name="action" value="forgot-password">
 						</form>
-						<hr>
-						<p><a href="javascript:void(0)" class="btn btn-success btn-round lost-pwd"><i class="fa fa-lightbulb-o"></i> <?php echo $jkl["hd23"];?></a></p>
+						<!-- <hr> -->
+						<p><a href="javascript:void(0)" class="btn btn-default btn-round lost-pwd"><i class="fa fa-lightbulb-o"></i> <?php echo $jkl["hd23"];?></a></p>
 					</div>
 					
 				</div>
@@ -87,7 +87,7 @@
 					<div class="register-title">
 						<h2><?php echo $jkl['hd24'];?></h2>
 					</div>
-
+					<p style="visibility:hidden"><a href="javascript:void(0)" class="btn-link lost-pwd"><i class="fa fa-key"></i> <?php echo $jkl["hd19"];?></a></p>
 					<div class="form-signin">
 						<?php if ($errorsreg) { ?>
 							<div class="alert alert-danger">

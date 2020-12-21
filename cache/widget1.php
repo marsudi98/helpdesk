@@ -47,5 +47,5 @@ $jakwidget['sidebar_colour'] = '#857d7d';
 $jakwidget['t_font'] = '';
 $jakwidget['h_font'] = 'Open+Sans';
 $jakwidget['c_font'] = 'Open+Sans';
-$jakwidget['whitelist'] = '';
+$jakwidget['whitelist'] = '10.100.80.21';
 ?>

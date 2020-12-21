@@ -280,11 +280,11 @@ nowuiDashboard = {
       if (sidebar_mini_active == true) {
         $('body').removeClass('sidebar-mini');
         sidebar_mini_active = false;
-        nowuiDashboard.showSidebarMessage('Sidebar mini deactivated...');
+        nowuiDashboard.showSidebarMessage('Sidebar mini deactivated.');
       } else {
         $('body').addClass('sidebar-mini');
         sidebar_mini_active = true;
-        nowuiDashboard.showSidebarMessage('Sidebar mini activated...');
+        nowuiDashboard.showSidebarMessage('Sidebar mini activated.');
       }
 
       // we simulate the window Resize so the charts will get updated in realtime.

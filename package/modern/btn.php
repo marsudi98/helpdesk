@@ -62,12 +62,12 @@ if ($USR_IP_BLOCKED) {
 	if ($online_op) {
 
 		// Set the pop up url once, save some code
-		$thepoup = '<a href="javascript:void(0)" onclick="if(navigator.userAgent.toLowerCase().indexOf(\'opera\') != -1 && window.event.preventDefault) window.event.preventDefault();this.newWindow = window.open(\''.$chatstarturlpop.'\', \'livechat3_popup_window\', \'toolbar=0,scrollbars=1,location=0,status=1,menubar=0,width=780,height=640,resizable=1\');this.newWindow.focus();this.newWindow.opener=window;return false;"><i class="material-icons">open_in_browser</i></a>';
+		$thepoup = '<a href="javascript:void(0)" onclick="if(navigator.userAgent.toLowerCase().indexOf(\'opera\') != -1 && window.event.preventDefault) window.event.preventDefault();this.newWindow = window.open(\''.$chatstarturlpop.'\', \'livechat3_popup_window\', \'toolbar=0,scrollbars=1,location=0,status=1,menubar=0,width=780,height=640,resizable=1\');this.newWindow.focus();this.newWindow.opener=window;return false;"><i class="material-icons icon-chat">question_answer</i></a>';
 
 		// We have a SlideUp
 		if ($jakwidget['widget'] == 1) {
 
-			$widgethtml = '<div id="lcjframesize" class="live-chat-slideup-container animated">'.$slideimg.'<div class="lcj-chat-header'.$theme.'" style="'.$titlefont.$backgroundc.'"><a href="'.$chatstarturl.'"><i class="material-icons">chat</i> <div class="lcj-title">'.$jakwidget['title'].'</div></a>'.$thepoup.'</div>';
+			$widgethtml = '<div id="lcjframesize" class="live-chat-slideup-container animated">'.$slideimg.'<div class="lcj-chat-header'.$theme.'" style="'.$titlefont.$backgroundc.'"><a href="'.$chatstarturl.'"><i class="material-icons icon-chat">chat</i> <div class="lcj-title">'.$jakwidget['title'].'</div></a>'.$thepoup.'</div>';
 
 			// Set session to slide up
 			$_SESSION["setchatstyle"] = 1;
@@ -120,14 +120,14 @@ if ($USR_IP_BLOCKED) {
 			// We have a SlideUp
 			if ($jakwidget['widget'] == 1) {
 
-				$widgethtml = '<div id="lcjframesize" class="live-chat-slideup-container animated">'.$slideimg.'<div class="lcj-chat-header'.$theme.'" style="'.$titlefont.$backgroundc.'"><a href="'.$chatcontacturl.'"><i class="material-icons"'.$fontcolor.'>contact_mail</i> <div class="lcj-title">'.$jakwidget['title'].'</div></a>'.$thepoup.'</div>';
+				$widgethtml = '<div id="lcjframesize" class="live-chat-slideup-container animated">'.$slideimg.'<div class="lcj-chat-header'.$theme.'" style="'.$titlefont.$backgroundc.'"><a href="'.$chatcontacturl.'"><i class="material-icons icon-chat"'.$fontcolor.'>contact_mail</i> <div class="lcj-title">'.$jakwidget['title'].'</div></a>'.$thepoup.'</div>';
 
 				// Set session to slide up
 				$_SESSION["setchatstyle"] = 1;
 
 			} elseif ($jakwidget['widget'] == 2) {
 
-				$widgethtml = '<div id="lcjframesize" class="live-chat-slideup-container animated">'.$slideimg.'<div class="lcj-chat-header'.$theme.'" style="'.$titlefont.$backgroundc.'"><a href="'.$chatcontacturl.'"><i class="material-icons"'.$fontcolor.'>contact_mail</i> <div class="lcj-title">'.$jakwidget['title'].'</div></a>'.$thepoup.'</div>';
+				$widgethtml = '<div id="lcjframesize" class="live-chat-slideup-container animated">'.$slideimg.'<div class="lcj-chat-header'.$theme.'" style="'.$titlefont.$backgroundc.'"><a href="'.$chatcontacturl.'"><i class="material-icons icon-chat"'.$fontcolor.'>contact_mail</i> <div class="lcj-title">'.$jakwidget['title'].'</div></a>'.$thepoup.'</div>';
 
 				// Set session to slide up
 				$_SESSION["setchatstyle"] = 1;
