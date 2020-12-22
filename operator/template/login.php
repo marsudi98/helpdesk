@@ -14,10 +14,10 @@
       <div class="collapse navbar-collapse justify-content-end" id="navigation">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="<?php echo BASE_URL_ORIG;?>" class="nav-link">Front End</a>
+            <a href="<?php echo BASE_URL_ORIG;?>" class="nav-link login-link">Front End</a>
           </li>
           <li class="nav-item active">
-            <a href="<?php echo BASE_URL;?>" class="nav-link">Operator Login</a>
+            <a href="<?php echo BASE_URL;?>" class="nav-link login-link">Operator Login</a>
           </li>
         </ul>
       </div>
@@ -68,7 +68,7 @@
                 </div>
               </div>
                 <div class="card-footer">
-                  <button type="submit" name="logID" class="btn btn-primary btn-round btn-lg btn-block mb-3"><?php echo $jkl["l3"];?></button>
+                  <button type="submit" name="logID" class="btn btn-primary btn-lg btn-block mb-3"><?php echo $jkl["l3"];?></button>
                   <input type="hidden" name="action" value="login">
                   <div class="pull-right">
                     <h6>
@@ -129,8 +129,8 @@
           <?php if (isset($jakhs['copyright']) && !empty($jakhs['copyright'])) { ?>
           <div class="copyright" id="copyright">
             <i class="fa fa-copyright"></i>
-            <?php echo date("Y");?>, Designed with <i class="fa fa-heart"></i>. Coded by
-            <a href="https://www.jakweb.ch" target="_blank">JAKWEB</a>.
+            <?php echo date("Y");?> Designed with <i class="fa fa-heart"></i>
+            <a href="https://www.jakweb.ch" target="_blank">J&T Express Jawa Timur</a>.
           </div>
         <?php } ?>
         </div>

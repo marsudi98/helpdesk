@@ -32,7 +32,7 @@ define('JAK_SMTP_MAIL', '0');
 define('JAK_SMTP_PREFIX', '');
 define('JAK_TIMEFORMAT', ' g:i a');
 define('JAK_TIMEZONESERVER', 'Europe/Zurich');
-define('JAK_TITLE', 'CS J&T Jawa Timur');
+define('JAK_TITLE', 'CS J&T Express Jawa Timur');
 define('JAK_TWILIO_NEXMO', '0');
 define('JAK_TWITTER', '');
 define('JAK_TWITTER_BIG', '');

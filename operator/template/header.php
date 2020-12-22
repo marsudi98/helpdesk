@@ -44,7 +44,7 @@
           CS
         </a>
         <a href="<?php echo BASE_URL_ADMIN;?>" class="simple-text logo-normal">
-          J&T Jawa Timur
+          J&T Express
         </a>
         <div class="navbar-minimize">
           <button id="minimizeSidebar" class="btn btn-simple btn-icon btn-neutral btn-round">

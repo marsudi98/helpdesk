@@ -1451,7 +1451,7 @@ fieldset[disabled] .btn-link.active {
 .form-control {
   background-color: transparent;
   border: 1px solid #E3E3E3;
-  border-radius: 30px;
+  border-radius: 5px;
   color: #2c2c2c;
   line-height: normal;
   height: auto;
@@ -1649,11 +1649,15 @@ fieldset[disabled] .btn-link.active {
   padding: 11px 19px 11px 0;
 }
 
+.login-link {
+  font-size: 14px !important;
+}
+
 .form-group.no-border .input-group-prepend .input-group-text,
 .form-group.no-border .input-group-append .input-group-text,
 .input-group.no-border .input-group-prepend .input-group-text,
 .input-group.no-border .input-group-append .input-group-text {
-  padding: 11px 0 11px 19px;
+  padding: 11px 14px 11px 14px;
 }
 
 .form-group .form-control,
@@ -1747,7 +1751,7 @@ fieldset[disabled] .btn-link.active {
 .input-group-prepend .input-group-text {
   background-color: transparent;
   border: 1px solid #E3E3E3;
-  border-radius: 30px;
+  border-radius: 5px;
   color: #888;
   -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
   -moz-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -3034,8 +3038,8 @@ img {
 
 .table>thead>tr>th {
   border-bottom-width: 1px;
-  font-size: 1.45em;
-  font-weight: 300;
+  /* font-size: 1.45em; */
+  font-weight: bold;
   border: 0;
 }
 
@@ -3159,6 +3163,10 @@ img {
 
 #tables .table-responsive {
   margin-bottom: 30px;
+}
+
+.login-page .footer {
+  background: none;
 }
 
 .footer {
@@ -4113,7 +4121,7 @@ img {
 }
 
 .icon.icon-success {
-  color: #18ce0f;
+  color: #2ecc71;
 }
 
 .icon.icon-success.icon-circle {
@@ -4129,7 +4137,7 @@ img {
 }
 
 .icon.icon-danger {
-  color: #FF3636;
+  color: #FF4D4D;
 }
 
 .icon.icon-danger.icon-circle {
@@ -12351,6 +12359,7 @@ be a descendant of the grid when it is being dragged.
 
 .login-page .link {
   font-size: 10px;
+  font-weight: 400;
   color: #FFFFFF;
   text-decoration: none;
 }
