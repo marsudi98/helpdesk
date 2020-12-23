@@ -41,7 +41,7 @@
 			
 			</div>
 
-			<?php if (isset($jakhs['copyright']) && !empty($jakhs['copyright'])) echo '<div class="copyright text-center">'.$jakhs['copyright'].'</div>';?>
+			<div class="copyright text-center" style="visibility:hidden;"><a href="#">J&T Express Jawa Timur</a></div>
 			
 		</div>
 		<div class="col-sm-4 sidebar">

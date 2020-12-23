@@ -95,8 +95,8 @@ a:hover {
 
 /* Title / Buttons */
 .lcj-chat-header {
-  /* width: 340px;
-  height: 40px; */
+  width: 340px;
+  height: 40px;
   color: #ffffff;
   font-size: 1rem;
   -webkit-border-radius: 5px 5px 0 0;

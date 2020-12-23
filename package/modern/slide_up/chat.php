@@ -64,6 +64,6 @@ if (isset($jakwidget['theme_colour']) && !empty($jakwidget['theme_colour'])) $th
 		<div id="jak_update"></div>
 			
 	</div>
-	<?php if (!empty(JAK_COPYRIGHT_LINK)) echo '<div class="copyright text-center">'.JAK_COPYRIGHT_LINK.'</div>';?>
+	<div class="copyright text-center" style="visibility:hidden;"><a href="#">J&T Express Jawa Timur</a></div>
 </div>
 </div>
