@@ -1,7 +1,7 @@
 <?php
 $jakwidget = array();
 $jakwidget['id'] = '1';
-$jakwidget['title'] = 'Chat';
+$jakwidget['title'] = 'Chat with us';
 $jakwidget['whatsapp_message'] = '';
 $jakwidget['depid'] = '0';
 $jakwidget['opid'] = 0;

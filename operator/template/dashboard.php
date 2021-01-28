@@ -9,7 +9,7 @@
       <div class="card card-stats">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-3">
+            <a class="col-md-3" href="#">
               <div class="statistics">
                 <div class="info">
                   <div class="icon icon-primary">
@@ -19,7 +19,7 @@
                   <h6 class="stats-title"><?php echo $jkl["stat_s26"];?></h6>
                 </div>
               </div>
-            </div>
+            </a>
             <div class="col-md-3">
               <div class="statistics">
                 <div class="info">
@@ -240,16 +240,6 @@
   </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
-      <h3 class="card-title"><i class="fa fa-download"></i> Downloads and Support</h3>
-      <div class="card-body">
-        <p>Often on the road, download our native apps for Android and iOS to easily serve your clients outside your office. Push notifications included, just setup your business hours in <a href="<?php echo JAK_rewrite::jakParseurl('users','edit',JAK_USERID);?>">your operator profile</a>. Your Live Chat URL is: <strong><?php echo rtrim(BASE_URL_ORIG,"/");?></strong></p>
-        <p>Get your native push notifications token and user key from our <a href="https://www.jakweb.ch/push">Push Server</a>. Use the same login details from when you have purchased a license with us.</p>
-      </div>
-  </div>
-</div>
-
 <!-- Only for super admin access -->
 <?php if (JAK_SUPERADMINACCESS && $jakhs['hostactive']) { ?>
 
@@ -305,4 +295,4 @@
 
 </div>
 
-<?php include_once 'footer.php';?>
+<?php include_once 'footer.php';?>  

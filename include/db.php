@@ -70,7 +70,7 @@ define('JAKDB_MAIN_HOST', 'localhost'); // Database host ## Datenbank Server
 define('JAKDB_MAIN_DBTYPE', 'mysql'); // Database host ## Datenbank Server
 define('JAKDB_MAIN_PORT', 3306); // Enter the database port for your mysql server
 define('JAKDB_MAIN_USER', 'root'); // Database user ## Datenbank Benutzername
-define('JAKDB_MAIN_PASS', 'root'); // Database password ## Datenbank Passwort
+define('JAKDB_MAIN_PASS', 'root'); // Database password ## Datenbank Password
 define('JAKDB_MAIN_NAME', 'helpdesk'); // Database name ## Datenbank Name
 define('JAKDB_MAIN_PREFIX', 'hd_'); // Database prefix use (a-z) and (_)
 
@@ -88,7 +88,7 @@ $jakhs['chatwidgets'] = 2; // 0 = Unlimited, or any number for example 5, will a
 $jakhs['privateopchat'] = 0; // 0 = not available, 1 = available
 $jakhs['publicopchat'] = 0; // 0 = not available, 1 = available
 $jakhs['groupchat'] = 0; // 0 = not available, 1 = available
-$jakhs['copyright'] = '<a href="https://www.jakweb.ch" target="_blank">Powered by HelpDesk 3</a>'; // the copyright link/text e.g. <a href="https://www.jakweb.ch" target="_blank">Powered by Live Chat 3</a>
+$jakhs['copyright'] = '<a href="https://www.jakweb.ch" target="_blank" style="visibility:hidden">Powered by HelpDesk 3</a>'; // the copyright link/text e.g. <a href="https://www.jakweb.ch" target="_blank">Powered by Live Chat 3</a>
 $jakhs['files'] = 1; // 0 = not available, 1 = available
 $jakhs['filetype'] = ".zip,.rar,.jpg,.jpeg,.png,.gif"; // files allowed to upload for client e.g. .zip,.rar,.jpg,.jpeg,.png,.gif
 $jakhs['filetypeo'] = ".zip,.rar,.jpg,.jpeg,.png,.gif"; // files allowed to upload for operator e.g. .zip,.rar,.jpg,.jpeg,.png,.gif
