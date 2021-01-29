@@ -3173,6 +3173,10 @@ img {
   padding: 24px 0;
   background: #fff;
   font-weight: 550;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  /* position: absolute; */
 }
 
 .footer.footer-default {
@@ -4109,7 +4113,7 @@ img {
 }
 
 .icon.icon-primary.icon-circle {
-  box-shadow: 0px 0px 15px -7px rgba(249, 99, 50, 0.9);
+  box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.9);
 }
 
 .icon.icon-info {
@@ -4117,7 +4121,7 @@ img {
 }
 
 .icon.icon-info.icon-circle {
-  box-shadow: 0px 0px 15px -7px rgba(44, 168, 255, 0.9);
+  box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.9);
 }
 
 .icon.icon-success {
@@ -4125,7 +4129,7 @@ img {
 }
 
 .icon.icon-success.icon-circle {
-  box-shadow: 0px 0px 15px -7px rgba(24, 206, 15, 0.9);
+  box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.9);
 }
 
 .icon.icon-warning {
@@ -4133,7 +4137,7 @@ img {
 }
 
 .icon.icon-warning.icon-circle {
-  box-shadow: 0px 0px 15px -7px rgba(255, 178, 54, 0.9);
+  box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.9);
 }
 
 .icon.icon-danger {
@@ -4141,7 +4145,7 @@ img {
 }
 
 .icon.icon-danger.icon-circle {
-  box-shadow: 0px 0px 15px -7px rgba(255, 54, 54, 0.9);
+  box-shadow: 0px 0px 12px -7px rgba(0, 0, 0, 0.9);
 }
 
 .icon.icon-white {

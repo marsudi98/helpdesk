@@ -9,7 +9,7 @@
       <div class="card card-stats">
         <div class="card-body">
           <div class="row">
-            <a class="col-md-3" href="#">
+            <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('leads');?>">
               <div class="statistics">
                 <div class="info">
                   <div class="icon icon-primary">
@@ -20,7 +20,7 @@
                 </div>
               </div>
             </a>
-            <div class="col-md-3">
+            <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('contacts');?>">
               <div class="statistics">
                 <div class="info">
                   <div class="icon icon-success">
@@ -30,8 +30,8 @@
                   <h6 class="stats-title"><?php echo $jkl['stat_s29'];?></h6>
                 </div>
               </div>
-            </div>
-            <div class="col-md-3">
+            </a>
+            <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('support');?>">
               <div class="statistics">
                 <div class="info">
                   <div class="icon icon-danger">
@@ -41,8 +41,8 @@
                   <h6 class="stats-title"><?php echo $jkl['hd141'];?></h6>
                 </div>
               </div>
-            </div>
-            <div class="col-md-3">
+            </a>
+            <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('users', 'clients');?>">
               <div class="statistics">
                 <div class="info">
                   <div class="icon icon-info">
@@ -52,7 +52,7 @@
                   <h6 class="stats-title"><?php echo $jkl['stat_s5'];?></h6>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>

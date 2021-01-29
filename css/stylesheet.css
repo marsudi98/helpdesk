@@ -151,7 +151,7 @@ a {
   background-color: transparent;
 }
 a:hover {
-  color: #0056b3 !important;
+  color: #0056b3;
   text-decoration: none;
 }
 a:not([href]) {

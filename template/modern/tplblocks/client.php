@@ -87,7 +87,7 @@
 					<div class="register-title">
 						<h2><?php echo $jkl['hd24'];?></h2>
 					</div>
-					<p style="visibility:hidden"><a href="javascript:void(0)" class="btn-link lost-pwd"><i class="fa fa-key"></i> <?php echo $jkl["hd19"];?></a></p>
+					
 					<div class="form-signin">
 						<?php if ($errorsreg) { ?>
 							<div class="alert alert-danger">
@@ -108,7 +108,7 @@
 							<?php if (!empty(JAK_RECAP_CLIENT)) { ?>
 								<p><div class="g-recaptcha" data-sitekey="<?php echo JAK_RECAP_CLIENT;?>"></div></p>
 							<?php } ?>
-
+							<p><a href="javascript:void(0)" class="btn-link lost-pwd"><i class="fa fa-key"></i> <?php echo $jkl["hd19"];?></a></p>
 							<input type="hidden" name="action" value="register">
 							<button type="submit" name="registerID" class="btn btn-rose btn-round"><?php echo $jkl["hd30"];?></button>
 

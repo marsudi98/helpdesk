@@ -19,7 +19,7 @@
 }
 
 html {
-  font-family: sans-serif;
+  font-family: 'Poppins';
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -47,7 +47,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Poppins", "Helvetica", "Arial", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -182,7 +182,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: 'Poppins', monospace;
   font-size: 1em;
 }
 
@@ -423,7 +423,7 @@ template {
 }
 
 html {
-  font-family: sans-serif;
+  font-family: 'Poppins';
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -451,7 +451,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Poppins", "Helvetica", "Arial", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -585,7 +585,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: 'monospace', monospace;
   font-size: 1em;
 }
 
@@ -645,7 +645,7 @@ select,
 optgroup,
 textarea {
   margin: 0;
-  font-family: inherit;
+  font-family: 'Poppins';
   font-size: inherit;
   line-height: inherit;
 }
@@ -766,7 +766,7 @@ h6,
 .h5,
 .h6 {
   margin-bottom: 0.5rem;
-  font-family: inherit;
+  font-family: 'Poppins';
   font-weight: 400;
   line-height: 1.2;
   color: inherit;
@@ -5651,7 +5651,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Poppins", "Helvetica", "Arial", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -5776,7 +5776,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Poppins", "Helvetica", "Arial", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -10925,7 +10925,7 @@ legend {
 }
 
 .serif-font {
-  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-family: "Poppins", "Times New Roman", serif;
 }
 
 * {
@@ -14274,11 +14274,11 @@ footer .pull-center {
 
 .navbar .navbar-nav .nav-item .nav-link {
   position: relative;
-  color: inherit;
+  color: #3f4254;
   padding: 0.9375rem;
-  font-weight: 500;
-  font-size: 12px;
-  text-transform: uppercase;
+  font-weight: 550;
+  font-size: 14px;
+  text-transform: capitalize;
   border-radius: 3px;
   line-height: 20px;
 }
@@ -18078,7 +18078,7 @@ thead.thead-inverse th,
 }
 
 .media .media-heading small {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-family: "Poppins", "Helvetica", "Arial", sans-serif;
 }
 
 .media .media-body {

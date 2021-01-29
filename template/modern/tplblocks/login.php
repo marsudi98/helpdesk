@@ -2,7 +2,7 @@
   <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
    <div class="card card-login card-hidden">
     <div class="card-header card-header-primary text-center">
-     <h4 class="card-title"><?php echo $jkl['hd18'];?></h4>
+     <h4 class="card-title" style="color:#fff;"><?php echo $jkl['hd18'];?></h4>
     </div>
    <div class="card-body">
     <form method="post" action="<?php echo JAK_rewrite::jakParseurl(JAK_CLIENT_URL);?>">
@@ -34,7 +34,7 @@
 
       <input type="hidden" name="action" value="login">
     </div>
-    <div class="card-footer justify-content-center">
+    <div class="card-footer justify-content-center" style="padding-bottom:5px;">
       <div class="form-check">
         <label class="form-check-label">
           <input class="form-check-input" type="checkbox" name="lcookies" checked>
@@ -47,6 +47,7 @@
       <button type="submit" name="logID" class="btn btn-rose btn-round"><?php echo $jkl["hd18"];?></button>
     </div>
   </form>
+  <p class="text-center" style="padding-bottom:5px;">Don't have an account?<a href="<?php echo JAK_rewrite::jakParseurl('register');?>" class="btn-link lost-pwd"> Register Now</a></p>     
 </div>
 </div>
 <?php } ?>

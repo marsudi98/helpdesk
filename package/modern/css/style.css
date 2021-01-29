@@ -42,7 +42,7 @@ a:hover {
 .live-chat-button-container .tooltip {
   background: #4ec2c1;
   font-size: .9rem;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
   color: #ffffff;
   margin-bottom: 5px;
@@ -219,7 +219,7 @@ a:hover {
 #lcj-chat-slideupbutton .tooltip {
   background: #fecbfa;
   font-size: .9rem;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-transform: uppercase;
   color: #79496e;
   bottom: 61%;

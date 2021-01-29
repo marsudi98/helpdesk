@@ -59,11 +59,14 @@
 
 <?php if (!isset($_SESSION["webembed"])) { ?>
 <!-- Navbar -->
-<nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+<nav class="navbar fixed-top navbar-expand-lg" id="sectionsNav">
 	<div class="container">
 
 	  	<!-- Logo -->
-		<a class="navbar-brand header-title" href="<?php echo BASE_URL;?>"><?php echo JAK_TITLE;?></span></a>
+		<!-- <a class="navbar-brand header-title" href="<?php echo BASE_URL;?>"><?php echo JAK_TITLE;?></span></a> -->
+		<a href="<?php echo BASE_URL;?>">
+			<img alt="Logo" src="<?php echo BASE_URL ?>files/logo-red-flat.png" class="logo-default h-25px" style="height:25px;"/>
+		</a>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>

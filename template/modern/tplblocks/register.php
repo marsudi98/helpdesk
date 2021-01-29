@@ -11,8 +11,8 @@ $custom_fields = jak_get_custom_fields(false, 1, false, $BT_LANGUAGE, false, fal
 <div class="col-lg-4 col-md-6 col-sm-8 ml-auto mr-auto">
 
    <div class="card card-login card-hidden">
-    <div class="card-header card-header-success text-center">
-     <h4 class="card-title"><?php echo $jkl['hd24'];?></h4>
+    <div class="card-header card-header-primary text-center">
+     <h4 class="card-title" style="color:#fff;"><?php echo $jkl['hd24'];?></h4>
     </div>
 
    <div class="card-body">
