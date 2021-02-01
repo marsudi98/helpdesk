@@ -14249,6 +14249,7 @@ footer .pull-center {
 
 .navbar {
   border: 0;
+  height: 70px;
   border-radius: 3px;
   padding: 0.625rem 0;
   margin-bottom: 20px;
@@ -14275,12 +14276,16 @@ footer .pull-center {
 .navbar .navbar-nav .nav-item .nav-link {
   position: relative;
   color: #3f4254;
-  padding: 0.9375rem;
+  padding: 0.55rem 1.35rem;
   font-weight: 550;
   font-size: 14px;
   text-transform: capitalize;
-  border-radius: 3px;
+  border-radius: 0.42rem;
   line-height: 20px;
+}
+
+.active .nav-link {
+  color: #ff4d4d !important;
 }
 
 .navbar .navbar-nav .nav-item .nav-link:not(.btn-just-icon) .fa {
@@ -14329,7 +14334,7 @@ footer .pull-center {
 .navbar .navbar-nav .nav-item.active .nav-link,
 .navbar .navbar-nav .nav-item.active .nav-link:hover,
 .navbar .navbar-nav .nav-item.active .nav-link:focus {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(243, 246, 249);
 }
 
 .navbar .btn,
