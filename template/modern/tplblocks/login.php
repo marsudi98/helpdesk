@@ -47,7 +47,7 @@
       <button type="submit" name="logID" class="btn btn-rose btn-round"><?php echo $jkl["hd18"];?></button>
     </div>
   </form>
-  <p class="text-center" style="padding-bottom:5px;">Don't have an account?<a href="<?php echo JAK_rewrite::jakParseurl('register');?>" class="btn-link lost-pwd"> Register Now</a></p>     
+  <p class="text-center register-link">Don't have an account?<a href="<?php echo JAK_rewrite::jakParseurl('register');?>" class="btn-link lost-pwd"> Register Now</a></p>     
 </div>
 </div>
 <?php } ?>

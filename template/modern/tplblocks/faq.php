@@ -2,7 +2,7 @@
 
 <?php if (JAK_FAQ_A && isset($allfaq) && is_array($allfaq)){?>
 
-<div class="container">
+<div class="container my-3">
   <div class="row">
     <div class="col-md-12">
       <?php if (isset($cms_text) && !empty($cms_text)) foreach ($cms_text as $t) {
@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container my-3">
   <div class="row">
     <div class="col-md-8 ml-auto mr-auto">
       <?php if (isset($cms_text) && !empty($cms_text)) foreach ($cms_text as $t) {
@@ -33,13 +33,11 @@
       <?php } ?>
       <form class="jak_form" method="post" action="<?php echo JAK_rewrite::jakParseurl(JAK_SEARCH_URL);?>">
         <div class="row">
-          <div class="col-md-10">
-            <div class="form-group">
+          <div class="col-md-12">
+            <div class="input-group">
               <input type="text" name="smart_search" id="smart_search" class="form-control" placeholder="<?php echo $jkl['hd'];?>" autocomplete="off">
+              <button class="btn btn-primary btn-search" style="margin:0;border-top-left-radius:0;border-bottom-left-radius:0;" type="submit"><i class="fa fa-search"></i></button>
             </div>
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-primary btn-search" type="submit"><i class="fa fa-search"></i></button>
           </div>
         </div>
         <input type="hidden" name="search_now" value="1">
@@ -67,27 +65,29 @@
   </div>
 <?php } ?>
 
-<div class="card-columns">
-  <?php foreach($allfaq as $faq) {
-    $faqparseurl = JAK_rewrite::jakParseurl(JAK_FAQ_URL, 'a', $faq["id"], JAK_rewrite::jakCleanurl($faq["title"]));
-    ?>
-    <div class="card<?php echo (!empty($faq["class"]) && $faq["class"] != "white" ? ' bg-'.$faq["class"] : '');?>">
-      <div class="card-body">
-        <a href="<?php echo $faqparseurl;?>">
-          <h3 class="card-title"><?php echo $faq["title"];?></h3>
-        </a>
-        <p><?php echo jak_cut_text($faq["content"], 200, '...');?></p>
-      </div>
-      <div class="card-footer justify-content-center">
-        <div class="author">
-          <a href="<?php echo $faqparseurl;?>"><?php echo $jkl["hd1"];?></a>
+<div class="container">
+  <div class="card-columns">
+    <?php foreach($allfaq as $faq) {
+      $faqparseurl = JAK_rewrite::jakParseurl(JAK_FAQ_URL, 'a', $faq["id"], JAK_rewrite::jakCleanurl($faq["title"]));
+      ?>
+      <div class="card<?php echo (!empty($faq["class"]) && $faq["class"] != "white" ? ' bg-'.$faq["class"] : '');?>">
+        <div class="card-body">
+          <a href="<?php echo $faqparseurl;?>">
+            <h3 class="card-title card-title-fs"><?php echo $faq["title"];?></h3>
+          </a>
+          <p><?php echo jak_cut_text($faq["content"], 200, '...');?></p>
         </div>
-        <div class="stats ml-auto">
-          <i class="material-icons">schedule</i> <?php echo JAK_base::jakTimesince($faq['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?>
+        <div class="card-footer justify-content-center">
+          <div class="author">
+            <a href="<?php echo $faqparseurl;?>"><?php echo $jkl["hd1"];?></a>
+          </div>
+          <div class="stats ml-auto">
+            <i class="material-icons">schedule</i> <?php echo JAK_base::jakTimesince($faq['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?>
+          </div>
         </div>
       </div>
-    </div>
-  <?php } ?>
+    <?php } ?>
+  </div>
 </div>
 
 <?php if (isset($cms_text) && !empty($cms_text)) foreach ($cms_text as $t) {

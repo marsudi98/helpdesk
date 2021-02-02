@@ -45,7 +45,7 @@
 			  <?php } if (!empty(JAK_RECAP_CLIENT)) { ?>
 				<p><div class="g-recaptcha" data-sitekey="<?php echo JAK_RECAP_CLIENT;?>"></div></p>
 				<?php } ?>
-			  <p class="mb-0"><button type="submit" class="btn btn-success btn-green ls-submit"><?php echo $jkl['g7'];?></button></p>
+			  <p class="mb-0"><button type="submit" class="btn btn-primary ls-submit"><?php echo $jkl['g7'];?></button></p>
 			  <input type="hidden" name="send_email" value="1">
 			</form>
 			</div>
