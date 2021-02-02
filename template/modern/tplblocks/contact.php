@@ -4,7 +4,7 @@
 			<div class="col-md-12">
 			<?php if (isset($cms_text) && !empty($cms_text)) foreach ($cms_text as $t) {
 			  if ($t["cmsid"] == 6) {
-			    echo '<div data-editable data-name="title-6">'.$t["title"].'</div>';
+			    echo '<div data-editable data-name="title-6" style="font-weight:600;">'.$t["title"].'</div>';
 			    echo '<div data-editable data-name="text-6">'.$t["description"].'</div>';
 			  }
 			} ?>
@@ -45,7 +45,7 @@
 			  <?php } if (!empty(JAK_RECAP_CLIENT)) { ?>
 				<p><div class="g-recaptcha" data-sitekey="<?php echo JAK_RECAP_CLIENT;?>"></div></p>
 				<?php } ?>
-			  <p class="mb-0"><button type="submit" class="btn btn-primary ls-submit"><?php echo $jkl['g7'];?></button></p>
+			  <p class="mb-0"><button type="submit" class="btn btn-rose ls-submit"><?php echo $jkl['g7'];?></button></p>
 			  <input type="hidden" name="send_email" value="1">
 			</form>
 			</div>

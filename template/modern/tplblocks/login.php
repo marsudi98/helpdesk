@@ -10,7 +10,7 @@
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <i class="material-icons">mail</i>
+              <i class="material-icons">alternate_email</i>
             </span>
           </div>
           <input type="text" name="email" class="form-control" id="email" placeholder="<?php echo $jkl["g5"];?>">

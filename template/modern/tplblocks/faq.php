@@ -36,7 +36,7 @@
           <div class="col-md-12">
             <div class="input-group">
               <input type="text" name="smart_search" id="smart_search" class="form-control" placeholder="<?php echo $jkl['hd'];?>" autocomplete="off">
-              <button class="btn btn-primary btn-search" style="margin:0;border-top-left-radius:0;border-bottom-left-radius:0;" type="submit"><i class="fa fa-search"></i></button>
+              <button class="btn btn-rose btn-search" style="margin:0;border-top-left-radius:0;border-bottom-left-radius:0;" type="submit"><i class="fa fa-search"></i></button>
             </div>
           </div>
         </div>
@@ -82,7 +82,8 @@
             <a href="<?php echo $faqparseurl;?>"><?php echo $jkl["hd1"];?></a>
           </div>
           <div class="stats ml-auto">
-            <i class="material-icons">schedule</i> <?php echo JAK_base::jakTimesince($faq['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?>
+            <?php echo date('d F Y', strtotime(str_replace('/', '-', JAK_base::jakTimesince($faq['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT))) );?>
+            
           </div>
         </div>
       </div>

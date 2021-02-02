@@ -23,7 +23,7 @@ $custom_fields = jak_get_custom_fields(false, 1, false, $BT_LANGUAGE, false, fal
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <i class="material-icons">face</i>
+              <i class="material-icons">people</i>
             </span>
           </div>
           <input type="text" name="name" class="form-control" id="name" placeholder="<?php echo $jkl["g4"];?>">
@@ -34,7 +34,7 @@ $custom_fields = jak_get_custom_fields(false, 1, false, $BT_LANGUAGE, false, fal
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">
-              <i class="material-icons">mail</i>
+              <i class="material-icons">alternate_email</i>
             </span>
           </div>
           <input type="text" name="email" class="form-control" id="email" placeholder="<?php echo $jkl["g5"];?>">
