@@ -14799,7 +14799,7 @@ footer .pull-center {
 .pagination>.page-item>.page-link,
 .pagination>.page-item>span {
   border: 0;
-  border-radius: 30px !important;
+  border-radius: 0.42rem !important;
   transition: all .3s;
   padding: 0px 11px;
   margin: 0 3px;
@@ -14905,6 +14905,7 @@ footer .pull-center {
   transition: all .3s;
   border-radius: 5px;
   padding: 10px 15px;
+  border: 1px solid rgba(200, 200, 200, 0.7);
 }
 
 .nav-pills .nav-item .nav-link:hover {
@@ -14914,6 +14915,7 @@ footer .pull-center {
 .nav-pills .nav-item .nav-link.active {
   color: #fff;
   background-color: #ff4d4d;
+  border: 1px solid #ff4d4d;
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
@@ -17820,9 +17822,9 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .table thead tr th {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: normal;
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
 }
 
 .table .th-description {
@@ -18255,6 +18257,7 @@ thead.thead-inverse th,
 .card .card-footer .author,
 .card .card-footer .stats {
   display: inline-flex;
+  font-weight: 410;
 }
 
 .card .card-footer .stats {
