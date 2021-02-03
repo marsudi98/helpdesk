@@ -6,56 +6,70 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="card card-stats">
-        <div class="card-body">
+
           <div class="row">
             <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('leads');?>">
-              <div class="statistics">
-                <div class="info">
-                  <div class="icon icon-primary">
-                    <i class="fa fa-comment"></i>
+              <div class="card card-stats card-hover">
+                <div class="card-body">
+                  <div class="statistics">
+                    <div class="info">
+                      <div class="icon icon-primary">
+                        <i class="fa fa-comment"></i>
+                      </div>
+                      <h3 class="info-title"><?php echo $chatmsgStat;?></h3>
+                      <h6 class="stats-title"><?php echo $jkl["stat_s26"];?></h6>
+                    </div>
                   </div>
-                  <h3 class="info-title"><?php echo $chatmsgStat;?></h3>
-                  <h6 class="stats-title"><?php echo $jkl["stat_s26"];?></h6>
                 </div>
               </div>
             </a>
             <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('contacts');?>">
-              <div class="statistics">
-                <div class="info">
-                  <div class="icon icon-success">
-                    <i class="fa fa-comment-alt-lines"></i>
+              <div class="card card-stats card-hover">
+                <div class="card-body">
+                  <div class="statistics">
+                    <div class="info">
+                      <div class="icon icon-success">
+                        <i class="fa fa-comment-alt-lines"></i>
+                      </div>
+                      <h3 class="info-title"><?php echo $contactStat;?></h3>
+                      <h6 class="stats-title"><?php echo $jkl['stat_s29'];?></h6>
+                    </div>
                   </div>
-                  <h3 class="info-title"><?php echo $contactStat;?></h3>
-                  <h6 class="stats-title"><?php echo $jkl['stat_s29'];?></h6>
                 </div>
               </div>
             </a>
             <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('support');?>">
-              <div class="statistics">
-                <div class="info">
-                  <div class="icon icon-danger">
-                    <i class="fa fa-ticket-alt"></i>
+              <div class="card card-stats card-hover">
+                <div class="card-body">
+                  <div class="statistics">
+                    <div class="info">
+                      <div class="icon icon-danger">
+                        <i class="fa fa-ticket-alt"></i>
+                      </div>
+                      <h3 class="info-title"><?php echo $totalTickets;?></h3>
+                      <h6 class="stats-title"><?php echo $jkl['hd141'];?></h6>
+                    </div>
                   </div>
-                  <h3 class="info-title"><?php echo $totalTickets;?></h3>
-                  <h6 class="stats-title"><?php echo $jkl['hd141'];?></h6>
                 </div>
               </div>
             </a>
             <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('users', 'clients');?>">
-              <div class="statistics">
-                <div class="info">
-                  <div class="icon icon-info">
-                    <i class="fa fa-users"></i>
+              <div class="card card-stats card-hover">
+                <div class="card-body">
+                  <div class="statistics">
+                    <div class="info">
+                      <div class="icon icon-info">
+                        <i class="fa fa-users"></i>
+                      </div>
+                      <h3 class="info-title"><?php echo $clientsStat;?></h3>
+                      <h6 class="stats-title"><?php echo $jkl['stat_s5'];?></h6>
+                    </div>
                   </div>
-                  <h3 class="info-title"><?php echo $clientsStat;?></h3>
-                  <h6 class="stats-title"><?php echo $jkl['stat_s5'];?></h6>
                 </div>
               </div>
             </a>
           </div>
-        </div>
-      </div>
+         
     </div>
   </div>
 

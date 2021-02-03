@@ -1,15 +1,15 @@
 <?php
 $jakwidget = array();
 $jakwidget['id'] = '1';
-$jakwidget['title'] = 'Chat with us';
+$jakwidget['title'] = 'Chat with us!';
 $jakwidget['whatsapp_message'] = '';
 $jakwidget['depid'] = '0';
 $jakwidget['opid'] = 0;
 $jakwidget['lang'] = 'en';
-$jakwidget['widget'] = 4;
+$jakwidget['widget'] = 3;
 $jakwidget['hideoff'] = 0;
 $jakwidget['buttonimg'] = 'jnt_on.png';
-$jakwidget['mobilebuttonimg'] = 'jntmob_on.png';
+$jakwidget['mobilebuttonimg'] = 'jnt_on.png';
 $jakwidget['slideimg'] = '';
 $jakwidget['floatpopup'] = 1;
 $jakwidget['chat_direct'] = 1;
