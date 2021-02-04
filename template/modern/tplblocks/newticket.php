@@ -72,7 +72,7 @@
 						<?php } ?>
 
 						<div class="form-group">
-							<label for="subject" class="bmd-label-floating"><?php echo $jkl['hd7'];?></label>
+							<label for="subject"><?php echo $jkl['hd7'];?></label>
 							<input type="text" class="form-control<?php if (isset($errors["e"])) echo " is-invalid";?>" maxlength="200" name="subject" id="subject" value="<?php if (isset($_REQUEST["subject"]) && !empty($_REQUEST["subject"])) echo $_REQUEST["subject"];?>">
 						</div>
 
@@ -87,7 +87,7 @@
 						</div>
 
 						<div class="form-group">
-							<label for="content-editor" class="bmd-label-floating"><?php echo $jkl['hd90'];?></label><br>
+							<label for="content-editor"><?php echo $jkl['hd90'];?></label><br>
 							<textarea name="content" id="content-editor" rows="5" class="form-control<?php if (isset($errors["e1"])) echo " is-invalid";?>"><?php if (isset($_REQUEST["content"]) && !empty($_REQUEST["content"])) { echo $_REQUEST["content"]; } else if (isset($JAK_EDIT_CONTENT) && !empty($JAK_EDIT_CONTENT)) { echo $JAK_EDIT_CONTENT;} else if (isset($JAK_PRE_CONTENT) && !empty($JAK_PRE_CONTENT)) { echo $JAK_PRE_CONTENT;}?></textarea>
 							<small class="form-text text-muted">
 								<?php echo $jkl['hd107'];?>
@@ -115,17 +115,17 @@
 							</div>
 							<div class="card-body">
 								<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label for="email" class="bmd-label-floating"><?php echo $jkl['hd12'];?></label>
-										<select name="jak_priority" id="prioirty" class="form-control">
+										<select name="jak_priority" id="prioirty" class="form-control"> -->
 											<?php foreach ($PRIORITY_ALL as $p) {
-												echo '<option value="'.$p["id"].'" data-credits="'.$p["credits"].'"'.(isset($_REQUEST["jak_priority"]) && $_REQUEST["jak_priority"] == $p["id"] ? ' selected' : '').'>'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' / '.sprintf($jkl['hd44'], $p["credits"]) : '').'</option>';
+												// echo '<option value="'.$p["id"].'" data-credits="'.$p["credits"].'"'.(isset($_REQUEST["jak_priority"]) && $_REQUEST["jak_priority"] == $p["id"] ? ' selected' : '').'>'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' / '.sprintf($jkl['hd44'], $p["credits"]) : '').'</option>';
 											} ?>
-										</select>
-									</div>
+										<!-- </select> -->
+									<!-- </div> -->
 								<?php } if (isset($TOPTIONS_ALL) && !empty($TOPTIONS_ALL)) { ?>
 									<div class="form-group">
-										<label for="email" class="bmd-label-floating"><?php echo $jkl['hd98'];?></label>
+										<label for="email" class="bmd-label-floating"><?php echo $jkl['hd98'];?> (Ticket Type)</label>
 										<select name="jak_toption" id="toption" class="form-control">
 											<?php foreach ($TOPTIONS_ALL as $t) {
 												echo '<option value="'.$t["id"].'" data-credits="'.$t["credits"].'"'.(isset($_REQUEST["jak_toption"]) && $_REQUEST["jak_toption"] == $t["id"] ? ' selected' : '').'>'.$t["title"].((JAK_BILLING_MODE == 1 && $t["credits"] != 0) ? ' / '.sprintf($jkl['hd44'], $t["credits"]) : '').'</option>';
@@ -150,7 +150,7 @@
 								<p><button type="submit" name="start-fresh" value="1" class="btn btn-rose btn-block"><?php echo $jkl["hd106"];?></button></p>
 							</div>
 							<div class="col-sm-6">
-								<p><button type="submit" class="btn btn-block btn-primary"><?php echo $jkl['hd108'];?></button></p>
+								<p><button type="submit" class="btn btn-block btn-rose"><?php echo $jkl['hd108'];?></button></p>
 							</div>
 						</div>
 

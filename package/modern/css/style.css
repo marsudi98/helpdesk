@@ -6,6 +6,11 @@ body {
   visibility: hidden;
 }
 
+#lcjframesize:hover {
+  /* background: black; */
+}
+
+
 a:hover {
   text-decoration: none;
 }
@@ -41,7 +46,7 @@ a:hover {
 }
 .live-chat-button-container .tooltip {
   background: #fff;
-  font-size: 0.80rem;
+  font-size: 0.90rem;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   /* text-transform: uppercase; */
@@ -61,8 +66,8 @@ a:hover {
           transform: translateX(10px);
   -webkit-transition: all .25s ease-out;
           transition: all .25s ease-out;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.28);
-          box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.28);
+  -webkit-box-shadow: 2px 3px 4px rgb(0 0 0 / 25%);
+          box-shadow: 2px 3px 4px rgb(0 0 0 / 25%);
 }
 /* This bridges the gap so you can mouse into the tooltip without it disappearing */
 .live-chat-button-container .tooltip:before {

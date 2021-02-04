@@ -3989,6 +3989,22 @@ tbody.collapse.show {
   border: 1px solid #d2d2d2;
   border-radius: 0.25rem;
   appearance: none;
+
+  /* display: inline-block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  vertical-align: middle;
+  background: #fff url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
 }
 
 .custom-select:focus {
@@ -12212,7 +12228,7 @@ form {
 
 .form-control:focus,
 .bmd-form-group.is-focused .form-control {
-  background-size: 100% 100%, 100% 100%;
+  /* background-size: 100% 100%, 100% 100%; */
   transition-duration: 0.3s;
   box-shadow: none;
 }
@@ -12392,7 +12408,7 @@ fieldset[disabled] .is-focused .switch label:focus {
 }
 
 .form-control:read-only {
-  background-image: linear-gradient(to top, #ff4d4d 1px, rgba(210, 210, 210, 0) 1px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+  /* background-image: linear-gradient(to top, #ff4d4d 1px, rgba(210, 210, 210, 0) 1px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px); */
 }
 
 fieldset[disabled][disabled] .form-control,
@@ -13581,7 +13597,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
 
 .bmd-form-group [class^='bmd-label'],
 .bmd-form-group [class*=' bmd-label'] {
-  position: absolute;
+  /* position: absolute; */
   pointer-events: none;
   transition: 0.3s ease all;
 }
@@ -13639,7 +13655,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
 }
 
 .bmd-form-group label {
-  color: #AAAAAA;
+  color: #3f4254;
 }
 
 .bmd-form-group .radio label,

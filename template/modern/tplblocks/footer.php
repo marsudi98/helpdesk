@@ -201,9 +201,9 @@
 
 <?php if (!empty($js_file_footer)) include_once('template/modern/tplblocks/'.$js_file_footer);?>
 
-<?php if (JAK_CHATWIDGET_ID > 0) { ?>
+<?php //if (JAK_CHATWIDGET_ID > 0) { ?>
 <!-- helpdesk 3 widget -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     (function(w, d, s, u) {
         w.id = <?php echo JAK_CHATWIDGET_ID;?>; w.lang = '<?php echo $BT_LANGUAGE;?>'; w.cName = '<?php echo (isset($jakclient) ? $jakclient->getVar("username") : "");?>'; w.cEmail = '<?php echo (isset($jakclient) ? $jakclient->getVar("email") : "");?>'; w.cMessage = ''; w.lcjUrl = u;
         var h = d.getElementsByTagName(s)[0], j = d.createElement(s);
@@ -211,9 +211,21 @@
         h.parentNode.insertBefore(j, h);
     })(window, document, 'script', '<?php echo BASE_URL;?>');
 </script>
+<div id="jaklcp-chat-container"></div> -->
+<!-- end helpdesk 3 widget -->
+<?php //} ?>
+
+<!-- helpdesk 3 widget -->
+<script type="text/javascript">
+  (function(w, d, s, u) {
+    w.id = 1; w.lang = ''; w.cName = ''; w.cEmail = ''; w.cMessage = ''; w.lcjUrl = u;
+    var h = d.getElementsByTagName(s)[0], j = d.createElement(s);
+    j.async = true; j.src = 'http://10.100.80.21/helpdesk/js/jaklcpchat.js';
+    h.parentNode.insertBefore(j, h);
+  })(window, document, 'script', 'http://10.100.80.21/helpdesk/');
+</script>
 <div id="jaklcp-chat-container"></div>
 <!-- end helpdesk 3 widget -->
-<?php } ?>
 
 </body>
 </html>

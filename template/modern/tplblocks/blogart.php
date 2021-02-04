@@ -101,7 +101,7 @@
 						<div class="media-body">
 							<form class="jak-blogform" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
 								<div class="form-group label-floating bmd-form-group">
-									<label class="form-control-label bmd-label-floating" for="bmessage"><?php echo $jkl["g28"];?></label>
+									<label class="form-control-label" for="bmessage"><?php echo $jkl["g28"];?></label>
 									<textarea class="form-control" rows="5" name="bmessage" id="bmessage"></textarea>
 								</div>
 								<div class="media-footer">

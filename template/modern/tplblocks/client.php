@@ -96,11 +96,11 @@
 						<?php } ?>
 						<form method="post" action="<?php echo JAK_rewrite::jakParseurl(JAK_CLIENT_URL);?>">
 							<div class="form-group<?php if (isset($errorsreg["e"])) echo " has-danger";?>">
-								<label for="name" class="bmd-label-floating"><?php echo $jkl["g4"];?></label>
+								<label for="name"><?php echo $jkl["g4"];?></label>
 								<input type="text" name="name" class="form-control" id="name" value="<?php if (isset($_REQUEST["name"])) echo $_REQUEST["name"];?>">
 							</div>
 							<div class="form-group<?php if (isset($errorsreg["e1"])) echo " has-danger";?>">
-								<label for="emailreg" class="bmd-label-floating"><?php echo $jkl["g5"];?></label>
+								<label for="emailreg"><?php echo $jkl["g5"];?></label>
 								<input type="text" name="email" class="form-control" id="emailreg" value="<?php if (isset($_REQUEST["email"])) echo $_REQUEST["email"];?>">
 							</div>
 							<?php echo $custom_fields;?>
