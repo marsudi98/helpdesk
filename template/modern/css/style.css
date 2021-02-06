@@ -14921,7 +14921,8 @@ footer .pull-center {
   transition: all .3s;
   border-radius: 5px;
   padding: 10px 15px;
-  border: 1px solid rgba(200, 200, 200, 0.7);
+  /* border: 1px solid rgba(200, 200, 200, 0.7); */
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 }
 
 .nav-pills .nav-item .nav-link:hover {
@@ -18479,7 +18480,7 @@ thead.thead-inverse th,
 .card[class*="bg-"] .author a:hover,
 .card[class*="bg-"] .author a:focus,
 .card[class*="bg-"] .author a:active {
-  color: #000;
+  color: #ff4d4d;
 }
 
 .card .author .avatar {
