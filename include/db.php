@@ -21,7 +21,7 @@ define('JAKDB_PREFIX', 'hd_'); // Database prefix use (a-z) and (_)
 define('DB_PASS_HASH', 'something_strong_goes_in_here');
 
 // Define your site url, for example: www.jakweb.ch (https://www.jakweb.ch/faq/a/98/full-site-domain)
-define('FULL_SITE_DOMAIN', '10.100.80.21');
+define('FULL_SITE_DOMAIN', '192.168.100.5');
 
 // URL Rewrite
 define('JAK_USE_APACHE', 0); // Use 1 for Apache / Nginx (SEO URL's) or 0 for all others
