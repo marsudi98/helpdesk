@@ -4,7 +4,7 @@
 			<div class="col-md-12">
 			<?php if (isset($cms_text) && !empty($cms_text)) foreach ($cms_text as $t) {
 			  if ($t["cmsid"] == 6) {
-			    echo '<div data-editable data-name="title-6" style="font-weight:600;">'.$t["title"].'</div>';
+			    echo '<div data-editable data-name="title-6">'.$t["title"].'</div>';
 			    echo '<div data-editable data-name="text-6">'.$t["description"].'</div>';
 			  }
 			} ?>
