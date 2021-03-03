@@ -85,9 +85,9 @@
 <?php echo (isset($row["custom2"]) && !empty($row["custom2"]) ? '<div class="page-header header-filter" style="background-image: url(\''.BASE_URL.'template/'.JAK_FRONT_TEMPLATE.'/img/'.(isset($row["custom"]) && !empty($row["custom"]) ? $row["custom"] : "bg7.jpg").'\'); background-size: cover; background-position: top center;">' : '<div class="page-header header-filter header-small" data-parallax="true" style="background-image: url(\''.BASE_URL.'template/'.JAK_FRONT_TEMPLATE.'/img/'.(isset($row["custom"]) && !empty($row["custom"]) ? $row["custom"] : "bg3.jpg").'\');">
 	<div class="container">
       <div class="row">
-        <div class="col-md-2 ml-auto mr-auto text-center">
+        <div class="ml-auto mr-auto text-center">
           <h1 class="title">'.(isset($JAK_FORM_DATA["title"]) ? $JAK_FORM_DATA["title"] : $row["title"]).'</h1>
-          '.(isset($JAK_FORM_DATA['time']) ? '<h4>'.JAK_base::jakTimesince($JAK_FORM_DATA['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT).'</h4>' : '').'
+          '.(isset($JAK_FORM_DATA['time']) ? '<h4 class="sub-title mx-auto">'.JAK_base::jakTimesince($JAK_FORM_DATA['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT).'</h4>' : '').'
         </div>
       </div>
     </div>
