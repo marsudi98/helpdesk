@@ -2158,7 +2158,7 @@ pre code {
   width: 100%;
   height: calc(1.5em + 1.3rem + 2px);
   padding: .65rem 1rem;
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: 400;
   line-height: 1.5;
   color: #3f4254;
@@ -21611,6 +21611,64 @@ select.selectpicker {
 }
 .star-checked {
   color: gold;
+}
+
+#splash-screen {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f2f3f8;
+}
+
+#splash-screen img {
+  margin-left: calc(100vw - 100%);
+  margin-bottom: 30px;
+}
+
+#splash-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.splash-spinner {
+  animation: rotate 2s linear infinite;
+  margin-left: calc(100vw - 100%);
+  width: 50px;
+  height: 50px;
+}
+
+.splash-spinner .path {
+  stroke: #ff4d4d;
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+  transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+  stroke-dasharray: 1, 150;
+  stroke-dashoffset: 0;
+  }
+
+  50% {
+  stroke-dasharray: 90, 150;
+  stroke-dashoffset: -35;
+  }
+
+  100% {
+  stroke-dasharray: 90, 150;
+  stroke-dashoffset: -124;
+  }
 }
 
 /*

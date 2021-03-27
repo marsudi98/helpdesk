@@ -49,6 +49,12 @@
 </head>
 <body class="<?php echo (isset($row["custom2"]) && !empty($row["custom2"]) ? 'login-page ' : '');?>sidebar-collapse">
 
+<div id="splash-screen">
+	<svg class="splash-spinner" viewBox="0 0 50 50">
+	<circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+	</svg>
+</div>
+
 <!--[if lt IE 9]>
 <div class="alert alert-danger">We have dropped Support for IE9 and below. Please update your browser or use the latest Firefox, Chrome or Safari.</div>
 <![endif]-->

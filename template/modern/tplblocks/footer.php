@@ -116,14 +116,16 @@
     </div>
 </footer>
 <?php } else { ?>
-    <footer class="footer">
+    <footer class="footer" style="background:#ffffff;box-shadow: 0 0 28px 0 rgb(82 63 105 / 13%);">
       <div class="container">
-        <div class="footer-nav-column">
+        <div class="footer-nav-column" style="display:none;">
             <?php echo jak_build_menu(0, $mfooter, $page, 'float-left', '', '', '', JAK_USERID, JAK_USERISLOGGED, '', '', 0, 8);?>
         </div>
         
-        <div class="copyright float-right">
-          <p class="ctext">All Rights Reserved. &#xA9;2020 PT. Karya Niaga Abadi - <a href="#">J&T Express Jawa Timur.</a></p>
+        <div class="copyright">
+          <!-- <p class="ctext">All Rights Reserved. &#xA9;2020 PT. Karya Niaga Abadi - <a href="#">J&T Express Jawa Timur.</a></p> -->
+          <span class="text-muted font-weight-bold mr-1"><?php echo date("Y");?> ©</span>
+          <a href="#" class=" font-weight-bold" style="#fff4d4d">J&T Express Jawa Timur</a>
       </div>
   </div>
 </footer>
@@ -215,6 +217,7 @@
 <!-- end helpdesk 3 widget -->
 <?php //} ?>
 
+
 <!-- helpdesk 3 widget -->
 <script type="text/javascript">
   (function(w, d, s, u) {
@@ -226,6 +229,15 @@
 </script>
 <div id="jaklcp-chat-container"></div>
 <!-- end helpdesk 3 widget -->
+<script>
+  $(window).on('load', function() {
+    if ($('#splash-screen').length) {
+    $('#splash-screen').delay(100).fadeOut('slow', function() {
+      $(this).remove();
+    });
+    }
+  });
+</script>
 
 </body>
 </html>

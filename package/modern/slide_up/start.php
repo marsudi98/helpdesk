@@ -11,7 +11,7 @@ if (isset($jakwidget['theme_colour']) && !empty($jakwidget['theme_colour'])) $th
 
 <div id="lcjframesize" class="live-chat-start-container animated">
 
-	<div class="lcj-chat-header <?php echo $jakwidget['theme_colour'];?>" style="<?php echo $titlefont.$backgroundc.$fontcolor;?>"><i class="material-icons">account_box</i> <div class="lcj-title"><?php echo $jakwidget['title'];?></div><a href="javascript:void(0)" onclick="if(navigator.userAgent.toLowerCase().indexOf('opera') != -1 && window.event.preventDefault) window.event.preventDefault();this.newWindow = window.open('<?php echo ($online_op ? $chatstarturlpop : $chatcontacturlpop);?>', 'livechat3_popup_window', 'toolbar=0,scrollbars=1,location=0,status=1,menubar=0,width=580,height=510,resizable=1');this.newWindow.focus();this.newWindow.opener=window;lcjak_popupChat('<?php echo $chatcloseurl;?>');return false;"><i class="material-icons">open_in_browser</i></a> <a href="<?php echo $chatcloseurl;?>"><i class="material-icons">close</i></a>
+	<div class="lcj-chat-header <?php echo $jakwidget['theme_colour'];?>" style="<?php echo $titlefont.$backgroundc.$fontcolor;?>"><div class="lcj-title"><?php echo $jakwidget['title'];?></div><a href="javascript:void(0)" style="position: relative;overflow:hidden;display:inline-block;" onclick="if(navigator.userAgent.toLowerCase().indexOf('opera') != -1 && window.event.preventDefault) window.event.preventDefault();this.newWindow = window.open('<?php echo ($online_op ? $chatstarturlpop : $chatcontacturlpop);?>', 'livechat3_popup_window', 'toolbar=0,scrollbars=1,location=0,status=1,menubar=0,width=580,height=510,resizable=1');this.newWindow.focus();this.newWindow.opener=window;lcjak_popupChat('<?php echo $chatcloseurl;?>');return false;"><i class="fa fa-plus"></i></a> <a href="<?php echo $chatcloseurl;?>" style="position: relative;overflow:hidden;display:inline-block;padding-left:3px;"><i class="fa fa-times"></i></a>
 </div>
 
 <div class="jrc_chat_header <?php echo $jakwidget['theme_colour'];?>">
@@ -90,40 +90,40 @@ if (isset($jakwidget['theme_colour']) && !empty($jakwidget['theme_colour'])) $th
 					<div class="container">
 						<div class="row text-center avatars py-3">
 							<div class="col-2">
-								<label>
+								<!-- <label>
 									<input type="radio" name="avatar" value="/package/modern/avatar/standard.jpg" checked>
-									<img src="<?php echo BASE_URL;?>/package/modern/avatar/standard.jpg" class="rounded-circle img-fluid" width="53" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
-								</label>
+									<img src="<?php echo BASE_URL;?>/package/modern/avatar/1.jpg" class="rounded-circle img-fluid" width="45" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
+								</label> -->
 							</div>
-							<div class="col-2" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
-								<label>
+							<div class="col-2">
+								<!-- <label>
 									<input type="radio" name="avatar" value="/package/modern/avatar/4.jpg">
-									<img src="<?php echo BASE_URL;?>/package/modern/avatar/4.jpg" class="rounded-circle img-fluid" width="53" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
+									<img src="<?php echo BASE_URL;?>/package/modern/avatar/2.jpg" class="rounded-circle img-fluid" width="45" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
+								</label> -->
+							</div>
+							<div class="col-2">
+								<label>
+									<input type="radio" name="avatar" value="/package/modern/avatar/1.jpg">
+									<img src="<?php echo BASE_URL;?>/package/modern/avatar/1.jpg" class="rounded-circle img-fluid" width="45" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
 								</label>
 							</div>
 							<div class="col-2">
 								<label>
 									<input type="radio" name="avatar" value="/package/modern/avatar/2.jpg">
-									<img src="<?php echo BASE_URL;?>/package/modern/avatar/2.jpg" class="rounded-circle img-fluid" width="53" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
+									<img src="<?php echo BASE_URL;?>/package/modern/avatar/2.jpg" class="rounded-circle img-fluid" width="45" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
 								</label>
 							</div>
 							<div class="col-2">
-								<label>
-									<input type="radio" name="avatar" value="/package/modern/avatar/5.jpg">
-									<img src="<?php echo BASE_URL;?>/package/modern/avatar/5.jpg" class="rounded-circle img-fluid" width="53" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
-								</label>
-							</div>
-							<div class="col-2">
-								<label>
+								<!-- <label>
 									<input type="radio" name="avatar" value="/package/modern/avatar/3.jpg">
-									<img src="<?php echo BASE_URL;?>/package/modern/avatar/3.jpg" class="rounded-circle img-fluid" width="53" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
-								</label>
+									<img src="<?php echo BASE_URL;?>/package/modern/avatar/3.jpg" class="rounded-circle img-fluid" width="45" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
+								</label> -->
 							</div>
 							<div class="col-2">
-								<label>
+								<!-- <label>
 									<input type="radio" name="avatar" value="/package/modern/avatar/1.jpg">
-									<img src="<?php echo BASE_URL;?>/package/modern/avatar/1.jpg" class="rounded-circle img-fluid" width="53" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
-								</label>
+									<img src="<?php echo BASE_URL;?>/package/modern/avatar/1.jpg" class="rounded-circle img-fluid" width="45" alt="avatar" data-toggle="tooltip" data-placement="top" title="<?php echo $jkl["g18"];?>">
+								</label> -->
 							</div>
 						</div>
 					</div>

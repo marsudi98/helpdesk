@@ -137,7 +137,7 @@ a:hover {
 .lcj-chat-header .lcj-title {
   display: inline-block;
   position: relative;
-  width: 235px;
+  width: 285px;
   cursor: pointer;
   overflow: hidden;
   font-family: "Poppins" !important;
@@ -621,7 +621,7 @@ form-actions {
 }
 
 .text-small {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .card-login .card-header .card-title{
@@ -630,11 +630,11 @@ form-actions {
 
 .form-control.modern {
   color: #9d9e9e;
-  
+  font-size: 0.9rem !important;
   background: #fff;
   border: 1px solid #fff;
   border-radius: 5px;
-  }
+}
 .form-control.modern:hover {
   background: #dfe9ec;
   color: #414848;
