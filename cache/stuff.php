@@ -19,7 +19,7 @@ $departmentgserialize = 'eJxFjDEKgDAQBP9yL4iiETalvV+QQ6MexMLkrCR/NwHBanamWEaDR2A
 
 $HD_DEPARTMENTS = unserialize(gzuncompress(base64_decode($departmentgserialize)));
 
-$departmentsgserialize = 'eJxFTckJgDAQ7GUriIIKYw9+LEAWjbIQMSabl9i7BgO+5mSGUeESmJ7R4oqoQbJQH1+bqowNSEWdzbwDjcn7I2hJ7M7iMjegUlj5nFJ4zeHTc7CLaCyTJmML2pKNyv/PfT+9OSgc';
+$departmentsgserialize = 'eJytjsEKwkAMRP8lX7BbsOL06N2LHyChm5bArtVueir9d3exIIhHT28mIZlhNFgVrmO0WHNxpIG6DA/ylQeQqUWp+gQ6T+kRWe+27ySxxqodqOIIGvh5W+YyvLx9P0tQy/tTV9mCxkWy8SdpU/hfJZrvEuX2OuUk4e8NthdBfE5V';
 
 $HD_SUPPORT_DEPARTMENTS = unserialize(gzuncompress(base64_decode($departmentsgserialize)));
 

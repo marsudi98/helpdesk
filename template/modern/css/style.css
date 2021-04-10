@@ -13688,6 +13688,7 @@ fieldset[disabled][disabled] .has-rose .form-control,
   top: 0.35rem;
   left: 0;
   font-size: 0.875rem;
+  font-weight: 400;
 }
 
 .bmd-form-group .bmd-help {
@@ -15129,21 +15130,22 @@ h2,
 
 h3,
 .h3 {
-  font-size: 1.5625rem;
+  font-size: 1.2625rem;
   line-height: 1.4em;
 }
 
 h4,
 .h4 {
-  font-size: 1.125rem;
+  font-size: 0.925rem;
   line-height: 1.5em;
 }
 
 h5,
 .h5 {
-  font-size: 1.0625rem;
+  font-size: 0.9625rem;
   line-height: 1.55em;
   margin-bottom: 15px;
+  font-weight: 500;
 }
 
 h6,
@@ -15175,7 +15177,7 @@ small,
 .footer-big h5,
 .footer-big h4,
 .media .media-heading {
-  font-weight: 600;
+  font-weight: 650;
   font-family: "Poppins";
 }
 
@@ -18294,7 +18296,7 @@ thead.thead-inverse th,
 
 .card .card-footer .stats .material-icons {
   position: relative;
-  top: 3px;
+  top: 1spx;
   margin-right: 3px;
   margin-left: 3px;
   font-size: 18px;

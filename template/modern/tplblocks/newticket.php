@@ -7,7 +7,7 @@
 				<div class="alert alert-info"><?php echo sprintf($jkl['hd115'], '<a href="'.JAK_rewrite::jakParseurl(JAK_CLIENT_URL).'">'.JAK_rewrite::jakParseurl(JAK_CLIENT_URL).'</a>');?></div>
 			</div>
 		<?php } else { ?>
-			<div class="col-md-8">
+			<div class="col-md-6">
 
 				<h3><?php echo $jkl['hd47'];?></h3>
 
@@ -33,13 +33,33 @@
 								} ?>
 							</select>
 						</div>
+						
+						<!--awb-->
+						<div class="form-group">
+							<label for="content-editor" class="bmd-label-floating">AWB</label>
+							<select name="jak_depid" id="jak_depid" class="form-control">
+								<?php foreach ($DEPARTMENTS_ALL as $d) {
+									echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
+								} ?>
+							</select>
+						</div>
+
+						<!--dp terkait-->
+						<div class="form-group">
+							<label for="content-editor" class="bmd-label-floating">Drop Point</label>
+							<select name="jak_depid" id="jak_depid" class="form-control">
+								<?php foreach ($DEPARTMENTS_ALL as $d) {
+									echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
+								} ?>
+							</select>
+						</div>
 
 						<div class="row">
 							<div class="col-6">
 								<p><a href="<?php echo JAK_rewrite::jakParseurl(JAK_SUPPORT_URL);?>" class="btn btn-info"><i class="material-icons">undo</i></a></p>
 							</div>
 							<div class="col-6">
-								<p><button type="submit" name="save" class="btn btn-primary pull-right"><?php echo $jkl["hd53"];?></button></p>
+								<p><button type="submit" name="save" class="btn btn-primary float-right"><?php echo $jkl["hd53"];?></button></p>
 							</div>
 						</div>
 
