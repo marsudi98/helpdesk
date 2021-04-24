@@ -7,55 +7,63 @@
 		<?php if (JAK_USERISLOGGED || JAK_TICKET_GUEST_WEB) { ?>
 			<p><a href="<?php echo JAK_rewrite::jakParseurl(JAK_SUPPORT_URL);?>" class="btn btn-info"><i class="material-icons">undo</i></a> <a href="<?php echo (JAK_USERID ? JAK_rewrite::jakParseurl('operator', 'support', 'new') : JAK_rewrite::jakParseurl(JAK_SUPPORT_URL, 'n'));?>" class="btn btn-primary"><i class="fa fa-ticket-alt-alt"></i> <?php echo $jkl['hd47'];?></a></p>
 		<?php } ?>
-
-		<div class="card bg-rose">
-			<div class="card-body">
-				<h6 class="card-category text-dark">
-					<i class="material-icons">trending_up</i> <?php if (isset($JAK_FORM_DATA["department"])) echo $JAK_FORM_DATA["department"];?>
-				</h6>
-				<h3 class="card-title">
-					<a href="javascript:void(0)"><?php echo $JAK_FORM_DATA["title"];?></a>
-				</h3>
-				
-				<?php echo $JAK_FORM_DATA["content"];?>
-
+		
+		<div class="row">
+			<div class="col-md-8">
+				<div class="card bg-rose" style="margin-bottom:0;">
+					<div class="card-body">
+						<h6 class="card-category text-dark">
+							<i class="material-icons">trending_up</i> <?php if (isset($JAK_FORM_DATA["department"])) echo $JAK_FORM_DATA["department"];?>
+						</h6>
+						<h3 class="card-title">
+							<a href="javascript:void(0)"><?php echo $JAK_FORM_DATA["title"];?></a>
+						</h3>
+						
+						<div style="font-size:14px;"><?php echo $JAK_FORM_DATA["content"];?></div>
+					</div>
+					<div class="card-footer ">
+						<div class="author">
+							<a href="javascript:void(0)">
+								<img src="<?php echo BASE_URL.JAK_FILES_DIRECTORY.$JAK_FORM_DATA["picture"];?>" alt="<?php echo $JAK_FORM_DATA["name"];?>" class="avatar img-raised">
+								<span style="color:#000;"><?php echo $JAK_FORM_DATA["name"];?></span>
+							</a>
+						</div>
+						<div class="stats ml-auto">
+							<i class="material-icons">schedule</i> <?php echo JAK_base::jakTimesince($JAK_FORM_DATA['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="card-footer ">
-				<div class="author">
-					<a href="javascript:void(0)">
-						<img src="<?php echo BASE_URL.JAK_FILES_DIRECTORY.$JAK_FORM_DATA["picture"];?>" alt="<?php echo $JAK_FORM_DATA["name"];?>" class="avatar img-raised">
-						<span><?php echo $JAK_FORM_DATA["name"];?></span>
-					</a>
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-4">
+			</div>
+			<div class="col-md-8 pull-right" >
+			<?php if (isset($JAK_ANSWER_DATA) && !empty($JAK_ANSWER_DATA)) foreach ($JAK_ANSWER_DATA as $a) { ?>
+
+				<div class="card<?php echo ($a["oname"] ? ' bg-info' : ' bg-secondary');?>" style="color:#fffff !important;">
+					<div class="card-body">
+						<!-- <h4 class="card-title"> -->
+							<div id="edit-content<?php echo $a["id"];?>" style="font-size:14px;"><?php echo $a["content"];?></div>
+						<!-- </h4> -->
+					</div>
+					<div class="card-footer ">
+						<div class="author">
+							<a href="javascript:void(0)">
+								<img src="<?php echo BASE_URL.JAK_FILES_DIRECTORY.($a["cpicture"] ? $a["cpicture"] : $a["picture"]);?>" alt="<?php echo $JAK_FORM_DATA["name"];?>" class="avatar img-raised">
+								<span style="color:#000;"><?php echo ($a["cname"] ? $a["cname"] : $a["oname"]);?></span>
+							</a>
+						</div>
+						<div class="stats ml-auto">
+							<i class="material-icons">schedule</i> <?php echo sprintf($jkl["hd85"], JAK_base::jakTimesince($a["sent"], JAK_DATEFORMAT, JAK_TIMEFORMAT));?>&nbsp;
+							<?php if ((JAK_CLIENTID && $a['cid'] == JAK_CLIENTID && $a["sent"] > $mino) || (JAK_USERID && jak_get_access("support", $jakuser->getVar("permissions"), JAK_SUPERADMINACCESS))) { ?> <a href="javascript:void(0)" class="text-white" onclick="edit_post(<?php echo $a["id"];?>)"><i class="fa fa-edit"></i> <?php echo $jkl['hd66'];?></a>
+							<?php } ?>
+						</div>
+					</div>
 				</div>
-				<div class="stats ml-auto">
-					<i class="material-icons">schedule</i> <?php echo JAK_base::jakTimesince($JAK_FORM_DATA['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?>
-				</div>
+			<?php } ?>
 			</div>
 		</div>
-
-		<?php if (isset($JAK_ANSWER_DATA) && !empty($JAK_ANSWER_DATA)) foreach ($JAK_ANSWER_DATA as $a) { ?>
-
-			<div class="card<?php echo ($a["oname"] ? '  bg-info' : ' bg-secondary');?>">
-				<div class="card-body">
-					<h4 class="card-title">
-						<div id="edit-content<?php echo $a["id"];?>"><?php echo $a["content"];?></div>
-					</h4>
-				</div>
-				<div class="card-footer ">
-					<div class="author">
-						<a href="javascript:void(0)">
-							<img src="<?php echo BASE_URL.JAK_FILES_DIRECTORY.($a["cpicture"] ? $a["cpicture"] : $a["picture"]);?>" alt="<?php echo $JAK_FORM_DATA["name"];?>" class="avatar img-raised">
-							<span><?php echo ($a["cname"] ? $a["cname"] : $a["oname"]);?></span>
-						</a>
-					</div>
-					<div class="stats ml-auto">
-						<i class="material-icons">schedule</i> <?php echo sprintf($jkl["hd85"], JAK_base::jakTimesince($a["sent"], JAK_DATEFORMAT, JAK_TIMEFORMAT));?>&nbsp;
-						<?php if ((JAK_CLIENTID && $a['cid'] == JAK_CLIENTID && $a["sent"] > $mino) || (JAK_USERID && jak_get_access("support", $jakuser->getVar("permissions"), JAK_SUPERADMINACCESS))) { ?> <a href="javascript:void(0)" class="text-white" onclick="edit_post(<?php echo $a["id"];?>)"><i class="fa fa-edit"></i> <?php echo $jkl['hd66'];?></a>
-						<?php } ?>
-					</div>
-				</div>
-			</div>
-		<?php } ?>
 
 		<?php if ($errors) { ?>
 			<div class="alert alert-danger">
@@ -142,17 +150,17 @@
 			<div class="card-body">
 
 				<?php if (isset($JAK_PRIORITY_DATA["title"])) { ?>
-					<h4 class="info-title"><?php echo $jkl['hd12'];?> <small><?php echo $JAK_PRIORITY_DATA["title"];?></small></h4>
+					<h4 class="info-title"><?php echo $jkl['hd12'];?> <small style="font-size:80%"><?php echo $JAK_PRIORITY_DATA["title"];?></small></h4>
 				<?php } if (isset($JAK_OPTION_DATA["title"])) { ?>
-					<h4 class="info-title"><?php echo $jkl['hd98'];?> <small><?php echo $JAK_OPTION_DATA["title"]; if (!empty($JAK_OPTION_DATA["icon"])) {?> <i class="fa <?php echo $JAK_OPTION_DATA["icon"];?>"><?php } ?></i></small></h4>
+					<h4 class="info-title"><?php echo $jkl['hd98'];?> <small style="font-size:80%"><?php echo $JAK_OPTION_DATA["title"]; if (!empty($JAK_OPTION_DATA["icon"])) {?> <i class="fa <?php echo $JAK_OPTION_DATA["icon"];?>"><?php } ?></i></small></h4>
 				<?php } ?>
-				<h4 class="info-title"><?php echo $jkl['hd83'];?> <small><?php echo $JAK_FORM_DATA["name"];?></small></h4>
+				<h4 class="info-title"><?php echo $jkl['hd83'];?> <small style="font-size:80%"><?php echo $JAK_FORM_DATA["name"];?></small></h4>
 
-				<h4 class="info-title"><?php echo $jkl['hd79'];?> <small><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['updated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h4>
+				<h4 class="info-title"><?php echo $jkl['hd79'];?> <small style="font-size:80%"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['updated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h4>
 
-				<h4 class="info-title"><?php echo $jkl['hd80'];?> <small><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h4>
+				<h4 class="info-title"><?php echo $jkl['hd80'];?> <small style="font-size:80%"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h4>
 
-				<h4 class="info-title"><?php echo $jkl['hd81'];?> <small><?php echo ($JAK_FORM_DATA['ended'] ? JAK_base::jakTimesince($JAK_FORM_DATA['ended'], JAK_DATEFORMAT, JAK_TIMEFORMAT) : '-');?></small></h4>
+				<h4 class="info-title"><?php echo $jkl['hd81'];?> <small style="font-size:80%"><?php echo ($JAK_FORM_DATA['ended'] ? JAK_base::jakTimesince($JAK_FORM_DATA['ended'], JAK_DATEFORMAT, JAK_TIMEFORMAT) : '-');?></small></h4>
 
 				<?php if ($ticketwrite && $ticketopen) { ?>
 
@@ -176,7 +184,7 @@
 						</label>
 					</div>
 
-					<?php echo $custom_fields;?>
+					<?php //echo $custom_fields; ?>
 					</form>
 				<?php } else { ?>
 

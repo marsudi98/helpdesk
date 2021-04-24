@@ -36,6 +36,8 @@ switch ($page1) {
 
 	case 'options':
 		# code...
+		// Get all responses
+		$PRIORITY_ALL = $jakdb->select($jaktable, ["id", "title", "class", "dorder"], ["ORDER" => ["dorder" => "ASC"]]);
 		switch ($page2) {
 			case 'delete':
 				# code...
@@ -75,7 +77,7 @@ switch ($page1) {
 				
 					if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					    $jkp = $_POST;
-					
+						
 					    if (empty($jkp['jak_title'])) {
 					        $errors['e'] = $jkl['e2'];
 					    }
@@ -87,14 +89,14 @@ switch ($page1) {
 								"icon" => $jkp['jak_icon'],
 								"oponly" => $jkp['jak_oponly'],
 								"credits" => $jkp['credits'],
+								"priorityid" => $jkp['jak_priority'],
 								"dorder" => $jkp['jak_order'],
 				          		"edited" => $jakdb->raw("NOW()")], ["id" => $page3]);
-					
+								 
 							if (!$result) {
 							    $_SESSION["infomsg"] = $jkl['i'];
 					    		jak_redirect($_SESSION['LCRedirect']);
 							} else {
-								
 								// Now let us delete the define cache file
 								$cachestufffile = APP_PATH.JAK_CACHE_DIRECTORY.'/stuff.php';
 								if (file_exists($cachestufffile)) {
@@ -136,6 +138,8 @@ switch ($page1) {
 						
 					// Get all departments
 					$JAK_DEPARTMENTS = $jakdb->select($jaktable2, ["id", "title"], ["ORDER" => ["dorder" => "ASC"]]);
+					// Get all responses
+					$PRIORITY_ALL = $jakdb->select($jaktable, ["id", "title", "class", "dorder"], ["ORDER" => ["dorder" => "ASC"]]);
 
 					// Get translations
 					$JAK_PRIO_TRANSLATION = $jakdb->select($jaktable5, ["id", "lang", "title"], ["optionid" => $page3]);
@@ -172,6 +176,7 @@ switch ($page1) {
 								"icon" => $jkp['jak_icon'],
 								"oponly" => $jkp['jak_oponly'],
 								"credits" => $jkp['credits'],
+								"priorityid" => $jkp['jak_priority'],
 								"dorder" => $last,
 			          			"edited" => $jakdb->raw("NOW()"),
 								"created" => $jakdb->raw("NOW()")]);
@@ -208,7 +213,12 @@ switch ($page1) {
 				$JAK_DEPARTMENTS = $jakdb->select($jaktable2, ["id", "title"], ["ORDER" => ["dorder" => "ASC"]]);
 				
 				// Get all responses
-				$TOPTIONS_ALL = $jakdb->select($jaktable6, ["id", "title", "icon", "dorder"], ["ORDER" => ["dorder" => "ASC"]]);
+				// $TOPTIONS_ALL = $jakdb->select($jaktable6, ["id", "title", "icon", "priorityid", "dorder"], ["priorityid" => ] ["ORDER" => ["dorder" => "ASC"]]);
+				$TOPTIONS_ALL = $jakdb->select($jaktable6, ["[>]ticketpriority" => ["priorityid" => "id"]], ["ticketoptions.id", "ticketoptions.title", "ticketoptions.icon", "ticketoptions.dorder", "ticketpriority.title(ptitle)",], ["ORDER" => ["dorder" => "ASC"]]);	
+				// $TOPTIONS_ALL = $jakdb->query("SELECT t1.id AS id, t1.title AS title, t1.icon AS icon, t1.dorder AS dorder, t2.title FROM ".JAKDB_PREFIX.$jaktable6." AS t1 FULL JOIN ".JAKDB_PREFIX."ticketpriority AS t2 ON(t1.priorityid = t2.id) ORDER BY dorder ASC")->fetch();
+				
+				// echo json_encode($TOPTIONS_ALL);
+				// exit;
 
 				// How often we had changes
 			    $totalChange = $jakdb->count("whatslog", ["whatsid" => [91,92,93]]);
@@ -524,7 +534,7 @@ switch ($page1) {
 		
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			    $jkp = $_POST;
-			
+
 			    if (empty($jkp['jak_title'])) {
 			        $errors['e'] = $jkl['e2'];
 			    }
@@ -537,6 +547,7 @@ switch ($page1) {
 						"oponly" => $jkp['jak_oponly'],
 						"credits" => $jkp['credits'],
 						"dorder" => $jkp['jak_order'],
+						"duetime" => $jkp['due_time'],
 		          		"edited" => $jakdb->raw("NOW()")], ["id" => $page2]);
 			
 					if (!$result) {
@@ -608,50 +619,49 @@ switch ($page1) {
 		    $jkp = $_POST;
 		    
 		    if (empty($jkp['jak_title'])) {
-		            $errors['e'] = $jkl['e2'];
-		        }
+				$errors['e'] = $jkl['e2'];
+			}
 		        
-		        if (count($errors) == 0) {
+			if (count($errors) == 0) {
 
-		        	// Get the next order
-		          $last = $jakdb->get($jaktable, "dorder", ["ORDER" => ["dorder" => "DESC"]]);
-		          $last = $last + 1;
+				// Get the next order
+				$last = $jakdb->get($jaktable, "dorder", ["ORDER" => ["dorder" => "DESC"]]);
+				$last = $last + 1;
 
-		        	$jakdb->insert($jaktable, ["depid" => $jkp['jak_depid'],
-			        	"title" => $jkp['jak_title'],
-						"class" => $jkp['jak_class'],
-						"oponly" => $jkp['jak_oponly'],
-						"credits" => $jkp['credits'],
-						"dorder" => $last,
-	          			"edited" => $jakdb->raw("NOW()"),
-						"created" => $jakdb->raw("NOW()")]);
+				$jakdb->insert($jaktable, ["depid" => $jkp['jak_depid'],
+					"title" => $jkp['jak_title'],
+					"class" => $jkp['jak_class'],
+					"oponly" => $jkp['jak_oponly'],
+					"credits" => $jkp['credits'],
+					"dorder" => $last,
+					"edited" => $jakdb->raw("NOW()"),
+					"created" => $jakdb->raw("NOW()")]);
 
-					$lastid = $jakdb->id();
+				$lastid = $jakdb->id();
 
-		    		if (!$lastid) {
-		    		    $_SESSION["infomsg"] = $jkl['i'];
-		    			jak_redirect($_SESSION['LCRedirect']);
-		    		} else {
-		    			
-		    			// Now let us delete the define cache file
-		    			$cachestufffile = APP_PATH.JAK_CACHE_DIRECTORY.'/stuff.php';
-		    			if (file_exists($cachestufffile)) {
-		    				unlink($cachestufffile);
-		    			}
+				if (!$lastid) {
+					$_SESSION["infomsg"] = $jkl['i'];
+					jak_redirect($_SESSION['LCRedirect']);
+				} else {
+					
+					// Now let us delete the define cache file
+					$cachestufffile = APP_PATH.JAK_CACHE_DIRECTORY.'/stuff.php';
+					if (file_exists($cachestufffile)) {
+						unlink($cachestufffile);
+					}
 
-		    			// Write the log file each time someone tries to login before
-          				JAK_base::jakWhatslog('', JAK_USERID, 0, 86, $lastid, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $jakuser->getVar("username"), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
-		    			
-		    		    $_SESSION["successmsg"] = $jkl['g14'];
-		    			jak_redirect($_SESSION['LCRedirect']);
-		    		}
-		    
-		    // Output the errors
-		    } else {
-		    
-		        $errors = $errors;
-		    }  
-   
+					// Write the log file each time someone tries to login before
+					JAK_base::jakWhatslog('', JAK_USERID, 0, 86, $lastid, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $jakuser->getVar("username"), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
+					
+					$_SESSION["successmsg"] = $jkl['g14'];
+					jak_redirect($_SESSION['LCRedirect']);
+				}
+		
+			// Output the errors
+			} else {
+			
+				$errors = $errors;
+			}  
 		}
 
 		// Get all departments

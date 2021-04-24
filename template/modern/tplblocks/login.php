@@ -6,6 +6,16 @@
     </div>
    <div class="card-body">
     <form method="post" action="<?php echo JAK_rewrite::jakParseurl(JAK_CLIENT_URL);?>">
+      <?php 
+        	// if (isset($_SESSION['LCRedirect'])) {
+          //   jak_redirect($_SESSION['LCRedirect']);
+          // } else {
+          //   jak_redirect(BASE_URL);
+          // }
+          
+        
+    
+      ?>
       <span class="bmd-form-group">
         <div class="input-group">
           <div class="input-group-prepend">

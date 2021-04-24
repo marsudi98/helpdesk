@@ -122,6 +122,9 @@
 
 					<dt class="col-sm-5"><?php echo $jkl['hd191'];?></dt>
 				  	<dd class="col-sm-7"><span class="badge badge-primary">#<?php echo $page2;?></span></dd>
+					
+					<dt class="col-sm-5">AWB Number</dt>
+				  	<dd class="col-sm-7"><?php echo ($JAK_FORM_DATA["awb"] != null ? $JAK_FORM_DATA["awb"] : '-');?></dd>
 
 				  	<dt class="col-sm-5"><?php echo $jkl['hd167'];?></dt>
 				  	<dd class="col-sm-7"><span class="badge badge-<?php echo ($JAK_FORM_DATA["status"] == 1 ? "info" : ($JAK_FORM_DATA["status"] == 2 ? "warning" : ($JAK_FORM_DATA["status"] == 3 ? "success" : "success")));?>"><?php echo ($JAK_FORM_DATA["status"] == 1 ? $jkl['hd169'] : ($JAK_FORM_DATA["status"] == 2 ? $jkl['hd170'] : ($JAK_FORM_DATA["status"] == 3 ? $jkl['hd170'] : $jkl['g248'])));?></span></dd>
@@ -150,7 +153,7 @@
 				  	<?php } ?>
 
 				  	<?php if (isset($DEPARTMENTS_ALL) && !empty($DEPARTMENTS_ALL)) { ?>
-					<dt class="col-sm-5"><?php echo $jkl['g131'];?></dt>
+					<dt class="col-sm-5" style="display:table-cell;vertical-align:middle;"><?php echo $jkl['g131'];?></dt>
 				  	<dd class="col-sm-7">
 				  		<select name="jak_depid" id="jak_depid" class="selectpicker" data-live-search="true">
 							<?php foreach ($DEPARTMENTS_ALL as $d) {
@@ -162,12 +165,12 @@
 				  	<?php } ?>
 
 				  	<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
-					<dt class="col-sm-5"><?php echo $jkl['hd149'];?></dt>
+					<dt class="col-sm-5">Category</dt> <!-- <?php //echo $jkl['hd149'];?> -->
 				  	<dd class="col-sm-7">
 				  		<select name="jak_priority" id="jak_priority" class="selectpicker" data-live-search="true">
-				  			<option valude="0"<?php if ($JAK_FORM_DATA["priorityid"] == 0) echo 'selected';?>><?php echo $jkl['bw4'];?></option>
+				  			<option value="0"<?php if ($JAK_FORM_DATA["priorityid"] == 0) echo 'selected';?>><?php echo $jkl['bw4'];?></option>
 							<?php foreach ($PRIORITY_ALL as $p) {
-								echo '<option value="'.$p["id"].'"'.($JAK_FORM_DATA["priorityid"] == $p["id"] ? ' selected' : '').'>'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
+								echo '<option value="'.$p["id"].'-'.$p["duetime"].'"'.($JAK_FORM_DATA["priorityid"] == $p["id"] ? ' selected' : '').'>'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
 							} ?>
 						</select>
 						<input type="hidden" name="oldpriority" value="<?php echo $JAK_FORM_DATA["priorityid"];?>">
@@ -193,14 +196,19 @@
 				  	<dt class="col-sm-5"><?php echo $jkl['u1'];?></dt>
 				  	<dd class="col-sm-7 hyphenate"><a href="<?php echo JAK_rewrite::jakParseurl('users', 'clients', 'edit', $JAK_FORM_DATA["clientid"]);?>"><?php echo $JAK_FORM_DATA["email"];?></a></dd>
 
-				  	<dt class="col-sm-5"><?php echo $jkl['g264'];?></dt>
-				  	<dd class="col-sm-7"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA["initiated"], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></dd>
+				  	<dt class="col-sm-5">Created Date<?php //echo $jkl['g264']; ?></dt>
+				  	<!-- <dd class="col-sm-7"><?php //echo JAK_base::jakTimesince($JAK_FORM_DATA["initiated"], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></dd> -->
+				  	<dd class="col-sm-7">
+						<input type="text" id="created_date" name="created_date" class="form-control datepicker" value="<?php echo date('Y-m-d', $JAK_FORM_DATA["initiated"]);?>" autocomplete="off"  <?php $username = $jakuser->getVar("username"); echo ($username != 'admin') ? 'readonly' : ''; ?>>
+					</dd>
 
 				  	<dt class="col-sm-5"><?php echo $jkl['hd181'];?></dt>
-				  	<dd class="col-sm-7"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA["updated"], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></dd>
+				  	<dd class="col-sm-7"><input class="form-control" value="<?php echo JAK_base::jakTimesince($JAK_FORM_DATA["updated"], JAK_DATEFORMAT);?>" readonly></dd>
 
 				  	<dt class="col-sm-5"><?php echo $jkl['hd182'];?></dt>
-				  	<dd class="col-sm-7"><?php echo ($JAK_FORM_DATA["ended"] != 0 ? JAK_base::jakTimesince($JAK_FORM_DATA["ended"], JAK_DATEFORMAT, JAK_TIMEFORMAT) : '-');?></dd>
+				  	<dd class="col-sm-7"><input class="form-control" value="<?php echo ($JAK_FORM_DATA["ended"] != 0 ? JAK_base::jakTimesince($JAK_FORM_DATA["ended"], JAK_DATEFORMAT) : '-');?>" readonly></dd>
+				  	<!-- <dd class="col-sm-7"><?php //echo ($JAK_FORM_DATA["ended"] != 0 ? JAK_base::jakTimesince($JAK_FORM_DATA["ended"], JAK_DATEFORMAT, JAK_TIMEFORMAT) : '-');?></dd> -->
+
 
 				  	<dt class="col-sm-5"><?php echo $jkl['hd172'];?></dt>
 				  	<dd class="col-sm-7">
@@ -222,7 +230,8 @@
 				  	<?php } ?>
 
 				  	<dt class="col-sm-5"><?php echo $jkl['hd291'];?></dt>
-				  	<dd class="col-sm-7"><input type="text" name="jak_duedate" class="form-control datepicker" value="<?php echo ($JAK_FORM_DATA["duedate"] != "1980-05-06" ? date($duedateformat[0], strtotime($JAK_FORM_DATA["duedate"])) : date($duedateformat[0], strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day')));?>" autocomplete="off"></dd>
+				  	<dd class="col-sm-7"><input type="text" id="jak_duedate" name="jak_duedate" class="form-control datepicker" value="<?php echo JAK_base::jakTimesince($JAK_FORM_DATA["duedate"], JAK_DATEFORMAT);?>" autocomplete="off" readonly></dd>
+					<!-- <dd class="col-sm-7"><input type="text" id="jak_duedate" name="jak_duedate" class="form-control datepicker" value="<?php //echo ($JAK_FORM_DATA["duedate"] != "1980-05-06" ? date($duedateformat[0], strtotime($JAK_FORM_DATA["duedate"])) : date($duedateformat[0], strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day')));?>" autocomplete="off"></dd> -->
 
 				</dl>
 				<div class="form-check form-check-inline">

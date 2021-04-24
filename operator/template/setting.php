@@ -114,7 +114,7 @@
   </div><!-- ./col -->
 </div><!-- /.row -->
 
-<div class="alert alert-info">
+<div class="alert alert-info" style="display:none;">
 	<p><?php echo $jkl["hd89"];?></p>
 	<?php echo sprintf($jkl["hd87"], $api_key);?><br>
 	<?php echo sprintf($jkl["hd88"], $api_key1);?>

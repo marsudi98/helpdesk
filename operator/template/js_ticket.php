@@ -7,41 +7,59 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	tinymce.init({
-      selector: '#content-editor',
-      height: 300,
-      menubar: false,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor textcolor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code responsivefilemanager codesample'
-      ],
-      toolbar: 'insert | undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat codesample code',
-      language: '<?php echo $BT_LANGUAGE;?>',
-      <?php if ($jkl["rtlsupport"]) { ?>
-      directionality : 'rtl',
-      <?php } ?>
-      external_filemanager_path:"<?php echo BASE_URL_ORIG;?>js/editor/filemanager/",
-      filemanager_title:"Filemanager" ,
-      external_plugins: { "filemanager" : "<?php echo BASE_URL_ORIG;?>js/editor/filemanager/plugin.min.js"},
-      relative_urls: false
-    });
+    selector: '#content-editor',
+    height: 300,
+    menubar: false,
+    plugins: [
+      'advlist autolink lists link image charmap print preview anchor textcolor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table contextmenu paste code responsivefilemanager codesample'
+    ],
+    toolbar: 'insert | undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat codesample code',
+    language: '<?php echo $BT_LANGUAGE;?>',
+    <?php if ($jkl["rtlsupport"]) { ?>
+    directionality : 'rtl',
+    <?php } ?>
+    external_filemanager_path:"<?php echo BASE_URL_ORIG;?>js/editor/filemanager/",
+    filemanager_title:"Filemanager" ,
+    external_plugins: { "filemanager" : "<?php echo BASE_URL_ORIG;?>js/editor/filemanager/plugin.min.js"},
+    relative_urls: false
+  });
 
-  if ($(".datepicker").length != 0) {
-      $('.datepicker').datetimepicker({
-        format: '<?php echo $duedateformat[1];?>',
-        icons: {
-          time: "fa fa-clock",
-          date: "fa fa-calendar",
-          up: "fa fa-chevron-up",
-          down: "fa fa-chevron-down",
-          previous: 'fa fa-chevron-left',
-          next: 'fa fa-chevron-right',
-          today: 'fa fa-screenshot',
-          clear: 'fa fa-trash',
-          close: 'fa fa-remove'
-        }
-      });
-    }
+  if ($("#jak_duedate").length != 0) {
+    $('#jak_duedate').datetimepicker({
+      // format: '<?php //echo $duedateformat[1];?>',
+      format: 'YYYY-MM-DD',
+      icons: {
+        time: "fa fa-clock",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
+    });
+  }
+  
+  if ($("#created_date").length != 0) {
+    $('#created_date').datetimepicker({
+      format: 'YYYY-MM-DD',
+      icons: {
+        time: "fa fa-clock",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
+    });
+  }
 });
 
 // Insert the standard response into the editor

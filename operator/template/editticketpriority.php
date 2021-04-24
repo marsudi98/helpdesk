@@ -54,26 +54,34 @@
 		<label for="credits"><?php echo $jkl["hd56"];?></label>
 		<input type="number" min="0" name="credits" id="credits" class="form-control" value="<?php echo $JAK_FORM_DATA["credits"];?>">
 	</div>
-
-	<label><?php echo $jkl["hd150"];?></label>
-	<div class="form-check form-check-radio">
-		<label class="form-check-label">
-			<input class="form-check-input" type="radio" name="jak_oponly" value="1"<?php if (isset($JAK_FORM_DATA["oponly"]) && $JAK_FORM_DATA["oponly"] == 1) echo " checked";?>>
-			<span class="form-check-sign"></span>
-			<?php echo $jkl["g19"];?>
-		</label>
-	</div>
-	<div class="form-check form-check-radio">
-		<label class="form-check-label">
-			<input class="form-check-input" type="radio" name="jak_oponly" value="0"<?php if (isset($JAK_FORM_DATA["oponly"]) && $JAK_FORM_DATA["oponly"] == 0) echo " checked";?>>
-			<span class="form-check-sign"></span>
-			<?php echo $jkl["g18"];?>
-		</label>
+	
+	<div class="form-group">
+		<label><?php echo $jkl["hd150"];?></label>
+		<div class="form-check form-check-radio">
+			<label class="form-check-label">
+				<input class="form-check-input" type="radio" name="jak_oponly" value="1"<?php if (isset($JAK_FORM_DATA["oponly"]) && $JAK_FORM_DATA["oponly"] == 1) echo " checked";?>>
+				<span class="form-check-sign"></span>
+				<?php echo $jkl["g19"];?>
+			</label>
+		</div>
+		<div class="form-check form-check-radio">
+			<label class="form-check-label">
+				<input class="form-check-input" type="radio" name="jak_oponly" value="0"<?php if (isset($JAK_FORM_DATA["oponly"]) && $JAK_FORM_DATA["oponly"] == 0) echo " checked";?>>
+				<span class="form-check-sign"></span>
+				<?php echo $jkl["g18"];?>
+			</label>
+		</div>
 	</div>
 
 	<div class="form-group">
 		<label for="order"><?php echo $jkl["g102"];?></label>
 		<input type="number" name="jak_order" id="order" class="form-control" value="<?php echo $JAK_FORM_DATA["dorder"];?>">
+	</div>
+
+	<div class="form-group">
+		<label for="order">Due Time</label>
+		<input type="number" name="due_time" id="due_time" class="form-control" value="<?php echo $JAK_FORM_DATA["duetime"];?>">
+		<small class="text-muted">*day</small>
 	</div>
 
 </div>

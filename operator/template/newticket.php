@@ -13,7 +13,6 @@
 
 <div class="row">
 	<div class="col-md-8">
-
 		<?php if (!isset($_SESSION["userinfo"])) { ?>
 		<div class="card">
 			<div class="card-header">
@@ -63,7 +62,7 @@
 			</div>
 		</div>
 		<?php } if (isset($_SESSION["userinfo"]) && !isset($_SESSION["depinfo"])) { ?>
-			<div class="card box-danger">
+		<div class="card box-danger">
 			<div class="card-header">
 			  <h3 class="card-title"><?php echo $jkl["hd195"];?></h3>
 			</div><!-- /.box-header -->
@@ -89,14 +88,23 @@
 			</div><!-- /.box-header -->
 			<div class="card-body">
 
-				<div class="form-group">
-					<label for="subject"><?php echo $jkl["g16"];?></label>
-					<input type="text" name="subject" id="subject" class="form-control<?php if (isset($errors["e"])) echo " is-invalid";?>" value="<?php if (isset($_POST["subject"]) && !empty($_POST["subject"])) echo $_POST["subject"];?>">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="subject"><?php echo $jkl["g16"];?></label>
+							<input type="text" name="subject" id="subject" class="form-control<?php if (isset($errors["e"])) echo " is-invalid";?>" value="<?php if (isset($_POST["subject"]) && !empty($_POST["subject"])) echo $_POST["subject"];?>">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="subject">AWB Number</label>
+							<input type="text" name="awb" id="awb" class="form-control<?php if (isset($errors["e"])) echo " is-invalid";?>" value="<?php if (isset($_POST["awb"]) && !empty($_POST["awb"])) echo $_POST["awb"];?>">
+						</div>	
+					</div>
 				</div>
-
 			<?php if (isset($JAK_RESPONSE_DATA) && !empty($JAK_RESPONSE_DATA)) { ?>
 				<div class="form-group">
-					<p><label for="supresp"><?php echo $jkl["u35"];?></label></p>
+					<p style="margin:0;"><label for="supresp"><?php echo $jkl["u35"];?></label></p>
 					<select id="supresp" class="selectpicker">
 					<?php echo $JAK_RESPONSE_DATA;?>
 					</select>
@@ -161,29 +169,27 @@
 							<option value="2"><?php echo $jkl["hd170"];?></option>
 							<option value="3"><?php echo $jkl["hd171"];?></option>
 						</select>
-				  	</dd>
+				  	</dd>	
+					<form>		
+						<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
+						<dt class="col-sm-5">Category<?php //echo $jkl['hd149'];?></dt>
+						<dd class="col-sm-7">
+							<select name="jak_priority" id="jak_priority" class="selectpicker">
+								<option value="-">Nothing selected</option>
+								<?php foreach ($PRIORITY_ALL as $p) {
+									echo '<option value="'.$p["id"].'-'.$p["duetime"].'">'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
+								} ?>
+							</select>
+						</dd>
+						<?php } ?>
+					</form>
 
-					<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
-					<dt class="col-sm-5"><?php echo $jkl['hd149'];?></dt>
-				  	<dd class="col-sm-7">
-				  		<select name="jak_priority" id="jak_priority" class="selectpicker">
-							<?php foreach ($PRIORITY_ALL as $p) {
-								echo '<option value="'.$p["id"].'">'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
-							} ?>
+					<dt id="sc-label" class="col-sm-5"><?php echo $jkl['hd225'];?></dt>
+					<dd id="sc-select" class="col-sm-7">
+						<select name="jak_toption" id="jak_toption" class="selectpicker">
+							<option value="">Nothing selected</option>
 						</select>
-				  	</dd>
-				  	<?php } ?>
-
-				  	<?php if (isset($TOPTIONS_ALL) && !empty($TOPTIONS_ALL)) { ?>
-					<dt class="col-sm-5"><?php echo $jkl['hd225'];?></dt>
-				  	<dd class="col-sm-7">
-				  		<select name="jak_toption" id="jak_toption" class="selectpicker">
-							<?php foreach ($TOPTIONS_ALL as $t) {
-								echo '<option value="'.$t["id"].'">'.$t["title"].((JAK_BILLING_MODE == 1 && $t["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $t["credits"]).')' : '').'</option>';
-							} ?>
-						</select>
-				  	</dd>
-				  	<?php } ?>
+					</dd>
 
 				  	<dt class="col-sm-5"><?php echo $jkl['hd77'];?></dt>
 				  	<dd class="col-sm-7"><a href="<?php echo JAK_rewrite::jakParseurl('users', 'clients', $JAK_CLIENT_DATA["id"]);?>"><?php echo $JAK_CLIENT_DATA["name"];?></a></dd>
@@ -194,14 +200,14 @@
 				  	<dt class="col-sm-5"><?php echo $jkl['hd172'];?></dt>
 				  	<dd class="col-sm-7">
 
-					<div class="form-check form-check-radio">
+					<div class="form-check form-check-radio" style="padding-left:0;">
 				   	    <label class="form-check-label">
 				        	<input class="form-check-input" type="radio" name="jak_private" value="1"<?php if (isset($_REQUEST["jak_private"]) && $_REQUEST["jak_private"] == 1 || !isset($_REQUEST["jak_private"])) echo " checked";?>>
 				            <span class="form-check-sign"></span>
 				            <?php echo $jkl["g19"];?>
 				        </label>
 				    </div>
-				    <div class="form-check form-check-radio">
+				    <div class="form-check form-check-radio" style="padding-left:0;">
 				        <label class="form-check-label">
 				            <input class="form-check-input" type="radio" name="jak_private" value="0"<?php if (isset($_REQUEST["jak_private"]) && $_REQUEST["jak_private"] == 0) echo " checked";?>>
 				            <span class="form-check-sign"></span>
@@ -214,8 +220,8 @@
 				  	<dt class="col-sm-5"><?php echo $jkl['g169'];?></dt>
 				  	<dd class="col-sm-7"><input type="text" class="form-control" name="jak_referrer" value="<?php if (isset($_REQUEST["jak_referrer"]) && !empty($_REQUEST["jak_referrer"])) echo $_REQUEST["jak_referrer"];?>"></dd>
 
-				  	<dt class="col-sm-5"><?php echo $jkl['hd291'];?></dt>
-				  	<dd class="col-sm-7"><input type="text" name="jak_duedate" class="form-control datepicker" value="<?php echo ($_REQUEST["jak_duedate"] ? $_REQUEST["jak_duedate"] : date($duedateformat[0], strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day')));?>" autocomplete="off"></dd>
+				  	<dt class="col-sm-5" style="display:none"><?php echo $jkl['hd291'];?></dt>
+				  	<dd class="col-sm-7" style="display:none"><input type="text" name="jak_duedate" class="form-control datepicker" value="<?php echo ($_REQUEST["jak_duedate"] ? $_REQUEST["jak_duedate"] : date($duedateformat[0], strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day')));?>" autocomplete="off"></dd>
 
 				</dl>
 			</div>

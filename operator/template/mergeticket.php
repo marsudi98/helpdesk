@@ -70,7 +70,7 @@
 	<button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $jkl["g180"];?></button>
 </div>
 
-<script type="text/javascript" src="../js/contact.js"></script>
+<script type="text/javascript" src="../js/contact.js"></script>zs
 
 <script type="text/javascript">
 
@@ -90,7 +90,7 @@
 		$('.ls-submit').click(function() {
 
 			$('#jakModal').on('hidden.bs.modal', function() {
-				ocation.reload();
+				location.reload();
 			});
 
 		});

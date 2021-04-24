@@ -178,7 +178,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     $_SERVER['HTTP_REFERER'] = '';
 }
 
-// home
+    // home
     if ($page == '') {
         #show login page only if the admin is not logged in
         #else show homepage
@@ -191,8 +191,8 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
         	$JAK_PAGE_ACTIVE = 1;
         }
         $checkp = 1;
-       	}
-   if ($page == 'logout') {
+    }
+    if ($page == 'logout') {
         $checkp = 1;
         if (JAK_USERID) {
 

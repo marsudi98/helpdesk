@@ -129,6 +129,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Filter the subject
       $subjectf = filter_var($jkp['subject'], FILTER_SANITIZE_STRING);
+      $awb = filter_var($jkp['awb'], FILTER_SANITIZE_STRING);
+      $droppoint = filter_var($jkp['droppoint'], FILTER_SANITIZE_STRING);
 
         // Filter the content
       $contentf = jak_clean_safe_userpost($jkp['content']);
@@ -153,12 +155,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       // We need the time once
       $ticketcreated = time();
-
+      
       // Create the ticket
       $result = $jakdb->insert($jaktable2, ["depid" => $_SESSION["depinfo"],
-        "subject" => $subjectf,
-        "content" => $contentf,
-        "clientid" => JAK_CLIENTID,
+        "awb"       => $awb,
+        "droppoint" => $droppoint,
+        "subject"   => $subjectf,
+        "content"   => $contentf,
+        "clientid"  => JAK_CLIENTID,
         "name" => $cname,
         "email" => $cemail,
         "referrer" => filter_var($referrer, FILTER_SANITIZE_STRING),

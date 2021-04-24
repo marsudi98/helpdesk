@@ -2,7 +2,7 @@
 
 <div class="content">
 
-<!-- Small boxes (Stat box) -->
+<!-- Small boxes (Stat box) --> 
 <div class="row">
   <div class="col-md-3">
     <div class="card card-stats">

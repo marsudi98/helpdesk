@@ -116,7 +116,7 @@
     </div>
 </footer>
 <?php } else { ?>
-    <footer class="footer" style="background:#ffffff;box-shadow: 0 0 28px 0 rgb(82 63 105 / 13%);">
+    <footer class="footer" style="background:#ffffff;box-shadow: 0 0 28px 0 rgb(82 63 105 / 13%);padding:0;">
       <div class="container">
         <div class="footer-nav-column" style="display:none;">
             <?php echo jak_build_menu(0, $mfooter, $page, 'float-left', '', '', '', JAK_USERID, JAK_USERISLOGGED, '', '', 0, 8);?>
@@ -151,6 +151,7 @@
 <script type="text/javascript" src="<?php echo BASE_URL;?>js/jquery.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>js/functions.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL;?>template/modern/js/standard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous"></script>
 
 <?php if (JAK_USERID && jak_get_access("answers", $jakuser->getVar("permissions"), JAK_SUPERADMINACCESS)) { ?>
 <script type="text/javascript" src="<?php echo BASE_URL;?>template/modern/editor/content-tools.min.js"></script>
@@ -238,6 +239,5 @@
     }
   });
 </script>
-
 </body>
 </html>

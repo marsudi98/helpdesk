@@ -115,10 +115,25 @@
 </div><!-- /.row -->
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-8">
     <p><a class="btn btn-primary" href="<?php echo JAK_rewrite::jakParseurl('support', 'new');?>"><?php echo $jkl["hd166"];?></a></p>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
+    <label>Filter</label>
+    <?php if (isset($dep_filter) && is_array($dep_filter) && !empty($dep_filter)) { ?>
+    <form id="jak_statform" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
+      <select name="jak_depid" id="jak_depid" class="selectpicker">
+        <option value="0"><?php echo $jkl['g105'];?></option>
+        <?php foreach ($dep_filter as $v) { ?>
+        <option value="<?php echo $v["id"];?>"<?php if (isset($page1) && $page1 == $v["id"]) echo ' selected';?>><?php echo $v["title"];?></option>
+        <?php } ?>
+      </select>
+      <input type="hidden" name="action" value="depid">
+    </form>
+    <?php } ?>
+  </div>
+  <div class="col-md-2">
+    <label>Filter</label>
     <?php if (isset($dep_filter) && is_array($dep_filter) && !empty($dep_filter)) { ?>
     <form id="jak_statform" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
       <select name="jak_depid" id="jak_depid" class="selectpicker">
@@ -153,14 +168,14 @@
   <tr>
     <th style="width: 4%">#</th>
     <th style="width: 3%"><input type="checkbox" id="jak_delete_all"></th>
-    <th><i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
-    <th><i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
-    <th><i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
-    <th><i class="fal fa-user-shield" title="<?php echo $jkl["hd172"];?>"></i></th>
-    <th><i class="fal fa-paperclip" title="<?php echo $jkl["hd168"];?>"></i></th>
-    <th><i class="fal fa-star" title="<?php echo $jkl["g85"];?>"></i></th>
-    <th><i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
-    <th><i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    <th>Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
+    <th>Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
+    <th>User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
+    <th>Private <i class="fal fa-user-shield" title="<?php echo $jkl["hd172"];?>"></i></th>
+    <th>Attachments <i class="fal fa-paperclip" title="<?php echo $jkl["hd168"];?>"></i></th>
+    <th>Rating <i class="fal fa-star" title="<?php echo $jkl["g85"];?>"></i></th>
+    <th>Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
+    <th>Created Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
   </tr>
 </thead>
 <tfoot>

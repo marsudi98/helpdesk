@@ -61,7 +61,7 @@
           <div class="info">
             <a href="<?php echo JAK_rewrite::jakParseurl('users','edit',JAK_USERID);?>">
               <span>
-                <?php echo $jakuser->getVar("name");?>
+                <?php echo $jakuser->getVar("name"); ?>
               </span>
             </a>
           </div>

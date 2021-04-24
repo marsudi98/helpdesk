@@ -1,36 +1,19 @@
 <?php if (JAK_USERID) { ?>
 	
-<footer class="footer">
-        <div class=" container-fluid ">
-          <nav>
-            <ul>
-              <li>
-                <a href="https://www.jakweb.ch/faq">
-                  FAQ
-                </a>
-              </li>
-              <li>
-                <a href="https://www.jakweb.ch/profile">
-                  Support
-                </a>
-              </li>
-              <li>
-                <a href="https://www.jakweb.ch/blog/c/1/about-jakweb">
-                  News
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright" id="copyright">
-            <?php echo date("Y");?> <i class="fa fa-heart"></i> 
-            <a href="https://www.jakweb.ch" target="_blank">J&T Jawa Timur</a>.
-          </div>
-        </div>
-      </footer>
+
 
 </div><!-- Main Panel -->
 
 </div><!-- Wrapper -->
+
+<footer class="footer">
+	<div class=" container-fluid ">
+		<div class="copyright" id="copyright">
+		<?php echo date("Y");?> <i class="fa fa-heart"></i> 
+		<a href="https://www.jakweb.ch" target="_blank">J&T Express Jawa Timur</a>.
+		</div>
+	</div>
+</footer>
 
 <!-- Modal -->
 <div id="jakModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="userModal" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"></div></div></div><!-- /.modal -->

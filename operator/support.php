@@ -169,18 +169,24 @@ switch ($page1) {
       // Filter the subject
       $subjectf = trim($jkp['subject']);
 
+      // Filter the subject
+      $awb = trim($jkp['awb']);
+
       // Filter the notes
       $notesf = trim($jkp['jak_notes']);
 
       // Filter the content
       $contentf = jak_clean_safe_userpost($_REQUEST['content']);
 
+      $jp_ex = explode('-', $jkp['jak_priority']);
+      $jak_priority = $jp_ex[0];
+      $jp_exres = $jp_ex[1];
+
       // We have the due date and we will need to make it right for mysql
-      if (isset($jkp["jak_duedate"]) && !empty($jkp["jak_duedate"])) {
-        $duedate = DateTime::createFromFormat($duedateformat[0], $jkp["jak_duedate"]);
-        $duedatesql = $duedate->format("Y-m-d");
+      if (isset($jkp["jak_priority"]) && !empty($jkp["jak_priority"])) {
+        $duedatesql = date("Y-m-d", strtotime('+'.$jp_exres.'day'));
       } else {
-        $duedatesql = date("Y-m-d", strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day'));
+        $duedatesql = date("Y-m-d", strtotime('+'.$jp_exres.'day'));
       }
 
       // We need the time once
@@ -189,6 +195,7 @@ switch ($page1) {
       // Create the ticket
       $result = $jakdb->insert($jaktable, ["depid" => $_SESSION["depinfo"],
         "subject" => $subjectf,
+        "awb" => $awb,
         "content" => $contentf,
         "operatorid" => $jkp['jak_operator'],
         "clientid" => $saveclientid[0],
@@ -197,7 +204,7 @@ switch ($page1) {
         "referrer" => $jkp['jak_referrer'],
         "notes" => $notesf,
         "private" => $jkp['jak_private'],
-        "priorityid" => $jkp['jak_priority'],
+        "priorityid" => $jak_priority,
         "toptionid" => $jkp['jak_toption'],
         "status" => $jkp['jak_status'],
         "ip" => $ipa,
@@ -419,18 +426,18 @@ switch ($page1) {
           }
 
       // Output the errors
-        } else {
-          $errors = $errors;
-        }
-
+      } else {
+        $errors = $errors;
       }
 
+    }
+
     // Title and Description
-      $SECTION_TITLE = $jkl["hd193"];
-      $SECTION_DESC = "";
+    $SECTION_TITLE = $jkl["hd193"];
+    $SECTION_DESC = "";
 
     // Get all clients
-      $CLIENTS_ALL = $jakdb->select($jaktable5, ["id", "support_dep", "name", "email"], ["access" => 1, "ORDER" => ["name" => "ASC"]]);
+    $CLIENTS_ALL = $jakdb->select($jaktable5, ["id", "support_dep", "name", "email"], ["access" => 1, "ORDER" => ["name" => "ASC"]]);
     // Get the department for the selected client
       if (isset($_SESSION["userinfo"]) && !empty($_SESSION["userinfo"])) {
         $getdep = explode(":#:", $_SESSION["userinfo"]);
@@ -531,6 +538,25 @@ switch ($page1) {
     $template = 'newticket.php';
 
     break;
+    case 'sub-category':
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $jkp = $_POST;
+        
+        if ($jkp['priorityid'] == '-') {
+          $sub_category = '-';
+
+          echo $sub_category;
+        } else {
+          $jp_ex = explode('-', $jkp['priorityid']);
+          $jak_priority = $jp_ex[0];
+          $jp_exres = $jp_ex[1];
+          
+          $sub_category = $jakdb->select("ticketoptions", ["id", "title"], ["priorityid" => $jp_ex]);
+
+          echo json_encode($sub_category);
+        }        
+      }
+    break;
     case 'split':
 
       // First we check if we can split the ticket.
@@ -551,10 +577,13 @@ switch ($page1) {
           if (count($errors) == 0) {
 
             // Get the client data once again
-            $client_save = $jakdb->get($jaktable5, ["name", "email", "credits", "paid_until"], ["id" => $jkp["clientid"]]);
+            $client_save = $jakdb->get($jaktable5, ["ID", "email", "credits", "paid_until"], ["id" => $jkp["clientid"]]);
 
             // Filter the subject
             $subjectf = trim($jkp['subject']);
+
+            // Filter the subject
+            $awb = trim($jkp['awb']);
 
             // Filter the notes
             $notesf = trim($jkp['jak_notes']);
@@ -564,7 +593,9 @@ switch ($page1) {
 
             // We have the due date and we will need to make it right for mysql
             if (isset($jkp["jak_duedate"]) && !empty($jkp["jak_duedate"])) {
-              $duedate = DateTime::createFromFormat($duedateformat[0], $jkp["jak_duedate"]);
+              // $duedate = DateTime::createFromFormat($duedateformat[0], $jkp["jak_duedate"]);
+              // $duedatesql = $duedate->format("Y-m-d");
+              $duedate = new DateTime($jkp["jak_duedate"]);
               $duedatesql = $duedate->format("Y-m-d");
             } else {
               $duedatesql = date("Y-m-d", strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day'));
@@ -576,6 +607,7 @@ switch ($page1) {
             // Create the ticket
             $result = $jakdb->insert($jaktable, ["depid" => $jkp["jak_depid"],
               "subject" => $subjectf,
+              "awb" => $awb,
               "content" => $contentf,
               "operatorid" => $jkp['jak_operator'],
               "clientid" => $jkp["clientid"],
@@ -656,10 +688,10 @@ switch ($page1) {
               }
             }
 
-                // Set the client ticket request +1
+            // Set the client ticket request +1
             $jakdb->update($jaktable5, ["supportrequests[+]" => 1], ["id" => $saveclientid[0]]);
 
-                // We run on a credit based system?
+            // We run on a credit based system?
             if (JAK_BILLING_MODE == 1) {
               $priocredit = $optcredit = 0;
               if (isset($jkp["jak_priority"]) && is_numeric($jkp["jak_priority"])) {
@@ -943,17 +975,29 @@ switch ($page1) {
       // Check if the user exists
       if (is_numeric($page2) && jak_row_exist($page2,$jaktable)) {
 
-        // Get the ticket data first
-        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "clients.name", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
+        // Get the ticket data first ~ this is where the data fetched
+        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.awb", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "clients.name", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $jkp = $_POST;
 
           // Only store operator, department and option updates
           if (isset($jkp['store-dep']) && $jkp['store-dep'] == 1) {
-
+            $jp_ex = explode('-', $jkp['jak_priority']);
+            $jak_priority = $jp_ex[0];
+            $jp_exres = $jp_ex[1];
+ 
             // We save the new data
-            $jakdb->update($jaktable, ["depid" => $jkp['jak_depid'], "operatorid" => $jkp['jak_opid'], "priorityid" => $jkp['jak_priority'], "toptionid" => $jkp['jak_toption']], ["id" => $page2]);
+            $jakdb->update($jaktable, ["depid" => $jkp['jak_depid'], "operatorid" => $jkp['jak_opid'], "priorityid" => $jak_priority, "toptionid" => $jkp['jak_toption']], ["id" => $page2]);
+
+            // tambahan untuk due date sesuai priority/complaint category
+            $duedate = new DateTime($jkp["created_date"]);
+            $duedatesql = $duedate->format("Y-m-d");
+            $duedatesql = date("Y-m-d", strtotime($duedatesql.'+'.$jp_exres.'day'));
+            // update the ticket
+            $jakdb->update($jaktable, ["duedate" => $duedatesql], ["id" => $page2]);
+            // end update the ticket
+            // end tambahan untuk due date sesuai priority/complaint category
             
             if (JAK_BILLING_MODE == 1 && $JAK_FORM_DATA["clientid"] != 0) {
 
@@ -986,9 +1030,9 @@ switch ($page1) {
               }
 
               // Check if we have a change in the priority
-              if ($jkp['jak_priority'] != $jkp['oldpriority']) {
+              if ($jak_priority != $jkp['oldpriority']) {
                 $oldcredits = $jakdb->get($jaktable3, "credits", ["id" => $jkp['oldpriority']]);
-                $newcredits = $jakdb->get($jaktable3, "credits", ["id" => $jkp['jak_priority']]);
+                $newcredits = $jakdb->get($jaktable3, "credits", ["id" => $jak_priority]);
 
                 if ($newcredits > $oldcredits) {
                   $newc = $newcredits - $oldcredits;
@@ -1058,14 +1102,29 @@ switch ($page1) {
 
             // We have the due date and we will need to make it right for mysql
             if (isset($jkp["jak_duedate"]) && !empty($jkp["jak_duedate"])) {
-              $duedate = DateTime::createFromFormat($duedateformat[0], $jkp["jak_duedate"]);
+              $duedate = new DateTime($jkp["jak_duedate"]);
               $duedatesql = $duedate->format("Y-m-d");
             } else {
               $duedatesql = date("Y-m-d", strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day'));
             }
 
+            // We have the due date and we will need to make it right for mysql
+            if (isset($jkp["created_date"]) && !empty($jkp["created_date"])) {
+              $cd_date = new DateTime($jkp["created_date"]);
+              $cd_date = $cd_date->getTimestamp();
+
+              // tambahan untuk due date sesuai priority/complaint category
+              $created_date = new DateTime($jkp["created_date"]);
+              $duedatesql = $created_date->format("Y-m-d");
+              $duedatesql = date("Y-m-d", strtotime($duedatesql.'+'.$jp_exres.'day'));
+              // update the ticket
+              $jakdb->update($jaktable, ["duedate" => $duedatesql], ["id" => $page2]);
+              // end update the ticket
+              // end tambahan untuk due date sesuai priority/complaint category
+            }
+           
             // Update the private status and due date
-            $jakdb->update($jaktable, ["private" => $jkp['jak_private'], "duedate" => $duedatesql], ["id" => $page2]);
+            $jakdb->update($jaktable, ["private" => $jkp['jak_private'], "duedate" => $duedatesql, "initiated" => $cd_date], ["id" => $page2]);
 
             $_SESSION["successmsg"] = $jkl['g14'];
             jak_redirect($_SESSION['LCRedirect']);
@@ -1154,14 +1213,14 @@ switch ($page1) {
 
               // We have the due date and we will need to make it right for mysql
               if (isset($jkp["jak_duedate"]) && !empty($jkp["jak_duedate"])) {
-                $duedate = DateTime::createFromFormat($duedateformat[0], $jkp["jak_duedate"]);
+                $duedate = new DateTime($jkp["jak_duedate"]);
                 $duedatesql = $duedate->format("Y-m-d");
               } else {
                 $duedatesql = date("Y-m-d", strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day'));
               }
 
               // Update the ticket
-              $jakdb->update($jaktable, ["depid" => $jkp['jak_depid'], "operatorid" => $jkp['jak_opid'], "priorityid" => $jkp['jak_priority'], "toptionid" => $jkp['jak_toption'], "status" => $tstatus, "updated" => time(), "notes" => $savenotes, "private" => $jkp['jak_private'], "duedate" => $duedatesql], ["id" => $page2]);
+              $jakdb->update($jaktable, ["depid" => $jkp['jak_depid'], "operatorid" => $jkp['jak_opid'], "priorityid" => $jak_priority, "toptionid" => $jkp['jak_toption'], "status" => $tstatus, "updated" => time(), "notes" => $savenotes, "private" => $jkp['jak_private'], "duedate" => $duedatesql], ["id" => $page2]);
 
               // Calculate the update time
               $responsetime = time() - $JAK_FORM_DATA["updated"];
@@ -1204,9 +1263,9 @@ switch ($page1) {
                 }
 
                 // Check if we have a change in the priority
-                if ($jkp['jak_priority'] != $jkp['oldpriority']) {
+                if ($jak_priority != $jkp['oldpriority']) {
                   $oldcredits = $jakdb->get($jaktable3, "credits", ["id" => $jkp['oldpriority']]);
-                  $newcredits = $jakdb->get($jaktable3, "credits", ["id" => $jkp['jak_priority']]);
+                  $newcredits = $jakdb->get($jaktable3, "credits", ["id" => $jak_priority]);
 
                   if ($newcredits > $oldcredits) {
                     $newc = $newcredits - $oldcredits;
@@ -1589,7 +1648,7 @@ switch ($page1) {
     }
 
   break;
-  case 'deletea':
+  case 'delete':
 
     // Check if the user exists
   if (is_numeric($page2) && is_numeric($page3) && jak_row_exist($page2,$jaktable) && jak_row_exist($page3,$jaktable4)) {

@@ -38,6 +38,9 @@ $valid_agent = filter_var($_SERVER['HTTP_USER_AGENT'], FILTER_SANITIZE_STRING);
 // New ticket
 if ($page1 == "n") {
 
+  // Overwrite session
+  $_SESSION["depinfo"] = '0';
+
   if (JAK_CLIENTID || JAK_TICKET_GUEST_WEB) {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -53,7 +56,7 @@ if ($page1 == "n") {
         if (isset($jkp['jak_depid']) && is_numeric($jkp['jak_depid']) && $jkp['jak_depid'] != 0) {
           $_SESSION["depinfo"] = $jkp['jak_depid'];
           $_SESSION["successmsg"] = $jkl['s'];
-          jak_redirect($_SESSION['LCRedirect']);
+          // jak_redirect($_SESSION['LCRedirect']);
         }
 
         // We store the ticket
@@ -135,6 +138,9 @@ if ($page1 == "n") {
 
             // Filter the subject
             $subjectf = filter_var($jkp['subject'], FILTER_SANITIZE_STRING);
+            $awb = filter_var($jkp['awb'], FILTER_SANITIZE_STRING);
+            $jak_depid = filter_var($jkp['jak_depid'], FILTER_SANITIZE_STRING);
+            $droppoint = filter_var($jkp['droppoint'], FILTER_SANITIZE_STRING);
 
             // Filter the content
             $contentf = jak_clean_safe_userpost($jkp['content']);
@@ -159,12 +165,13 @@ if ($page1 == "n") {
 
             // We need the time once
             $ticketcreated = time();
-
+            
             // Create the ticket
-            $result = $jakdb->insert($jaktable2, ["depid" => $_SESSION["depinfo"],
-              "subject" => $subjectf,
-              "content" => $contentf,
-              "clientid" => JAK_CLIENTID,
+            $result = $jakdb->insert($jaktable2, ["depid" => $jak_depid,
+              "awb"       => $awb,
+              "subject"   => $subjectf,
+              "content"   => $contentf,
+              "clientid"  => JAK_CLIENTID,
               "name" => $cname,
               "email" => $cemail,
               "referrer" => filter_var($referrer, FILTER_SANITIZE_STRING),
@@ -443,7 +450,7 @@ if ($page1 == "n") {
 
 
 
-    if (!isset($_SESSION["depinfo"])) {
+    // if (!isset($_SESSION["depinfo"])) {
       // Get the correct departments
       $DEPARTMENTS_ALL = array();
       if (JAK_CLIENTID) {
@@ -461,7 +468,7 @@ if ($page1 == "n") {
           }
         }
       }
-    }
+    // }
 
     $limitreached = false;
     if (JAK_TICKET_LIMIT != 0) {

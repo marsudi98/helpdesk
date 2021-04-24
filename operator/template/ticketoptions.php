@@ -175,6 +175,16 @@
 					    </select>
 					</div>
 
+          <div class="form-group">
+					    <p><label for="jak_priority">Category<?php //echo $jkl["g131"];?></label></p>
+              <select name="jak_priority" id="jak_priority" class="selectpicker">
+                <?php foreach ($PRIORITY_ALL as $p) {
+                  echo '<option value="'.$p["id"].'-'.$p["duetime"].'">'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
+                } ?>
+              </select>
+					</div>
+
+
 					<label><?php echo $jkl["hd150"];?></label>
 					<div class="form-check form-check-radio">
 						<label class="form-check-label">
@@ -215,8 +225,8 @@
 					<tr>
 						<th>#</th>
 						<th><?php echo $jkl["g16"];?></th>
-						<th><?php echo $jkl["hd223"];?></th>
 						<th><?php echo $jkl["g102"];?></th>
+						<th><?php echo "Category";?></th>
 						<th><?php echo $jkl["g47"];?></th>
 						<th><?php echo $jkl["g48"];?></th>
 					</tr>
@@ -225,8 +235,8 @@
 					<tr>
 						<th>#</th>
 						<th><?php echo $jkl["g16"];?></th>
-						<th><?php echo $jkl["hd223"];?></th>
 						<th><?php echo $jkl["g102"];?></th>
+						<th><?php echo "Category";?></th>
 						<th><?php echo $jkl["g47"];?></th>
 						<th><?php echo $jkl["g48"];?></th>
 					</tr>
@@ -236,8 +246,8 @@
 					<tr>
 					<td><?php echo $v["id"];?></td>
 					<td class="title"><a href="<?php echo JAK_rewrite::jakParseurl('customfield', 'options', 'edit', $v["id"]);?>"><?php echo $v["title"];?></a></td>
-					<td class="desc"><i class="fa <?php echo $v["icon"];?>"></i></td>
 					<td class="desc"><?php echo $v["dorder"];?></td>
+          <td class="title"><?php echo $v["ptitle"];?></td>
 					<td><a class="btn btn-default btn-sm" href="<?php echo JAK_rewrite::jakParseurl('customfield', 'options', 'edit', $v["id"]);?>"><i class="fa fa-pencil"></i></a></td>
 					<td><a class="btn btn-danger btn-sm btn-confirm" href="<?php echo JAK_rewrite::jakParseurl('customfield', 'options', 'delete', $v["id"]);?>" data-title="<?php echo addslashes($jkl["g48"]);?>" data-text="<?php echo addslashes($jkl["e31"]);?>" data-type="warning" data-okbtn="<?php echo addslashes($jkl["g279"]);?>" data-cbtn="<?php echo addslashes($jkl["g280"]);?>"><i class="fa fa-trash-alt"></i></a></td>
 					</tr>

@@ -38,6 +38,20 @@
 	</div>
 
 	<div class="form-group">
+		<p><label for="category"><?php echo "Category"?></label></p>
+		<select name="jak_priority" id="jak_priority" class="selectpicker">
+		<?php foreach($PRIORITY_ALL as $z) { ?>
+	
+		<option value="<?php echo $z["id"];?>"<?php if ($JAK_FORM_DATA["priorityid"] == $z["id"]) echo ' selected="selected"';?>><?php echo $z["title"];?></option>
+
+		<?php //foreach ($PRIORITY_ALL as $p) {
+			//echo '<option value="'.$p["id"].'-'.$p["duetime"].'">'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
+		} ?>
+		</select>
+	</div>
+
+
+	<div class="form-group">
 		<label for="jak_icon"><?php echo $jkl["hd223"];?></label>
 		<div class="input-group">
 			<input type="text" name="jak_icon" class="form-control" value="<?php echo $JAK_FORM_DATA["icon"];?>">

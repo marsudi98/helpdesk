@@ -7,7 +7,7 @@ $responsegserialize = 'eJwti8EKwjAQRH9l2S9Ii1KYHMSb3v2BpQkSsI24KxJK/90kehrmzRvBg
 
 $HD_RESPONSES = unserialize(gzuncompress(base64_decode($responsegserialize)));
 
-$responsetgserialize = 'eJw9iVEKg0AMBa8ScoCixVLI3qL0AktNNWh3g8kiIt69WqRfb95MpJpWoSpEamg1uhJKi8F2jfWxN8KW9e+q07n4yCc/WMfl4Dvhh81i9yvNfp99TAMsucA7T5CVk6QOIlhRzZODy2tgh1m8h2IXDNv2BUe7Lbg=';
+$responsetgserialize = 'eJyNjk0KgzAQha8y5ADFiKUwuUDXpRcIdaqDaRKcBBHx7jUi3bSLrt7f4n0Wa1wYK2OxwUW2pLhVRlCj0kXPqFqKn646usTJ0eFvFN1c/AXVi0Rsty/NFu+99QPMIcMzjBAiefYdWJAcYxgTJH4MlGDi1EOWkzIro/7FUv/JciXnwjeLrgqmxOCF9pv1DXXTS+Q=';
 
 $HD_RESPONSEST = unserialize(gzuncompress(base64_decode($responsetgserialize)));
 
@@ -19,7 +19,7 @@ $departmentgserialize = 'eJxFjDEKgDAQBP9yL4iiETalvV+QQ6MexMLkrCR/NwHBanamWEaDR2A
 
 $HD_DEPARTMENTS = unserialize(gzuncompress(base64_decode($departmentgserialize)));
 
-$departmentsgserialize = 'eJytjsEKwkAMRP8lX7BbsOL06N2LHyChm5bArtVueir9d3exIIhHT28mIZlhNFgVrmO0WHNxpIG6DA/ylQeQqUWp+gQ6T+kRWe+27ySxxqodqOIIGvh5W+YyvLx9P0tQy/tTV9mCxkWy8SdpU/hfJZrvEuX2OuUk4e8NthdBfE5V';
+$departmentsgserialize = 'eJy10ksKwyAQBuCrFPclMa/Sya6hkF1acoAiyTQIalo1q5K7VyFQSN26mp8Rxw+VQQUfDmnNfDCQAeEjqQ1QINTXEojlVqDPZyDNLF+CcWW3NZSMC59TIL6cgDzZ+7HoXXPQOHJrtsmprxWQaUFj2e+4lQMNSbK9xO3tZyNxjMXIQox8z6Bu8vXo7kSiHjCWJQ9Zir3FTWwXZbmaYjmKkKMMfJJLl3S3PmnvsSRlSFL9vY5rNkyIQ4PKoo6DWb/Hte6L';
 
 $HD_SUPPORT_DEPARTMENTS = unserialize(gzuncompress(base64_decode($departmentsgserialize)));
 

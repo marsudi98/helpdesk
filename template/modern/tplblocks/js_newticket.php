@@ -99,3 +99,59 @@ function ticketSearch(v) {
   }
 }
 </script>
+
+<script>
+  $(window).on('load', function() {
+    function getDroppoint() {
+        $.ajax({
+            url: "http://localhost/sandbox/assets/api/get_list_dp",
+            method: "POST",
+            dataType: "json",
+            data: {passwordnya:'express_your_online_business'},
+            success: function(result) {
+              console.log(result.data)
+              for (y = 0; y < result.data.length; y++) {
+                $('#droppoint')
+                  .append($("<option></option>")
+                      .val(result.data[y].id_dp)
+                      .text(result.data[y].id_dp));
+                }
+                // $('#droppoint').select2({
+                //   width: '100%',
+                //   // allowClear: true,
+                //   // multiple: true,
+                //   // placeholder: "NIK..."
+                // });
+            }
+        });
+    }
+
+    getDroppoint();
+
+    $('#droppoint').select2();
+    
+    // $('#droppoint').select2({
+    //     minimumInputLength: 3,
+    //     ajax: {
+    //         type: 'POST',
+    //         url: 'http://localhost/sandbox/assets/api/get_list_dp',
+    //         dataType: 'json',
+    //         delay: 250,
+    //         data: function (params) {
+    //             return {
+    //                 term: params.term,
+    //                 passwordnya: 'express_your_online_business'
+    //             };
+    //         },
+    //         processResults: function (data) {
+    //             return {
+    //                 results: data,
+    //                 more: false
+    //             };
+    //         }
+    //     }
+    // });
+  });
+
+  
+</script>
