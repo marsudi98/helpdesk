@@ -18,7 +18,7 @@ require_once '../../class/ssp.class.php';
 
 $where = '';
 $where_dp = ' AND dpbersalah = '.$dp_name.''; 
-$dp_name = $jakclient->getVar("name");
+$dp_name = $jakuser->getVar("name");
 if (isset($_SESSION["sortdepid"]) && is_numeric($_SESSION["sortdepid"])) {
 	$where = '(t1.operatorid = '.$jakuser->getVar("id").' AND t1.depid = '.$_SESSION["sortdepid"].') OR t1.depid = '.$_SESSION["sortdepid"];
 } else {
@@ -44,16 +44,13 @@ $primaryKey = 't1.id';
 // indexes
 $columns = array(
 	array( 'db' => 't1.id', 'dbjoin' => 'id', 'dt' => 0 ),
-	array( 'db' => 't1.id', 'dbjoin' => 'id', 'dt' => 1, 'formatter' => function( $d, $row ) {
-			return '<input type="checkbox" name="jak_delete_tickets[]" class="highlight" value="'.$d.'">';
-		} ),
-	array( 'db' => 't1.subject', 'dbjoin' => 'subject', 'dt' => 2, 'formatter' => function( $d, $row ) {
+	array( 'db' => 't1.subject', 'dbjoin' => 'subject', 'dt' => 1, 'formatter' => function( $d, $row ) {
 			return '<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'read', $row['id'])).'">'.$d.'</a>'.($row['mergeid'] ? ' <a class="badge badge-info" href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'read', $row['mergeid'])).'"><i class="far fa-code-merge"></i></a>' : '');
 		} ),
-	array( 'db' => 't2.title', 'dbjoin' => 'title', 'dt' => 3 ),
-	array( 'db' => 't1.name', 'dbjoin' => 'name', 'dt' => 4 ),
-	array( 'db' => 't1.denda', 'dbjoin' => 'denda', 'dt' => 5 ),
-	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 6, 'formatter' => function( $d, $row ) {
+	array( 'db' => 't2.title', 'dbjoin' => 'title', 'dt' => 2 ),
+	array( 'db' => 't1.name', 'dbjoin' => 'name', 'dt' => 3 ),
+	array( 'db' => 't1.denda', 'dbjoin' => 'denda', 'dt' => 4 ),
+	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 5, 'formatter' => function( $d, $row ) {
 			if ($d == 1) {
 				return '<span class="badge badge-info">Open</span>';
 			} else if ($d == 2) {
@@ -64,7 +61,7 @@ $columns = array(
 				return '<span class="badge badge-success">Closed</span>';
 			}
 		} ),
-	array( 'db' => 't1.updated', 'dbjoin' => 'updated', 'dt' => 7, 'formatter' => function( $d, $row ) {
+	array( 'db' => 't1.initiated', 'dbjoin' => 'initiated', 'dt' => 6, 'formatter' => function( $d, $row ) {
 			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
 		} ),
 	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 'tdc' ),

@@ -14186,7 +14186,7 @@ textarea.form-control {
   background: rgba(238, 238, 238, 0.9);
   padding: 5px;
   border-radius: 4px;
-  width: 165px;
+  width: 175px;
 }
 
 .page-header.header-small {
@@ -15010,9 +15010,13 @@ footer .pull-center {
   text-transform: uppercase;
 }
 
+.blockquote p {
+  margin: 0 !important;
+}
+
 .title-green {
-  font-size: 20px !important;
-  font-weight: 700 !important;
+  font-size: 18px !important;
+  font-weight: 650 !important;
   text-transform: uppercase !important;
 }
 
@@ -15144,7 +15148,7 @@ h4,
 
 h5,
 .h5 {
-  font-size: 0.9625rem;
+  font-size: 0.8625rem;
   line-height: 1.55em;
   margin-bottom: 15px;
   font-weight: 500;
@@ -15266,8 +15270,8 @@ h2.title {
 }
 
 .blockquote p {
-  font-size: 1.063rem;
-  font-style: italic;
+  font-size: 0.963rem;
+  /* font-style: italic; */
 }
 
 .blockquote small {
@@ -18069,7 +18073,7 @@ thead.thead-inverse th,
 }
 
 .section {
-  padding: 20px 0 70px 0;
+  padding: 20px 0 20px 0;
 }
 
 .section-navbars {
@@ -18829,8 +18833,8 @@ thead.thead-inverse th,
 }
 
 .card-title-fs {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 650;
 }
 
 .card-pricing .card-body {

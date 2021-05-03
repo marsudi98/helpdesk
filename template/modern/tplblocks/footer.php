@@ -116,7 +116,7 @@
     </div>
 </footer>
 <?php } else { ?>
-    <footer class="footer" style="background:#ffffff;box-shadow: 0 0 28px 0 rgb(82 63 105 / 13%);padding:0;">
+    <footer class="footer" style="background:#ffffff;box-shadow: 0 0 28px 0 rgb(82 63 105 / 13%);padding:0;bottom:0;left:0;position:relative;width:100%;z-index:999;">
       <div class="container">
         <div class="footer-nav-column" style="display:none;">
             <?php echo jak_build_menu(0, $mfooter, $page, 'float-left', '', '', '', JAK_USERID, JAK_USERISLOGGED, '', '', 0, 8);?>
@@ -124,8 +124,8 @@
         
         <div class="copyright">
           <!-- <p class="ctext">All Rights Reserved. &#xA9;2020 PT. Karya Niaga Abadi - <a href="#">J&T Express Jawa Timur.</a></p> -->
-          <span class="text-muted font-weight-bold mr-1"><?php echo date("Y");?> ©</span>
-          <a href="#" class=" font-weight-bold" style="#fff4d4d">J&T Express Jawa Timur</a>
+          <span class="" style="font-weight:550;"><?php echo date("Y");?> ©</span>
+          <a href="#" class="" style="#fff4d4d;font-weight:550;">J&T Express Jawa Timur</a>
       </div>
   </div>
 </footer>

@@ -261,6 +261,76 @@ class SSP {
 	}
 
 	/* Run the query, quite heavy with joins */
+	static function join_custom ( $request, $table, $table2, $table3 = '', $primaryKey, $columns, $whereResult=null, $whereAll=null )
+	{
+		$bindings = array();
+		$whereAllSql = '';
+
+		global $jakdb;
+
+		// Build the SQL query string from the request
+		$limit = self::limit( $request, $columns );
+		$order = self::order( $request, $columns );
+		$where = self::filter( $request, $columns, $bindings );
+
+		$whereResult = self::_flatten( $whereResult );
+		$whereAll = self::_flatten( $whereAll );
+
+		if ( $whereResult ) {
+			$where = $where ?
+				$where .' AND '.$whereResult :
+				'WHERE '.$whereResult;
+		}
+
+		if ( $whereAll ) {
+			$where = $where ?
+				$where .' AND '.$whereAll :
+				'WHERE '.$whereAll;
+
+			$whereAllSql = 'WHERE '.$whereAll;
+		}
+
+		// Main query to actually get the data
+		$data = $jakdb->sql_exec( $bindings,
+			"SELECT ".implode(", ", self::pluck($columns, 'db')).",
+			DATEDIFF(CONCAT(t1.duedate,' 23:59:59'), CURRENT_TIMESTAMP()) AS check_duedate
+			FROM $table$table2$table3
+			$where
+			ORDER BY t1.status ASC,
+			(UNIX_TIMESTAMP(CONCAT(t1.duedate,' 23:59:59')) - UNIX_TIMESTAMP(CURRENT_TIMESTAMP())) ASC
+			$limit"
+		);
+
+		// Data set length after filtering
+		$resFilterLength = $jakdb->sql_exec( $bindings,
+			"SELECT COUNT({$primaryKey})
+				FROM $table$table2$table3
+				$where"
+		);
+		$recordsFiltered = $resFilterLength[0][0];
+
+		// Total data set length
+		$resTotalLength = $jakdb->sql_exec(
+			"SELECT COUNT({$primaryKey})
+				FROM   $table$table2$table3".
+				$whereAllSql
+		);
+		$recordsTotal = $resTotalLength[0][0];
+
+		/*
+		* Output
+		*/
+		return array(
+			"draw"            => isset ( $request['draw'] ) ?
+				intval( $request['draw'] ) :
+				0,
+			"recordsTotal"    => intval( $recordsTotal ),
+			"recordsFiltered" => intval( $recordsFiltered ),
+			"data"            => self::data_output_join( $columns, $data )
+		);
+	}
+
+	/* Run the query, quite heavy with joins */
 	static function join ( $request, $table, $table2, $table3 = '', $primaryKey, $columns, $whereResult=null, $whereAll=null )
 	{
 		$bindings = array();
@@ -355,7 +425,6 @@ class SSP {
 
 		return $key;
 	}
-
 
 	/**
 	 * Pull a particular property from each assoc. array in a numeric array, 

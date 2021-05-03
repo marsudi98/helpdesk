@@ -14,21 +14,22 @@ $(document).ready(function() {
         $("#jak_statform").submit();
     });
  
-	// DataTables initialisation
+	// DataTables initialisation ASD
 	$('#dynamic-data').DataTable( {
 	    processing: true,
 	    serverSide: true,
         responsive: true,
         paging: true,
 	    columnDefs: [
-    	{ "orderable": false, "targets": [1] }
+    	    { "orderable": false, "targets": [1] },
+    	    { "className": "font-weight-bold", "targets": [1] }
   		],
         <?php if ($USER_LANGUAGE != "en") { ?>
         language: {
             "url": "<?php echo BASE_URL_ORIG;?>js/dt_lang/<?php echo $USER_LANGUAGE;?>.js"
         },
         <?php } ?>
-  		order: [7, "ASC"],
+  		order: [5, "ASC"], 
 	    ajax: $.fn.dataTable.pipeline( {
             url: '<?php echo BASE_URL;?>ajax/support.php',
             pages: 5 // number of pages to cache

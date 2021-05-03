@@ -183,7 +183,7 @@ $.notify({icon: 'fa fa-exclamation-triangle', message: '<?php echo addslashes($_
 <?php } ?>
 </script>
 
-<?php if ($js_file_footer) include_once(APP_PATH.JAK_OPERATOR_LOC.'/template/'.$js_file_footer);?>
+<?php if ($js_file_footer) include_once(APP_PATH.'droppoint'.'/template/'.$js_file_footer);?>
 
 </body>
 </html>

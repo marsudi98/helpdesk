@@ -2927,6 +2927,7 @@ a[data-toggle="collapse"][aria-expanded="true"] .caret,
 
 .alert.alert-danger {
   background-color: #ff5050;
+  border: 3px solid #fff;
 }
 
 .alert.alert-warning {
@@ -9691,6 +9692,11 @@ select.selectpicker {
 
 .bootstrap-select .dropdown-menu li {
   position: relative;
+}
+
+.bootstrap-select .dropdown-menu li.selected {
+  background: #888;
+  color: #fff;
 }
 
 .bootstrap-select .dropdown-menu li.active small {
@@ -16617,4 +16623,12 @@ input.highcharts-range-selector {
   color: #aaa;
   font-style: italic; 
   font-size: 11px;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.dt-body-center{
+  text-align: center;
 }

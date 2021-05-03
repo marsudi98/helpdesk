@@ -122,6 +122,10 @@ if (!empty(JAKDB_MAIN_NAME) && JAK_MAIN_LOC) {
 				        	$errors['e1'] = $jkl['e1'];
 				        }
 
+						if ($jkp['jak_priority'] == '-') {
+							$errors['jp'] = 'Choose complain category';
+						}
+
 				        if (count($errors) == 0) {
 
 				        	$timenow = time();
@@ -236,7 +240,11 @@ if (!empty(JAKDB_MAIN_NAME) && JAK_MAIN_LOC) {
 				        
 				if (empty($jkp['content'])) {
 				    $errors['e1'] = $jkl['e1'];
-				}		        
+				}
+				
+				if ($jkp['jak_priority'] == '-') {
+					$errors['jp'] = 'Choose complain category';
+				}
 				        
 				if (count($errors) == 0) {
 

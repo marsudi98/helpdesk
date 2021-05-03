@@ -29,7 +29,7 @@ if (isset($_SESSION["sortdepid"]) && is_numeric($_SESSION["sortdepid"])) {
 }
 
 // DB table to use
-$table = JAKDB_PREFIX.'support_tickets AS t1';
+$table = JAKDB_PREFIX.'support_tickets AS t1 ';
 $table2 = ' LEFT JOIN '.JAKDB_PREFIX.'support_departments AS t2 ON (t1.depid = t2.id)';
 $table3 = '';
 
@@ -50,39 +50,52 @@ $columns = array(
 		} ),
 	array( 'db' => 't2.title', 'dbjoin' => 'title', 'dt' => 3 ),
 	array( 'db' => 't1.name', 'dbjoin' => 'name', 'dt' => 4 ),
-	array( 'db' => 't1.private', 'dbjoin' => 'private', 'dt' => 5, 'formatter' => function( $d, $row ) {
-			return (isset($d) && $d != 0 ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>');
+	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 5, 'formatter' => function( $d, $row ) {
+		if ($d == 1) {
+			return '<span class="badge badge-info">Open</span>';
+		} else if ($d == 2) {
+			return '<span class="badge badge-warning">Await Reply</span>';
+		} else if ($d == 3) {
+			return '<span class="badge badge-success">Close</span>';
+		} else if ($d == 4) {
+			return '<span class="badge badge-success">Closed</span>';
+		}
+	} ),
+	array( 'db' => 't1.initiated', 'dbjoin' => 'initiated', 'dt' => 6, 'formatter' => function( $d, $row ) {
+			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
 		} ),
-	array( 'db' => 't1.attachments', 'dbjoin' => 'attachments', 'dt' => 6, 'formatter' => function( $d, $row ) {
-			return (isset($d) && $d != 0 ? '<i class="fa fa-check"></i>' : '<i class="fa fa-times"></i>');
-		} ),
-	array( 'db' => 't1.reminder', 'dbjoin' => 'reminder', 'dt' => 7, 'formatter' => function( $d, $row ) {
-			return (isset($d) && $d == 3 ? '<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'rating', $row['id'])).'" data-toggle="modal" data-target="#jakModal"><i class="fa fa-check"></i></a>' : '<i class="fa fa-times"></i>');
+	array( 'db' => 't1.duedate', 'dbjoin' => 'duedate', 'dt' => 7, 'formatter' => function( $d, $row ) {
+			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
 		} ),
 	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 8, 'formatter' => function( $d, $row ) {
 			if (isset($_SESSION['jak_lcp_lang']) && file_exists(APP_PATH.JAK_OPERATOR_LOC.'/lang/'.$_SESSION['jak_lcp_lang'].'.php')) {
-			    include (APP_PATH.JAK_OPERATOR_LOC.'/lang/'.$_SESSION['jak_lcp_lang'].'.php');
+				include (APP_PATH.JAK_OPERATOR_LOC.'/lang/'.$_SESSION['jak_lcp_lang'].'.php');
 			} else {
-			    include (APP_PATH.JAK_OPERATOR_LOC.'/lang/'.JAK_LANG.'.php');
+				include (APP_PATH.JAK_OPERATOR_LOC.'/lang/'.JAK_LANG.'.php');
 			}
 			return '<div class="btn-group">
-    <button id="ticket_status_change" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <i class="fa fa-cog"></i>
-  </button>
-    <div class="dropdown-menu" aria-labelledby="ticket_status_change">
-    	<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 1)).'" class="dropdown-item">'.$jkl['hd169'].($d == 1 ? ' <i class="fa fa-check"></i>' : '').'</a>
-    	<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 2)).'" class="dropdown-item">'.$jkl['hd170'].($d == 2 ? ' <i class="fa fa-check"></i>' : '').'</a>
-    	<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 3)).'" class="dropdown-item">'.$jkl['hd171'].($d == 3 ? ' <i class="fa fa-check"></i>' : '').'</a>
-    	<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 4)).'" class="dropdown-item">'.$jkl['g248'].($d == 4 ? ' <i class="fa fa-check"></i>' : '').'</a>
-  </div>
-</div>';
-		} ),
-	array( 'db' => 't1.updated', 'dbjoin' => 'updated', 'dt' => 9, 'formatter' => function( $d, $row ) {
-			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
+				<button id="ticket_status_change" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-cog"></i>
+				</button>
+				<div class="dropdown-menu" aria-labelledby="ticket_status_change">
+					<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 1)).'" class="dropdown-item">'.$jkl['hd169'].($d == 1 ? ' <i class="fa fa-check"></i>' : '').'</a>
+					<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 2)).'" class="dropdown-item">'.$jkl['hd170'].($d == 2 ? ' <i class="fa fa-check"></i>' : '').'</a>
+					<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 3)).'" class="dropdown-item">'.$jkl['hd171'].($d == 3 ? ' <i class="fa fa-check"></i>' : '').'</a>
+					<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'status', $row['id'], 4)).'" class="dropdown-item">'.$jkl['g248'].($d == 4 ? ' <i class="fa fa-check"></i>' : '').'</a>
+				</div>
+			</div>';
 		} ),
 	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 'tdc' ),
-	array( 'db' => 't1.mergeid', 'dbjoin' => 'mergeid', 'dt' => 'mid' )
-);
+	array( 'db' => 't1.mergeid', 'dbjoin' => 'mergeid', 'dt' => 'mid' ),
+	array( 'db' => "DATEDIFF(CONCAT(t1.duedate,' 23:59:59'), CURRENT_TIMESTAMP()) AS check_duedate", 'dbjoin' => 'check_duedate', 'dt' => 'check_duedate' )
 
-die(json_encode(SSP::join( $_GET, $table, $table2, $table3, $primaryKey, $columns, $where, $where )));
+);
+// echo json_encode($_GET.'-'.$table.'-'.$table2.'-'.$table3.'-'.$primaryKey.'-'.$columns.'-'.$where.'-'.$where);
+// exit;
+// foreach ($_GET as $g) {
+// 	echo json_encode($g);
+	
+// }
+die(json_encode(SSP::join_custom( $_GET, $table, $table2, $table3, $primaryKey, $columns, $where, $where )));
+
 ?>

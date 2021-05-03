@@ -759,7 +759,8 @@ function jak_get_custom_fields($data, $location, $depid, $lang, $readonly, $admi
         	} elseif ($v["fieldtype"] == 4) {
         		// SELECT
         		$fields .= ($table ? '<tr><td>'.$v["title"].'</td><td>' : '<div class="form-group"><label for="'.$v["val_slug"].'">'.$v["title"].'</label>').'
-                            <select name="'.$v["val_slug"].'" class="form-control selectpicker">';
+                            <select name="'.$v["val_slug"].'" class="form-control selectpicker" data-style="select-with-transition" data-live-search="true">';
+                            $fields .= '<option value="" disabled selected>-- Pilih --</option>';
         		if (isset($fieldoptions) && !empty($fieldoptions)) foreach ($fieldoptions as $k => $z) {
                     $value = ($tl ? $k : $z);
         			$fields .= '<option value="'.$value.'"'.(isset($data[$v["val_slug"]]) && $data[$v["val_slug"]] == $value ? ' selected' : '').''.($readonly ? ' readonly' : '').'>'.$z.'</option>';

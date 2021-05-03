@@ -39,12 +39,17 @@ if (!empty($_POST['action']) && $_POST['action'] == 'login') {
         // Unset the recover message
         if (isset($_SESSION['password_recover'])) unset($_SESSION['password_recover']);
         
-        if (isset($_SESSION['LCRedirect']) && strpos($_SESSION['LCRedirect'], JAK_OPERATOR_LOC) !== false) {
-        	jak_redirect($_SESSION['LCRedirect']);
-        } else {
-        	jak_redirect(BASE_URL);
-        }
+        $is_dp = $jakdb->get("user", ["id"], ["AND" => ["username" => $username, "access" => 1, "is_dp" => 1]]); 
 
+        if (!empty($is_dp)) {
+            jak_redirect(BASE_URL_HOME."droppoint/");
+        } else {
+            if (isset($_SESSION['LCRedirect']) && strpos($_SESSION['LCRedirect'], JAK_OPERATOR_LOC) !== false) {
+                jak_redirect($_SESSION['LCRedirect']);
+            } else {
+                jak_redirect(BASE_URL);
+            }
+        }
     } else {
         $ErrLogin = $jkl['l'];
     }

@@ -645,7 +645,7 @@ switch ($page1) {
               $jakdb->update($jaktable, ["ended" => $ticketcreated], ["id" => $lastid]);
             }
 
-                // And we complete the custom fields
+            // And we complete the custom fields
             $formfields = $jakdb->select('customfields', "val_slug", ["fieldlocation" => 2]);
             if (isset($formfields) && !empty($formfields)) {
               foreach ($formfields as $v) {
@@ -946,7 +946,7 @@ switch ($page1) {
       if (is_numeric($page2) && jak_row_exist($page2,$jaktable)) {
 
         // Get the ticket data first ~ this is where the data fetched
-        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.awb", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "clients.name", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
+        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.awb", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "support_tickets.denda", "support_tickets.dp_bersalah", "clients.name", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $jkp = $_POST;
@@ -1583,15 +1583,15 @@ switch ($page1) {
       }
 
       // Check and validate
-      $verify_response = $jaklic->verify_license(true);
-      if ($verify_response['status'] != true) {
-          if (JAK_SUPERADMINACCESS) {
-              jak_redirect(JAK_rewrite::jakParseurl('maintenance'));
-          } else {
-              $_SESSION["errormsg"] = $jkl['e27'];
-              jak_redirect(BASE_URL);
-          }
-      }
+      // $verify_response = $jaklic->verify_license(true);
+      // if ($verify_response['status'] != true) {
+      //     if (JAK_SUPERADMINACCESS) {
+      //         jak_redirect(JAK_rewrite::jakParseurl('maintenance'));
+      //     } else {
+      //         $_SESSION["errormsg"] = $jkl['e27'];
+      //         jak_redirect(BASE_URL);
+      //     }
+      // }
 
       // Include the CSS file for the header
       $css_file_header = BASE_URL_ORIG.'css/dropzone.css';
@@ -2164,18 +2164,18 @@ switch ($page1) {
     $totalAll = $totalAllOT = $totalAllWT = $totalAllCT = $total_vote = $total_voted = 0;
 
     // Get the totals
-    $totalAll = $jakdb->count($jaktable, ["dp_bersalah" => $jakclient->getVar("name")]);
+    $totalAll = $jakdb->count($jaktable, ["dp_bersalah" => $jakuser->getVar("name")]);
 
     // Open Tickets
-    $totalAllOT = $jakdb->count($jaktable, ["AND" => ["status" => 1, "dp_bersalah" => $jakclient->getVar("name")]]);
+    $totalAllOT = $jakdb->count($jaktable, ["AND" => ["status" => 1, "dp_bersalah" => $jakuser->getVar("name")]]);
     
     // Awaiting Reply Tickets
-    $totalAllWT = $jakdb->count($jaktable, ["AND" => ["status" => 2, "dp_bersalah" => $jakclient->getVar("name")]]);
+    $totalAllWT = $jakdb->count($jaktable, ["AND" => ["status" => 2, "dp_bersalah" => $jakuser->getVar("name")]]);
     
     // Closed Tickets
-    $totalAllCT = $jakdb->count($jaktable, ["AND" => ["status" => 3, "dp_bersalah" => $jakclient->getVar("name")]]);
+    $totalAllCT = $jakdb->count($jaktable, ["AND" => ["status" => 3, "dp_bersalah" => $jakuser->getVar("name")]]);
 
-    $total_voted = $jakdb->count($jaktable, ["AND" => ["reminder" => 3, "dp_bersalah" => $jakclient->getVar("name")]]);
+    $total_voted = $jakdb->count($jaktable, ["AND" => ["reminder" => 3, "dp_bersalah" => $jakuser->getVar("name")]]);
     $total_vote = $jakdb->sum("ticket_rating", "vote");
 
     // Get the support departments
@@ -2207,5 +2207,10 @@ switch ($page1) {
       $js_file_footer = 'js_support.php';
       $template = 'support.php';
     } 
+    
+    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+    // echo json_encode($actual_link);
+    // exit;
   }
 ?>

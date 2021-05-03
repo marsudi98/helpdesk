@@ -4,8 +4,9 @@
 
 <?php if ($errors) { ?>
 <div class="alert alert-danger">
-<?php if (isset($errors["e"])) echo $errors["e"];
-	  if (isset($errors["e1"])) echo $errors["e1"];?>
+<?php if (isset($errors["e"])) echo '(!) '.$errors["e"];
+	  if (isset($errors["e1"])) echo '(!) '.$errors["e1"];
+	  if (isset($errors["jp"])) echo '(!) '.$errors["jp"];?>
 </div>
 <?php } if (isset($CLIENTS_ALL) && !empty($CLIENTS_ALL)) { ?>
 
@@ -14,73 +15,82 @@
 <div class="row">
 	<div class="col-md-8">
 		<?php if (!isset($_SESSION["userinfo"])) { ?>
-		<div class="card">
+			
+		<?php } 
+		//if (isset($_SESSION["userinfo"])) { ?>
+		<!-- <div class="card box-danger">
 			<div class="card-header">
-			  <h3 class="card-title"><?php echo $jkl["hd194"];?></h3>
-			</div><!-- /.box-header -->
+			  <h3 class="card-title"><?php //echo $jkl["hd195"];?></h3>
+			</div>
 			<div class="card-body">
 				<div class="form-group">
-					<select name="jak_clients" title="<?php echo $jkl["hd194"];?>" id="jak_clients" class="selectpicker" data-live-search="true">
-						<option disabled><?php echo $jkl["hd194"];?></option>
-						<?php foreach ($CLIENTS_ALL as $v) {
-						echo '<option value="'.$v["id"].':#:'.$v["support_dep"].':#:'.$v["name"].'"'.($v["id"].':#:'.$v["support_dep"].':#:'.$v["name"] == $_POST["jak_client"] ? ' selected' : '').'>'.$v["name"].' ('.$v["email"].')</option>';
-						} ?>
+					<select name="jak_depid" data-placeholder="<?php //echo $jkl["hd195"];?>" id="jak_depid" class="selectpicker" data-live-search="true">
+						<?php //foreach ($DEPARTMENTS_ALL as $d) {
+						//echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
+						//} ?>
 					</select>
 				</div>
 			</div>
 			<div class="card-footer">
-				<a href="<?php echo JAK_rewrite::jakParseurl('support');?>" class="btn btn-default"><?php echo $jkl["g103"];?></a>
-				<button type="submit" name="save" class="btn btn-primary"><?php echo $jkl["g38"];?></button>
+				<a href="<?php //echo JAK_rewrite::jakParseurl('support');?>" class="btn btn-default"><?php //echo $jkl["g103"];?></a>
+				<button type="submit" name="save" class="btn btn-primary"><?php //echo $jkl["g38"];?></button>
 			</div>
-		</div>
+		</div> -->
+		<?php  if (!isset($_SESSION["userinfo"])) { ?>
+
 		<div class="card">
 			<div class="card-header">
-			  <h3 class="card-title"><?php echo $jkl["hd112"];?></h3>
+			<h3 class="card-title"><?php echo 'Client';?></h3>
+			</div><!-- /.box-header -->
+			<div class="card-body">
+				<div class="form-group">
+					<label style="color:#3f4254;"><?php echo 'Select Client';?></label>
+					<select name="jak_clients" title="<?php echo $jkl["hd194"];?>" id="jak_clients" class="selectpicker" data-live-search="true">
+						<option disabled><?php echo $jkl["hd194"];?></option>
+						<?php foreach ($CLIENTS_ALL as $v) {
+							echo '<option value="'.$v["id"].':#:'.$v["support_dep"].':#:'.$v["name"].'"'.($v["id"].':#:'.$v["support_dep"].':#:'.$v["name"] == $_POST["jak_client"] ? ' selected' : '').'>'.$v["name"].' ('.$v["email"].')</option>';
+						} ?>
+					</select>
+				</div>
+			</div>
+
+			<div class="card-header pt-0">
+			<div class="form-check" style="padding-left: 0;">
+				<label class="form-check-label">
+					<input class="form-check-input" type="checkbox" id="newclient_cb" name="newclient_cb" value="1">
+					<span class="form-check-sign"></span> <label style="color:#3f4254;"><?php echo 'or New Client';?></label>
+				</label>
+			</div>
 			</div><!-- /.box-header -->
 			<div class="card-body">
 
 				<div class="form-group">
 					<label for="namec"><?php echo $jkl["u"];?></label>
-					<input type="text" name="jak_namec" id="namec" class="form-control<?php if (isset($errors["e1"])) echo " is-invalid";?>" value="<?php if (isset($_REQUEST["jak_namec"])) echo $_REQUEST["jak_namec"];?>">
+					<input disabled type="text" name="jak_namec" id="namec" class="form-control<?php if (isset($errors["e1"])) echo " is-invalid";?>" value="<?php if (isset($_REQUEST["jak_namec"])) echo $_REQUEST["jak_namec"];?>">
+				</div>
+
+				<div class="form-group">
+					<label for="phonec"><?php echo 'Contact Person';?></label>
+					<input disabled type="text" name="jak_phonec" id="phonec" class="form-control" value="<?php if (isset($_REQUEST["jak_phonec"])) echo $_REQUEST["jak_phonec"];?>">
 				</div>
 
 				<div class="form-group">
 					<label for="emailc"><?php echo $jkl["u1"];?></label>
-					<input type="text" name="jak_emailc" id="emailc" class="form-control<?php if (isset($errors["e2"])) echo " is-invalid";?>" value="<?php if (isset($_REQUEST["jak_emailc"])) echo $_REQUEST["jak_emailc"];?>">
+					<input disabled type="text" name="jak_emailc" id="emailc" class="form-control<?php if (isset($errors["e2"])) echo " is-invalid";?>" value="<?php if (isset($_REQUEST["jak_emailc"])) echo $_REQUEST["jak_emailc"];?>">
 				</div>
 
-				<div class="form-check">
+				<div class="form-check" style="padding-left: 0;">
 					<label class="form-check-label">
-						<input class="form-check-input" type="checkbox" name="send_email" value="1" checked>
-					    <span class="form-check-sign"></span> <?php echo $jkl["hd120"];?>
+						<input disabled class="form-check-input" type="checkbox" id="send_email" name="send_email" value="1" checked>
+						<span class="form-check-sign"></span> <?php echo $jkl["hd120"];?>
 					</label>
 				</div>
 			</div>
 			<div class="card-footer">
-				<a href="<?php echo JAK_rewrite::jakParseurl('support');?>" class="btn btn-default"><?php echo $jkl["g103"];?></a>
-				<button type="submit" name="save" class="btn btn-primary"><?php echo $jkl["g38"];?></button>
+				<!-- <a href="<?php //echo JAK_rewrite::jakParseurl('support');?>" class="btn btn-default"><?php echo $jkl["g103"];?></a>
+				<button type="submit" name="save" class="btn btn-primary"><?php echo $jkl["g38"];?></button> -->
 			</div>
 		</div>
-		<?php } if (isset($_SESSION["userinfo"]) && !isset($_SESSION["depinfo"])) { ?>
-		<div class="card box-danger">
-			<div class="card-header">
-			  <h3 class="card-title"><?php echo $jkl["hd195"];?></h3>
-			</div><!-- /.box-header -->
-			<div class="card-body">
-				<div class="form-group">
-					<select name="jak_depid" data-placeholder="<?php echo $jkl["hd195"];?>" id="jak_depid" class="selectpicker" data-live-search="true">
-						<?php foreach ($DEPARTMENTS_ALL as $d) {
-						echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
-						} ?>
-					</select>
-				</div>
-			</div>
-			<div class="card-footer">
-				<a href="<?php echo JAK_rewrite::jakParseurl('support');?>" class="btn btn-default"><?php echo $jkl["g103"];?></a>
-				<button type="submit" name="save" class="btn btn-primary"><?php echo $jkl["g38"];?></button>
-			</div>
-		</div>
-		<?php } if (isset($_SESSION["userinfo"]) && isset($_SESSION["depinfo"])) { ?>
 
 		<div class="card">
 			<div class="card-header">
@@ -136,7 +146,7 @@
 				<button type="submit" name="start-fresh" value="1" class="btn btn-danger btn-block"><?php echo $jkl["hd196"];?></button>
 			</div>
 		</div>
-		<?php if (isset($_SESSION["userinfo"]) && isset($_SESSION["depinfo"])) { ?>
+		<?php if (!isset($_SESSION["userinfo"]) && isset($_SESSION["depinfo"])) { ?>
 		<div class="card">
 			<div class="card-header">
 			  <h3 class="card-title"><?php echo $jkl["hd180"];?></h3>
@@ -170,11 +180,22 @@
 							<option value="3"><?php echo $jkl["hd171"];?></option>
 						</select>
 				  	</dd>	
+
+
+					<dt class="col-sm-5"><?php echo 'Sumber Complaint'; ?></dt>
+					<dd class="col-sm-7">
+					<select name="jak_depid" data-placeholder="<?php echo $jkl["hd195"];?>" id="jak_depid" class="selectpicker" data-live-search="true">
+						<?php foreach ($DEPARTMENTS_ALL as $d) {
+							echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
+						} ?>
+					</select>
+					</dd> 
+
 					<form>		
 						<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
-						<dt class="col-sm-5">Category<?php //echo $jkl['hd149'];?></dt>
+						<dt class="col-sm-5">Jenis Complaint<?php //echo $jkl['hd149'];?></dt>
 						<dd class="col-sm-7">
-							<select name="jak_priority" id="jak_priority" class="selectpicker">
+							<select name="jak_priority" id="jak_priority" class="selectpicker<?php if (isset($errors["jp"])) echo " is-invalid";?>">
 								<option value="-">Nothing selected</option>
 								<?php foreach ($PRIORITY_ALL as $p) {
 									echo '<option value="'.$p["id"].'-'.$p["duetime"].'">'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
@@ -184,18 +205,12 @@
 						<?php } ?>
 					</form>
 
-					<dt id="sc-label" class="col-sm-5"><?php echo $jkl['hd225'];?></dt>
+					<dt id="sc-label" class="col-sm-5">Rincian Complaint</dt>
 					<dd id="sc-select" class="col-sm-7">
 						<select name="jak_toption" id="jak_toption" class="selectpicker">
 							<option value="">Nothing selected</option>
 						</select>
 					</dd>
-
-				  	<dt class="col-sm-5"><?php echo $jkl['hd77'];?></dt>
-				  	<dd class="col-sm-7"><a href="<?php echo JAK_rewrite::jakParseurl('users', 'clients', $JAK_CLIENT_DATA["id"]);?>"><?php echo $JAK_CLIENT_DATA["name"];?></a></dd>
-
-				  	<dt class="col-sm-5"><?php echo $jkl['u1'];?></dt>
-				  	<dd class="col-sm-7"><a href="<?php echo JAK_rewrite::jakParseurl('users', 'clients', $JAK_CLIENT_DATA["id"]);?>"><?php echo $JAK_CLIENT_DATA["email"];?></a></dd>
 
 				  	<dt class="col-sm-5"><?php echo $jkl['hd172'];?></dt>
 				  	<dd class="col-sm-7">
@@ -231,18 +246,19 @@
 			</div>
 		</div>
 
-		<div class="card">
+		<!-- <div class="card">
 			<div class="card-header">
-			  <h3 class="card-title"><?php echo $jkl["hd148"];?></h3>
-			</div><!-- /.box-header -->
-			<div class="card-body">
-				<?php echo $custom_fields;?>
+			  <h3 class="card-title"><?php //echo $jkl["hd148"];?></h3>
 			</div>
+			<div class="card-body"> -->
+				<?php //echo $custom_fields;?>
+			<!-- </div>
 			<div class="card-footer">
-				<a href="<?php echo JAK_rewrite::jakParseurl('support');?>" class="btn btn-default"><?php echo $jkl["g103"];?></a>
-				<button type="submit" name="save" class="btn btn-primary"><?php echo $jkl["g38"];?></button>
+				<a href="<?php //echo JAK_rewrite::jakParseurl('support');?>" class="btn btn-default"><?php //echo $jkl["g103"];?></a>
+				<button type="submit" name="save" class="btn btn-primary"><?php //echo $jkl["g38"];?></button>
 			</div>
-		</div>
+		</div> -->
+		
 		<div class="card">
 			<div class="card-header">
 			  <h3 class="card-title"><?php echo $jkl["g181"];?></h3>

@@ -5,24 +5,24 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	tinymce.init({
-      selector: '#content-editor',
-      height: 300,
-      menubar: false,
-      plugins: [
-        'advlist autolink lists link image charmap print preview anchor textcolor',
-        'searchreplace visualblocks code fullscreen',
-        'insertdatetime media table contextmenu paste code responsivefilemanager codesample'
-      ],
-      toolbar: 'insert | undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat codesample code',
-      language: '<?php echo $BT_LANGUAGE;?>',
-      <?php if ($jkl["rtlsupport"]) { ?>
-      directionality : 'rtl',
-      <?php } ?>
-      external_filemanager_path:"<?php echo BASE_URL_ORIG;?>js/editor/filemanager/",
-      filemanager_title:"Filemanager" ,
-      external_plugins: { "filemanager" : "<?php echo BASE_URL_ORIG;?>js/editor/filemanager/plugin.min.js"},
-      relative_urls: false
-    });
+    selector: '#content-editor',
+    height: 300,
+    menubar: false,
+    plugins: [
+      'advlist autolink lists link image charmap print preview anchor textcolor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table contextmenu paste code responsivefilemanager codesample'
+    ],
+    toolbar: 'insert | undo redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | removeformat codesample code',
+    language: '<?php echo $BT_LANGUAGE;?>',
+    <?php if ($jkl["rtlsupport"]) { ?>
+    directionality : 'rtl',
+    <?php } ?>
+    external_filemanager_path:"<?php echo BASE_URL_ORIG;?>js/editor/filemanager/",
+    filemanager_title:"Filemanager" ,
+    external_plugins: { "filemanager" : "<?php echo BASE_URL_ORIG;?>js/editor/filemanager/plugin.min.js"},
+    relative_urls: false
+  });
 
   if ($(".datepicker").length != 0) {
     $('.datepicker').datetimepicker({
@@ -45,32 +45,31 @@ $(document).ready(function() {
   $('#jak_priority').on('change', function() {
     var priorityid = this.value;
     $.ajax({
-        url: url_sc,
-        type: "POST",
-        data: {
-          priorityid: priorityid
-        },
-        cache: false,
-        success: function(result) {
-          console.log(result);
-          if (result === "-") {
-            //  alert('waow');
-             $("#sc-label, #sc-select").css('display','none');
-          } else {
-            console.log('haish');
-            $("#sc-label, #sc-select").css('display','block');
-            $("#jak_toption").empty(); 
-            var res = JSON.parse(result);
-            $.each(res, function(key, value) { 
-              $('#jak_toption')
-                .append($("<option></option>")
-                .attr("value", value.id)
-                .text(value.title)); 
-                $("#jak_toption").val(value.id);
-                $("#jak_toption").selectpicker("refresh");
-            });
-          }
+      url: url_sc,
+      type: "POST",
+      data: {
+        priorityid: priorityid
+      },
+      cache: false,
+      success: function(result) {
+        console.log(result);
+        if (result === "-") {
+            $("#sc-label, #sc-select").css('display','none');
+        } else {
+          console.log('haish');
+          $("#sc-label, #sc-select").css('display','block');
+          $("#jak_toption").empty(); 
+          var res = JSON.parse(result);
+          $.each(res, function(key, value) { 
+            $('#jak_toption')
+              .append($("<option></option>")
+              .attr("value", value.id)
+              .text(value.title)); 
+              $("#jak_toption").val(value.id);
+              $("#jak_toption").selectpicker("refresh");
+          });
         }
+      }
     });
   });
 
@@ -124,6 +123,19 @@ $('select#supresp').on("change", function() {
     }
   });
     $('#supresp').val(0);
+  }
+});
+
+$('#newclient_cb').change(function() {
+  // $('#namec, #phonec, #emailc, #send_email').attr('disabled', !this.checked)
+  if($('#newclient_cb').prop('checked')){
+    $('#namec, #phonec, #emailc, #send_email').removeAttr('disabled');
+    $('#jak_clients').attr('disabled', true);
+    $('#jak_clients').selectpicker('refresh');
+  } else {
+    $('#namec, #phonec, #emailc, #send_email').attr('disabled', 'disabled');
+    $('#jak_clients').attr('disabled', false);
+    $('#jak_clients').selectpicker('refresh');
   }
 });
 

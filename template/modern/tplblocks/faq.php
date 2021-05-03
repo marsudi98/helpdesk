@@ -82,7 +82,7 @@
             <a href="<?php echo $faqparseurl;?>"><?php echo $jkl["hd1"];?></a>
           </div>
           <div class="stats ml-auto">
-            <?php echo date('d F Y', strtotime(str_replace('/', '-', JAK_base::jakTimesince($faq['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT))) );?>
+            <?php echo date('F, Y', strtotime(str_replace('/', '-', JAK_base::jakTimesince($faq['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT))) );?>
             
           </div>
         </div>

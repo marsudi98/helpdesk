@@ -95,7 +95,7 @@
       <div class="row">
         <div class="ml-auto mr-auto text-center">
           <h1 class="title">'.(isset($JAK_FORM_DATA["title"]) ? $JAK_FORM_DATA["title"] : $row["title"]).'</h1>
-          '.(isset($JAK_FORM_DATA['time']) ? '<h4 class="sub-title mx-auto">'.JAK_base::jakTimesince($JAK_FORM_DATA['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT).'</h4>' : '').'
+          '.(isset($JAK_FORM_DATA['time']) ? '<h4 class="sub-title mx-auto">'.date("d F, Y", strtotime(JAK_base::jakTimesince($JAK_FORM_DATA['time'], JAK_DATEFORMAT, JAK_TIMEFORMAT))).'</h4>' : '').'
         </div>
       </div>
     </div>

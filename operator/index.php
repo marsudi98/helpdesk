@@ -178,261 +178,269 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     $_SERVER['HTTP_REFERER'] = '';
 }
 
-    // home
-    if ($page == '') {
-        #show login page only if the admin is not logged in
-        #else show homepage
-        if (!JAK_USERID) {
-            require_once 'login.php';
-        } else {
-            require_once 'dashboard.php';
-            $JAK_PAGE_ACTIVE = 1;
+    $is_dp = $jakuser->getVar("is_dp");
+
+    if ($is_dp == 1) {
+        jak_redirect(BASE_URL_HOME.'droppoint');
+    } else {
+        // home
+        if ($page == '') {
+            #show login page only if the admin is not logged in
+            #else show homepage
+            if (!JAK_USERID) {
+                require_once 'login.php';
+            } else {
+                require_once 'dashboard.php';
+                $JAK_PAGE_ACTIVE = 1;
+                $checkp = 1;
+                $JAK_PAGE_ACTIVE = 1;
+            }
             $checkp = 1;
-        	$JAK_PAGE_ACTIVE = 1;
         }
-        $checkp = 1;
-    }
-    if ($page == 'logout') {
-        $checkp = 1;
-        if (JAK_USERID) {
+        if ($page == 'logout') {
+            $checkp = 1;
+            if (JAK_USERID) {
+
+                // Write the log file each time someone login after to show success
+                JAK_base::jakWhatslog('', JAK_USERID, 0, 3, 0, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $jakuser->getVar("username"), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
+
+                // User will be logged out
+                $jakuserlogin->jakLogout(JAK_USERID);
+
+                // Write the success message
+                $_SESSION["successmsg"] = $jkl['g14'];
+            }
+            jak_redirect(BASE_URL);
+        }
+        // forgot password
+        if ($page == 'forgot-password') {
+        
+            if (JAK_USERID || !is_numeric($page1) || !$jakuserlogin->jakForgotactive($page1)) jak_redirect(BASE_URL);
+            
+            // select user
+            $row = $jakdb->get("user", ["id", "username", "name", "email"], ["forgot" => $page1]);
+            
+            // create new password
+            $password = jak_password_creator();
+            $passcrypt = hash_hmac('sha256', $password, DB_PASS_HASH);
+            
+            // update table
+            $result = $jakdb->update("user", ["password" => $passcrypt], ["id" => $row['id']]);
 
             // Write the log file each time someone login after to show success
-            JAK_base::jakWhatslog('', JAK_USERID, 0, 3, 0, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $jakuser->getVar("username"), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
-
-            // User will be logged out
-            $jakuserlogin->jakLogout(JAK_USERID);
-
-            // Write the success message
-            $_SESSION["successmsg"] = $jkl['g14'];
+            JAK_base::jakWhatslog('', $row['id'], 0, 9, 0, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $row["username"], $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
+            
+            if (!$result) {
+                
+                $_SESSION["errormsg"] = $jkl["i2"];
+                // redirect back to home
+                jak_redirect(BASE_URL);
+                
+            } else {
+                
+                $mail = new PHPMailer(); // defaults to using php "mail()"
+                
+                if (JAK_SMTP_MAIL) {
+                    
+                        $mail->IsSMTP(); // telling the class to use SMTP
+                        $mail->Host = JAK_SMTPHOST;
+                        $mail->SMTPAuth = (JAK_SMTP_AUTH ? true : false); // enable SMTP authentication
+                        $mail->SMTPSecure = JAK_SMTP_PREFIX; // sets the prefix to the server
+                        $mail->SMTPAutoTLS = false;
+                        $mail->SMTPKeepAlive = (JAK_SMTP_ALIVE ? true : false); // SMTP connection will not close after each email sent
+                        $mail->Port = JAK_SMTPPORT; // set the SMTP port for the GMAIL server
+                        $mail->Username = JAK_SMTPUSERNAME; // SMTP account username
+                        $mail->Password = JAK_SMTPPASSWORD; // SMTP account password
+                        $mail->SetFrom(JAK_EMAIL);
+                        $mail->AddAddress($row["email"]);
+                        
+                    } else {
+                    
+                        $mail->SetFrom(JAK_EMAIL);
+                        $mail->AddAddress($row["email"]);
+                    
+                    }
+            
+                $body = sprintf($jkl['l16'], $row["name"], $password, JAK_TITLE);
+                $mail->MsgHTML($body);
+                $mail->AltBody = strip_tags($body);
+                $mail->Subject = JAK_TITLE.' - '.$jkl['l6'];
+                
+                if ($mail->Send()) {
+                    $_SESSION["infomsg"] = $jkl["l17"];
+                    jak_redirect(BASE_URL);  	
+                }
+                
+            }
+            
+            $_SESSION["errormsg"] = $jkl["sql"];
+            jak_redirect(BASE_URL);
         }
-        jak_redirect(BASE_URL);
+        if ($page == 'live') {
+            require_once 'live.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'support') {
+            require_once 'support.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'blog') {
+            require_once 'blog.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'faq') {
+            require_once 'faq.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'files') {
+            require_once 'files.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'response') {
+            require_once 'response.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'departments') {
+            require_once 'departments.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'answers') {
+            require_once 'answers.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'uonline') {
+            require_once 'uonline.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'leads') {
+            require_once 'leads.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'contacts') {
+            require_once 'contacts.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'chat') {
+            require_once 'chat.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'chats') {
+            require_once 'chats.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'notes') {
+            require_once 'notes.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'proactive') {
+            require_once 'proactive.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'bot') {
+            require_once 'bot.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'customfield') {
+            require_once 'customfield.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'blacklist') {
+            require_once 'blacklist.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'settings') {
+            require_once 'setting.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'buttons') {
+            require_once 'buttons.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'billing') {
+            require_once 'billing.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'widget') {
+            require_once 'widget.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'groupchat') {
+            require_once 'groupchat.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'users') {
+            require_once 'user.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'search') {
+            require_once 'search.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'statistics') {
+            require_once 'statistics.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'logs') {
+            require_once 'logs.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'maintenance') {
+            require_once 'maintenance.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'tickets') {
+            require_once 'tickets.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'ps') {
+            
+            if ($page1 == "success") {
+                $_SESSION["successmsg"] = $jkl["g299"];
+            } else {
+                $_SESSION["errormsg"] = $jkl["g300"];
+            }
+            jak_redirect(BASE_URL);
+        }
+        if ($page == '404') {
+            if (!JAK_USERID) jak_redirect(BASE_URL);
+            // Go to the 404 Page
+            $SECTION_TITLE = '404 / ' . JAK_TITLE;
+            $SECTION_DESC = "";
+            $template = '404.php';
+            $checkp = 1;
+        }
     }
-    // forgot password
-    if ($page == 'forgot-password') {
     
-    	if (JAK_USERID || !is_numeric($page1) || !$jakuserlogin->jakForgotactive($page1)) jak_redirect(BASE_URL);
-    	
-    	// select user
-        $row = $jakdb->get("user", ["id", "username", "name", "email"], ["forgot" => $page1]);
-    	
-    	// create new password
-    	$password = jak_password_creator();
-    	$passcrypt = hash_hmac('sha256', $password, DB_PASS_HASH);
-    	
-    	// update table
-        $result = $jakdb->update("user", ["password" => $passcrypt], ["id" => $row['id']]);
 
-        // Write the log file each time someone login after to show success
-        JAK_base::jakWhatslog('', $row['id'], 0, 9, 0, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $row["username"], $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
-    	
-    	if (!$result) {
-    		
-    		$_SESSION["errormsg"] = $jkl["i2"];
-    		// redirect back to home
-    		jak_redirect(BASE_URL);
-    		   
-    	} else {
-    		
-    		$mail = new PHPMailer(); // defaults to using php "mail()"
-    		
-    		if (JAK_SMTP_MAIL) {
-    			
-    				$mail->IsSMTP(); // telling the class to use SMTP
-    				$mail->Host = JAK_SMTPHOST;
-    				$mail->SMTPAuth = (JAK_SMTP_AUTH ? true : false); // enable SMTP authentication
-    				$mail->SMTPSecure = JAK_SMTP_PREFIX; // sets the prefix to the server
-                    $mail->SMTPAutoTLS = false;
-    				$mail->SMTPKeepAlive = (JAK_SMTP_ALIVE ? true : false); // SMTP connection will not close after each email sent
-    				$mail->Port = JAK_SMTPPORT; // set the SMTP port for the GMAIL server
-    				$mail->Username = JAK_SMTPUSERNAME; // SMTP account username
-    				$mail->Password = JAK_SMTPPASSWORD; // SMTP account password
-    				$mail->SetFrom(JAK_EMAIL);
-    				$mail->AddAddress($row["email"]);
-    				
-    			} else {
-    			
-    				$mail->SetFrom(JAK_EMAIL);
-    				$mail->AddAddress($row["email"]);
-    			
-    			}
-    	
-    		$body = sprintf($jkl['l16'], $row["name"], $password, JAK_TITLE);
-    		$mail->MsgHTML($body);
-    		$mail->AltBody = strip_tags($body);
-            $mail->Subject = JAK_TITLE.' - '.$jkl['l6'];
-    		
-    		if ($mail->Send()) {
-    			$_SESSION["infomsg"] = $jkl["l17"];
-    			jak_redirect(BASE_URL);  	
-    		}
-    		
-    	}
-    	
-    	$_SESSION["errormsg"] = $jkl["sql"];
-    	jak_redirect(BASE_URL);
-    }
-    if ($page == 'live') {
-        require_once 'live.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'support') {
-        require_once 'support.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'blog') {
-        require_once 'blog.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'faq') {
-        require_once 'faq.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'files') {
-        require_once 'files.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'response') {
-        require_once 'response.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'departments') {
-        require_once 'departments.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'answers') {
-        require_once 'answers.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'uonline') {
-        require_once 'uonline.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'leads') {
-        require_once 'leads.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'contacts') {
-        require_once 'contacts.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'chat') {
-        require_once 'chat.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'chats') {
-        require_once 'chats.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'notes') {
-        require_once 'notes.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'proactive') {
-        require_once 'proactive.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'bot') {
-        require_once 'bot.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'customfield') {
-        require_once 'customfield.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'blacklist') {
-        require_once 'blacklist.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'settings') {
-        require_once 'setting.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'buttons') {
-        require_once 'buttons.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'billing') {
-        require_once 'billing.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'widget') {
-        require_once 'widget.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'groupchat') {
-        require_once 'groupchat.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'users') {
-        require_once 'user.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'search') {
-        require_once 'search.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'statistics') {
-        require_once 'statistics.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'logs') {
-        require_once 'logs.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'maintenance') {
-        require_once 'maintenance.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'tickets') {
-        require_once 'tickets.php';
-        $JAK_PAGE_ACTIVE = 1;
-        $checkp = 1;
-    }
-    if ($page == 'ps') {
-        
-        if ($page1 == "success") {
-            $_SESSION["successmsg"] = $jkl["g299"];
-        } else {
-            $_SESSION["errormsg"] = $jkl["g300"];
-        }
-        jak_redirect(BASE_URL);
-    }
-    if ($page == '404') {
-        if (!JAK_USERID) jak_redirect(BASE_URL);
-        // Go to the 404 Page
-        $SECTION_TITLE = '404 / ' . JAK_TITLE;
-        $SECTION_DESC = "";
-        $template = '404.php';
-        $checkp = 1;
-    }
      
 // if page not found
 if ($checkp == 0) {

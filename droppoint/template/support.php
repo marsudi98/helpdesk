@@ -153,19 +153,27 @@
   <thead>
     <tr>
       <th style="width: 4%">#</th>
-      <th style="width: 3%"><input type="checkbox" id="jak_delete_all"></th>
       <th>Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
       <th>Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
       <th>User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
       <th>Denda <i class="fal fa-money" title="<?php echo "Denda"; ?>"></i></th>
       <th>Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
       <th>Created Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
-      <th>Private <i class="fal fa-user-shield" title="<?php echo $jkl["hd172"];?>"></i></th>
-      <th>Attachments <i class="fal fa-paperclip" title="<?php echo $jkl["hd168"];?>"></i></th>
     </tr>
   </thead>
   <tbody>
   </tbody>
+  <tfoot>
+    <tr>
+      <th style="width: 4%">#</th>
+      <th>Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
+      <th>Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
+      <th>User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
+      <th>Denda <i class="fal fa-money" title="<?php echo "Denda"; ?>"></i></th>
+      <th>Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
+      <th>Created Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    </tr>
+  </tfoot>
 </table>
 
 </div>

@@ -7,7 +7,7 @@
 				<div class="alert alert-info"><?php echo sprintf($jkl['hd115'], '<a href="'.JAK_rewrite::jakParseurl(JAK_CLIENT_URL).'">'.JAK_rewrite::jakParseurl(JAK_CLIENT_URL).'</a>');?></div>
 			</div>
 		<?php } else { ?>
-			<div class="col-md-8">
+			<div class="col-md-12">
 
 				<h3><?php echo $jkl['hd47'];?></h3>
 
@@ -25,14 +25,7 @@
 
 					<!-- <?php //if (!isset($_SESSION["depinfo"])) { echo json_encode($_SESSION["depinfo"]);  ?>
 
-						<div class="form-group bmd-form-group">
-							<label for="content-editor" class="bmd-label-static"><?php echo $jkl['hd102'];?></label>
-							<select name="jak_depid" id="jak_depid" class="form-control">
-								<?php //foreach ($DEPARTMENTS_ALL as $d) {
-									//echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
-								//} ?>
-							</select>
-						</div>
+						
 
 						<div class="row">
 							<div class="col-6">
@@ -129,11 +122,13 @@
 					<?php //} ?>
 
 				</div>
+				<div class="col-md-8">
+				</div>
 				<div class="col-md-4">
 
 					<?php //if (!isset($_SESSION["depinfo"])) { ?>
 
-						<div class="card card-blog">
+						<div class="card card-blog" style="display:none;">
 							<div class="card-header card-header-image">
 								<a href="javascript:void(0)">
 									<img src="<?php echo BASE_URL;?>/template/modern/img/card-project4.jpg" alt="priority">
@@ -143,6 +138,16 @@
 								</a>
 							</div>
 							<div class="card-body">
+
+								<div class="form-group bmd-form-group">
+									<label for="content-editor" class="bmd-label-static"><?php echo $jkl['hd102'];?></label>
+									<select name="jak_depid" id="jak_depid" class="form-control">
+										<?php foreach ($DEPARTMENTS_ALL as $d) {
+											echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
+										} ?>
+									</select>
+								</div>
+
 								<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
 									<div class="form-group">
 										<label for="email" class="bmd-label-floating"><?php echo $jkl['hd12'];?></label>

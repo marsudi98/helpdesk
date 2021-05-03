@@ -39,7 +39,7 @@
             <div class="row">
               <div class="col-5">
                 <div class="icon icon-info icon-circle">
-                  <i class="fal fa-ticket"></i>
+                  <i class="fa fa-ticket-alt"></i>
                 </div>
               </div>
               <div class="col-7 text-right">
@@ -66,7 +66,7 @@
             <div class="row">
               <div class="col-5">
                 <div class="icon icon-success icon-circle">
-                  <i class="fas fa-ticket"></i>
+                  <i class="fa fa-ticket-alt"></i>
                 </div>
               </div>
               <div class="col-7 text-right">
@@ -156,40 +156,38 @@
 <div class="card-body">
 
 
-<?php if (JAK_SUPERADMINACCESS) { ?>
+<?php if (true) { ?>
 <p class="pull-right">
 <button class="btn btn-info btn-sm btn-confirm" data-action="status1" data-title="<?php echo addslashes($jkl["hd25"]);?>" data-text="<?php echo addslashes($jkl["hd173"]);?>" data-type="warning" data-okbtn="<?php echo addslashes($jkl["g279"]);?>" data-cbtn="<?php echo addslashes($jkl["g280"]);?>"><?php echo $jkl['hd169'];?></button> <button class="btn btn-warning btn-sm btn-confirm" data-action="status2" data-title="<?php echo addslashes($jkl["hd25"]);?>" data-text="<?php echo addslashes($jkl["hd173"]);?>" data-type="warning" data-okbtn="<?php echo addslashes($jkl["g279"]);?>" data-cbtn="<?php echo addslashes($jkl["g280"]);?>"><?php echo $jkl['hd170'];?></button> <button class="btn btn-success btn-sm btn-confirm" data-action="status3" data-title="<?php echo addslashes($jkl["hd25"]);?>" data-text="<?php echo addslashes($jkl["hd173"]);?>" data-type="warning" data-okbtn="<?php echo addslashes($jkl["g279"]);?>" data-cbtn="<?php echo addslashes($jkl["g280"]);?>"><?php echo $jkl['hd171'];?></button> <button class="btn btn-danger btn-sm btn-confirm" data-action="delete" data-title="<?php echo addslashes($jkl["g48"]);?>" data-text="<?php echo addslashes($jkl["e30"]);?>" data-type="warning" data-okbtn="<?php echo addslashes($jkl["g279"]);?>" data-cbtn="<?php echo addslashes($jkl["g280"]);?>"><i class="fa fa-trash-alt"></i></button>
 </p>
 <div class="clearfix"></div>
 <?php } ?>
 
-<table id="dynamic-data" class="table table-striped" cellspacing="0" width="100%">
+<table id="dynamic-data" class="table table-hover" cellspacing="0" width="100%">
 <thead>
   <tr>
-    <th style="width: 4%">#</th>
+    <th style="width: 4%">#</th>  
     <th style="width: 3%"><input type="checkbox" id="jak_delete_all"></th>
-    <th>Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
-    <th>Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
-    <th>User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
-    <th>Private <i class="fal fa-user-shield" title="<?php echo $jkl["hd172"];?>"></i></th>
-    <th>Attachments <i class="fal fa-paperclip" title="<?php echo $jkl["hd168"];?>"></i></th>
-    <th>Rating <i class="fal fa-star" title="<?php echo $jkl["g85"];?>"></i></th>
-    <th>Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
-    <th>Created Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    <th >Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
+    <th >Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
+    <th >User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
+    <th style="text-align: center;">Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
+    <th >Created Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    <th>Due Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    <th style="text-align: center;">Status Action <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
   </tr>
 </thead>
 <tfoot>
   <tr>
     <th style="width: 4%">#</th>
     <th style="width: 3%"><input type="checkbox" id="jak_delete_all"></th>
-    <th><i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
-    <th><i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
-    <th><i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
-    <th><i class="fal fa-user-shield" title="<?php echo $jkl["hd172"];?>"></i></th>
-    <th><i class="fal fa-paperclip" title="<?php echo $jkl["hd168"];?>"></i></th>
-    <th><i class="fal fa-star" title="<?php echo $jkl["g85"];?>"></i></th>
-    <th><i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
-    <th><i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    <th>Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
+    <th>Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
+    <th>User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
+    <th style="text-align: center;">Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
+    <th>Created Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    <th>Due Date <i class="fal fa-clock" title="<?php echo $jkl["g174"];?>"></i></th>
+    <th style="text-align: center;">Status Action <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
   </tr>
 </tfoot>
 <tbody>

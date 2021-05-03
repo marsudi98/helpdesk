@@ -21,6 +21,12 @@ define('BASE_URL_ADMIN', BASE_URL);
 define('BASE_URL_ORIG', str_replace('/'.JAK_OPERATOR_LOC.'/', '/', BASE_URL));
 define('BASE_PATH_ORIG', str_replace('/'.JAK_OPERATOR_LOC.'', '/', _APP_MAIN_DIR));
 
+if (JAK_SITEHTTPS) {
+    define('BASE_URL_HOME', 'https://' . FULL_SITE_DOMAIN . '/helpdesk' . '/');
+} else {
+    define('BASE_URL_HOME', 'http://' . FULL_SITE_DOMAIN . '/helpdesk' . '/');
+}
+
 // Include some functions for the ADMIN Area
 include_once 'include/admin.function.php';
 include_once '../class/class.paginator.php';

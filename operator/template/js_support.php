@@ -20,24 +20,28 @@ $(document).ready(function() {
 	    serverSide: true,
         responsive: true,
 	    columnDefs: [
-    	{ "orderable": false, "targets": [1] }
+            { "orderable": false, "targets": [1] },
+            { "className": "font-weight-bold", "targets": [2]},
+            { "className": "dt-body-center", "targets": [0, 1, 5, 8]}
   		],
         <?php if ($USER_LANGUAGE != "en") { ?>
         language: {
                 "url": "<?php echo BASE_URL_ORIG;?>js/dt_lang/<?php echo $USER_LANGUAGE;?>.js"
         },
         <?php } ?>
-  		order: [9, "ASC"],
+  		// order: [9, "ASC"],
 	    ajax: $.fn.dataTable.pipeline( {
             url: '<?php echo BASE_URL;?>ajax/support.php',
             pages: 5 // number of pages to cache
         }),
         rowCallback: function( row, data ) {
-            if (data.tdc == 1) {
+            if(data.check_duedate < 0 && ( data.tdc == 1 || data.tdc == 2)){
+                $(row).addClass('table-danger');
+            } else if (data.tdc == 1) {
                 $(row).addClass('table-primary');
             } else if (data.tdc == 2) {
                 $(row).addClass('table-warning');
-            } else if (data.tdc == 3 || data.tdc == 4) {
+            } else if (data.check_duedate < 0 && (data.tdc == 3 || data.tdc == 4)) {    
                 $(row).addClass('table-success');
             }
         }

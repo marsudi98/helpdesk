@@ -153,7 +153,7 @@
 				  	<?php } ?>
 
 				  	<?php if (isset($DEPARTMENTS_ALL) && !empty($DEPARTMENTS_ALL)) { ?>
-					<dt class="col-sm-5" style="display:table-cell;vertical-align:middle;"><?php echo $jkl['g131'];?></dt>
+					<dt class="col-sm-5" style="display:table-cell;vertical-align:middle;">Sumber Complaint</dt>
 				  	<dd class="col-sm-7">
 				  		<select name="jak_depid" id="jak_depid" class="selectpicker" data-live-search="true">
 							<?php foreach ($DEPARTMENTS_ALL as $d) {
@@ -163,25 +163,26 @@
 						<input type="hidden" name="olddep" value="<?php echo $JAK_FORM_DATA["depid"];?>">
 				  	</dd>
 				  	<?php } ?>
-
-				  	<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
-					<dt class="col-sm-5">Category</dt> <!-- <?php //echo $jkl['hd149'];?> -->
-				  	<dd class="col-sm-7">
-				  		<select name="jak_priority" id="jak_priority" class="selectpicker" data-live-search="true">
-				  			<option value="0"<?php if ($JAK_FORM_DATA["priorityid"] == 0) echo 'selected';?>><?php echo $jkl['bw4'];?></option>
-							<?php foreach ($PRIORITY_ALL as $p) {
-								echo '<option value="'.$p["id"].'-'.$p["duetime"].'"'.($JAK_FORM_DATA["priorityid"] == $p["id"] ? ' selected' : '').'>'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
-							} ?>
-						</select>
-						<input type="hidden" name="oldpriority" value="<?php echo $JAK_FORM_DATA["priorityid"];?>">
-				  	</dd>
-				  	<?php } ?>
+					
+					<form>
+						<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
+						<dt class="col-sm-5">Jenis Complaint</dt> <!-- <?php //echo $jkl['hd149'];?> -->
+						<dd class="col-sm-7">
+							<select name="jak_priority" id="jak_priority" class="selectpicker" data-live-search="true">
+								<option value="0"<?php if ($JAK_FORM_DATA["priorityid"] == 0) echo 'selected';?>><?php echo $jkl['bw4'];?></option>
+								<?php foreach ($PRIORITY_ALL as $p) {
+									echo '<option value="'.$p["id"].'-'.$p["duetime"].'"'.($JAK_FORM_DATA["priorityid"] == $p["id"] ? ' selected' : '').'>'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
+								} ?>
+							</select>
+							<input type="hidden" name="oldpriority" value="<?php echo $JAK_FORM_DATA["priorityid"];?>">
+						</dd>
+						<?php } ?>
+					</form>
 
 				  	<?php if (isset($TOPTIONS_ALL) && !empty($TOPTIONS_ALL)) { ?>
-					<dt class="col-sm-5"><?php echo $jkl['hd225'];?></dt>
-				  	<dd class="col-sm-7">
+					<dt class="col-sm-5" id="sc-label">Rincian Complaint</dt>
+				  	<dd class="col-sm-7" id="sc-select">
 				  		<select name="jak_toption" id="jak_toption" class="selectpicker" data-live-search="true">
-				  			<option valude="0"<?php if ($JAK_FORM_DATA["toptionid"] == 0) echo ' selected';?>><?php echo $jkl['bw4'];?></option>
 							<?php foreach ($TOPTIONS_ALL as $t) {
 								echo '<option value="'.$t["id"].'"'.($JAK_FORM_DATA["toptionid"] == $t["id"] ? ' selected' : '').'>'.$t["title"].((JAK_BILLING_MODE == 1 && $t["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $t["credits"]).')' : '').'</option>';
 							} ?>

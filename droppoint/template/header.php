@@ -56,12 +56,12 @@
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <div class="user">
           <div class="photo">
-            <img src="<?php echo BASE_URL_ORIG.basename(JAK_FILES_DIRECTORY).$jakclient->getVar("picture");?>" alt="operator image">
+            <img src="<?php echo BASE_URL_ORIG.basename(JAK_FILES_DIRECTORY).$jakuser->getVar("picture");?>" alt="operator image">
           </div>
           <div class="info">
             <a href="<?php echo JAK_rewrite::jakParseurl('users','edit',JAK_USERID);?>">
               <span>
-                <?php echo $jakclient->getVar("name"); ?>
+                <?php echo $jakuser->getVar("name"); ?>
               </span>
             </a>
           </div>

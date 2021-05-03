@@ -36,8 +36,11 @@ $duedateformat = explode(":#:", JAK_TICKET_DUEDATE_FORMAT);
 
 switch ($page1) {
   case 'new':
-    // Reset some stuff
+
+  // Reset some stuff
   $userid = $depid = 0;
+  // Overwrite session
+  $_SESSION["depinfo"] = 0;
 
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $jkp = $_POST;
@@ -49,102 +52,116 @@ switch ($page1) {
       jak_redirect($_SESSION['LCRedirect']);
     }
 
-    if (isset($jkp['jak_clients']) && !empty($jkp['jak_clients'])) {
-      $_SESSION["userinfo"] = $jkp['jak_clients'];
-      $_SESSION["successmsg"] = $jkl['g14'];
-      jak_redirect($_SESSION['LCRedirect']);
-    } elseif (isset($jkp['jak_namec']) && !empty($jkp['jak_namec']) && isset($jkp['jak_emailc']) && filter_var($jkp['jak_emailc'], FILTER_VALIDATE_EMAIL)) {
+    // if (isset($jkp['jak_clients']) && !empty($jkp['jak_clients'])) {
+    //   $_SESSION["userinfo"] = $jkp['jak_clients'];
+    //   $_SESSION["successmsg"] = $jkl['g14'];
+    //   jak_redirect($_SESSION['LCRedirect']);
+    // } 
+    
+    if (isset($jkp['newclient_cb']) && $jkp['newclient_cb'] == 1) {
+      if (isset($jkp['jak_namec']) && !empty($jkp['jak_namec']) && isset($jkp['jak_emailc']) && filter_var($jkp['jak_emailc'], FILTER_VALIDATE_EMAIL)) {
 
-      // create new password
-      $password = jak_password_creator();
-      $passcrypt = hash_hmac('sha256', $password, DB_PASS_HASH);
-
-      $jakdb->insert($jaktable5, [ 
-        "chat_dep" => JAK_STANDARD_CHAT_DEP,
-        "support_dep" => JAK_STANDARD_SUPPORT_DEP,
-        "faq_cat" => JAK_STANDARD_FAQ_CAT,
-        "name" => $jkp['jak_namec'],
-        "email" => $jkp['jak_emailc'],
-        "password" => $passcrypt,
-        "canupload" => 1,
-        "access" => 1,
-        "time" => $jakdb->raw("NOW()")]);
-
-      $cid = $jakdb->id();
-                
-      // Create a folder
-      $newuserpath = APP_PATH.JAK_FILES_DIRECTORY.'/clients/'.$cid;
-                
-      if (!is_dir($newuserpath)) {
-        mkdir($newuserpath, 0755);
-        copy(APP_PATH.JAK_FILES_DIRECTORY."/clients/index.html", $newuserpath."/index.html");
-      }
-
-      // Write the log file each time someone tries to login before
-      JAK_base::jakWhatslog('', JAK_USERID, $cid, 12, $cid, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), filter_var($jkp['jak_emailc'], FILTER_SANITIZE_EMAIL), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
+        // create new password
+        $password = jak_password_creator();
+        $passcrypt = hash_hmac('sha256', $password, DB_PASS_HASH);
+  
+        $jakdb->insert($jaktable5, [ 
+          "chat_dep" => JAK_STANDARD_CHAT_DEP,
+          "support_dep" => JAK_STANDARD_SUPPORT_DEP,
+          "faq_cat" => JAK_STANDARD_FAQ_CAT,
+          "name" => $jkp['jak_namec'],
+          "phone" => $jkp['jak_phonec'],
+          "email" => $jkp['jak_emailc'],
+          "password" => $passcrypt,
+          "canupload" => 1,
+          "access" => 1,
+          "time" => $jakdb->raw("NOW()")]);
+  
+        $cid = $jakdb->id();
                   
-      // Now send the email to the customer if we wish so.
-      if (isset($jkp['send_email']) && $jkp['send_email'] == 1) {
-              
-        // Get the email template
-        $nlhtml = file_get_contents(APP_PATH.'template/'.JAK_FRONT_TEMPLATE.'/email/index.html');
-
-        // Change fake vars into real ones.
-        if (!empty($HD_ANSWERS) && is_array($HD_ANSWERS)) foreach ($HD_ANSWERS as $hda) {
-          if ($hda["msgtype"] == 14 && $hda["lang"] == JAK_LANG) {
-            $phold = array('{url}', '{title}', '{cname}', '{cemail}', '{cpassword}', '{email}');
-            $replace   = array(str_replace($url_filter, $url_replace, BASE_URL), JAK_TITLE, $jkp['jak_namec'], $jkp['jak_emailc'], $password, JAK_EMAIL);
-            $regtext = str_replace($phold, $replace, $hda["message"]);
-            break;
+        // Create a folder
+        $newuserpath = APP_PATH.JAK_FILES_DIRECTORY.'/clients/'.$cid;
+                  
+        if (!is_dir($newuserpath)) {
+          mkdir($newuserpath, 0755);
+          copy(APP_PATH.JAK_FILES_DIRECTORY."/clients/index.html", $newuserpath."/index.html");
+        }
+  
+        // Write the log file each time someone tries to login before
+        JAK_base::jakWhatslog('', JAK_USERID, $cid, 12, $cid, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), filter_var($jkp['jak_emailc'], FILTER_SANITIZE_EMAIL), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
+                    
+        // Now send the email to the customer if we wish so.
+        if (isset($jkp['send_email']) && $jkp['send_email'] == 1) {
+                
+          // Get the email template
+          $nlhtml = file_get_contents(APP_PATH.'template/'.JAK_FRONT_TEMPLATE.'/email/index.html');
+  
+          // Change fake vars into real ones.
+          if (!empty($HD_ANSWERS) && is_array($HD_ANSWERS)) foreach ($HD_ANSWERS as $hda) {
+            if ($hda["msgtype"] == 14 && $hda["lang"] == JAK_LANG) {
+              $phold = array('{url}', '{title}', '{cname}', '{cemail}', '{cpassword}', '{email}');
+              $replace   = array(str_replace($url_filter, $url_replace, BASE_URL), JAK_TITLE, $jkp['jak_namec'], $jkp['jak_emailc'], $password, JAK_EMAIL);
+              $regtext = str_replace($phold, $replace, $hda["message"]);
+              break;
+            }
           }
+                      
+          // Change fake vars into real ones.
+          $cssAtt = array('{emailcontent}', '{weburl}', '{title}');
+          $cssUrl   = array($regtext, str_replace($url_filter, $url_replace, BASE_URL), JAK_TITLE);
+          $nlcontent = str_replace($cssAtt, $cssUrl, $nlhtml);
+                      
+          $body = str_ireplace("[\]", "", $nlcontent);
+  
+          $mail = new PHPMailer(); // defaults to using php "mail()" or optional SMTP
+  
+          if (JAK_SMTP_MAIL) {
+            $mail->IsSMTP(); // telling the class to use SMTP
+            $mail->Host = JAK_SMTPHOST;
+            $mail->SMTPAuth = (JAK_SMTP_AUTH ? true : false); // enable SMTP authentication
+            $mail->SMTPSecure = JAK_SMTP_PREFIX; // sets the prefix to the server
+            $mail->SMTPAutoTLS = false;
+            $mail->SMTPKeepAlive = (JAK_SMTP_ALIVE ? true : false); // SMTP connection will not close after each email sent
+            $mail->Port = JAK_SMTPPORT; // set the SMTP port for the GMAIL server
+            $mail->Username = JAK_SMTPUSERNAME; // SMTP account username
+            $mail->Password = JAK_SMTPPASSWORD; // SMTP account password
+          }
+  
+          // Finally send the email
+          $mail->SetFrom(JAK_EMAIL);
+          $mail->addAddress($jkp['jak_emailc']);
+          $mail->Subject = JAK_TITLE.' - '.$jkl['hd33'];
+          $mail->MsgHTML($body);
+  
+          $mail->Send();
+  
         }
-                    
-        // Change fake vars into real ones.
-        $cssAtt = array('{emailcontent}', '{weburl}', '{title}');
-        $cssUrl   = array($regtext, str_replace($url_filter, $url_replace, BASE_URL), JAK_TITLE);
-        $nlcontent = str_replace($cssAtt, $cssUrl, $nlhtml);
-                    
-        $body = str_ireplace("[\]", "", $nlcontent);
-
-        $mail = new PHPMailer(); // defaults to using php "mail()" or optional SMTP
-
-        if (JAK_SMTP_MAIL) {
-          $mail->IsSMTP(); // telling the class to use SMTP
-          $mail->Host = JAK_SMTPHOST;
-          $mail->SMTPAuth = (JAK_SMTP_AUTH ? true : false); // enable SMTP authentication
-          $mail->SMTPSecure = JAK_SMTP_PREFIX; // sets the prefix to the server
-          $mail->SMTPAutoTLS = false;
-          $mail->SMTPKeepAlive = (JAK_SMTP_ALIVE ? true : false); // SMTP connection will not close after each email sent
-          $mail->Port = JAK_SMTPPORT; // set the SMTP port for the GMAIL server
-          $mail->Username = JAK_SMTPUSERNAME; // SMTP account username
-          $mail->Password = JAK_SMTPPASSWORD; // SMTP account password
-        }
-
-        // Finally send the email
-        $mail->SetFrom(JAK_EMAIL);
-        $mail->addAddress($jkp['jak_emailc']);
-        $mail->Subject = JAK_TITLE.' - '.$jkl['hd33'];
-        $mail->MsgHTML($body);
-
-        $mail->Send();
-
+  
+        // $_SESSION["userinfo"] = $cid.':#:'.JAK_STANDARD_SUPPORT_DEP.':#:'.$jkp['jak_namec'];
+        $jak_clients = $cid.':#:'.JAK_STANDARD_SUPPORT_DEP.':#:'.$jkp['jak_namec'];
+        
+        // $_SESSION["successmsg"] = $jkl['g14'];
+        // jak_redirect($_SESSION['LCRedirect']);
       }
-
-      $_SESSION["userinfo"] = $cid.':#:'.JAK_STANDARD_SUPPORT_DEP.':#:'.$jkp['jak_namec'];
-      $_SESSION["successmsg"] = $jkl['g14'];
-      jak_redirect($_SESSION['LCRedirect']);
     }
 
-    if (isset($jkp['jak_depid']) && is_numeric($jkp['jak_depid']) && $jkp['jak_depid'] != 0) {
-      $_SESSION["depinfo"] = $jkp['jak_depid'];
-      $_SESSION["successmsg"] = $jkl['g14'];
-      jak_redirect($_SESSION['LCRedirect']);
+    // if (isset($jkp['jak_depid']) && is_numeric($jkp['jak_depid']) && $jkp['jak_depid'] != 0) {
+    //   $_SESSION["depinfo"] = $jkp['jak_depid'];
+    //   $_SESSION["successmsg"] = $jkl['g14'];
+    //  jak_redirect($_SESSION['LCRedirect']);
+    // }
+
+    if (isset($jkp['newclient_cb'])) {
+      if(empty($jkp['jak_namec']) || empty($jkp['jak_phonec']) || empty($jkp['jak_emailc'])) {
+        $errors['e'] = 'Fill the client';
+      }
+    } else {
+      if (empty($jkp['jak_clients'])) {
+        $errors['e'] = $jkl['hd199'];
+      }
     }
-
-    if (!isset($_SESSION["userinfo"])) {
-      $errors['e'] = $jkl['hd199'];
-
-    } elseif (!$_SESSION["depinfo"]) {
+    
+    if (empty($jkp['jak_depid'])) {
       $errors['e'] = $jkl['hd200'];
     } else {
 
@@ -156,15 +173,22 @@ switch ($page1) {
         $errors['e1'] = $jkl['e1'];
       }
 
+      if ($jkp['jak_priority'] == '-') { 
+        $errors['jp'] = 'Choose complain category';
+      }
+
     }
 
     if (count($errors) == 0) {
-
       // Get the selected clientid
-      $saveclientid = explode(":#:", $_SESSION["userinfo"]);
+      if (isset($jkp['newclient_cb']) && $jkp['newclient_cb'] == 1) {
+        $saveclientid = explode(":#:", $jak_clients);
+      } else {
+        $saveclientid = explode(":#:", $jkp['jak_clients']);
+      }
 
       // Get the client data once again
-      $client_save = $jakdb->get($jaktable5, ["name", "email", "credits", "paid_until"], ["id" => $saveclientid[0]]);
+      $client_save = $jakdb->get($jaktable5, ["name", "phone", "email", "credits", "paid_until"], ["id" => $saveclientid[0]]);
 
       // Filter the subject
       $subjectf = trim($jkp['subject']);
@@ -191,15 +215,16 @@ switch ($page1) {
 
       // We need the time once
       $ticketcreated = time();
-
+      
       // Create the ticket
-      $result = $jakdb->insert($jaktable, ["depid" => $_SESSION["depinfo"],
+      $result = $jakdb->insert($jaktable, ["depid" => $jkp["jak_depid"],
         "subject" => $subjectf,
         "awb" => $awb,
         "content" => $contentf,
         "operatorid" => $jkp['jak_operator'],
         "clientid" => $saveclientid[0],
         "name" => $client_save["name"],
+        "phone" => $client_save["phone"],
         "email" => $client_save["email"],
         "referrer" => $jkp['jak_referrer'],
         "notes" => $notesf,
@@ -211,7 +236,7 @@ switch ($page1) {
         "updated" => $ticketcreated,
         "initiated" => $ticketcreated,
         "duedate" => $duedatesql]);
-
+      
       if (!$result) {
         $_SESSION["infomsg"] = $jkl['i'];
         jak_redirect($_SESSION['LCRedirect']);
@@ -439,18 +464,18 @@ switch ($page1) {
     // Get all clients
     $CLIENTS_ALL = $jakdb->select($jaktable5, ["id", "support_dep", "name", "email"], ["access" => 1, "ORDER" => ["name" => "ASC"]]);
     // Get the department for the selected client
-      if (isset($_SESSION["userinfo"]) && !empty($_SESSION["userinfo"])) {
+      // if (isset($_SESSION["userinfo"]) && !empty($_SESSION["userinfo"])) {
         $getdep = explode(":#:", $_SESSION["userinfo"]);
         if ($getdep[1] == 0) {
           $DEPARTMENTS_ALL = $jakdb->select($jaktable1, ["id", "title"], ["ORDER" => ["dorder" => "ASC"]]);
         } else {
           $DEPARTMENTS_ALL = $jakdb->select($jaktable1, ["id", "title"], ["id" => [$getdep[1]], "ORDER" => ["dorder" => "ASC"]]);
         }
-      }
+      // }
 
-      if (isset($_SESSION["userinfo"]) && isset($_SESSION["depinfo"])) {
+      if (!isset($_SESSION["userinfo"]) && isset($_SESSION["depinfo"])) {
 
-      // Now we get all the informations we need
+        // Now we get all the informations we need
         $getdep = explode(":#:", $_SESSION["userinfo"]);
         $clientid = $getdep[0];
 
@@ -469,7 +494,7 @@ switch ($page1) {
         $OPERATOR_CC = $jakdb->select($jaktable9, "operatorid", ["ticketid" => $page2]);
 
         // Get the custom fields if any
-        $custom_fields = jak_get_custom_fields($jkp, 2, $JAK_DEP_DATA["id"], $jakuser->getVar("language"), false, false, false, false);
+        $custom_fields = jak_get_custom_fields(1, 2, $JAK_DEP_DATA["id"], $jakuser->getVar("language"), false, false, false, false);
 
         // Get the standard support responses
         $JAK_RESPONSE_DATA = "";
@@ -477,7 +502,7 @@ switch ($page1) {
 
           $JAK_RESPONSE_DATA .= '<option value="0">'.$jkl["g7"].'</option>';
           
-        // get the responses from the file specific for this client
+          // get the responses from the file specific for this client
           foreach($HD_RESPONSEST as $r) {
 
             if ($r["depid"] == 0 || $r["depid"] == $JAK_DEP_DATA["id"]) {
@@ -554,6 +579,21 @@ switch ($page1) {
           $sub_category = $jakdb->select("ticketoptions", ["id", "title"], ["priorityid" => $jp_ex]);
 
           echo json_encode($sub_category);
+        }        
+      }
+    break;
+    case 'subread-category':
+      if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $jkp = $_POST;
+        
+        if ($jkp['priorityid'] == '-') {
+          $sub_category = '-';
+        } else {
+          $jp_ex = explode('-', $jkp['priorityid']);
+          $jak_priority = $jp_ex[0];
+          $jp_exres = $jp_ex[1];
+          
+          $sub_category = $jakdb->select("ticketoptions", ["id", "title"], ["priorityid" => $jp_ex]);
         }        
       }
     break;
@@ -988,7 +1028,7 @@ switch ($page1) {
             $jp_exres = $jp_ex[1];
  
             // We save the new data
-            $jakdb->update($jaktable, ["depid" => $jkp['jak_depid'], "operatorid" => $jkp['jak_opid'], "priorityid" => $jak_priority, "toptionid" => $jkp['jak_toption']], ["id" => $page2]);
+            $jakdb->update($jaktable, ["depid" => $jkp['jak_depid'], "operatorid" => $jkp['jak_opid'], "priorityid" => $jak_priority, "toptionid" => $jkp['jak_toption'], "updated" => time()], ["id" => $page2]);
 
             // tambahan untuk due date sesuai priority/complaint category
             $duedate = new DateTime($jkp["created_date"]);
@@ -1561,7 +1601,7 @@ switch ($page1) {
       $PRIORITY_ALL = $jakdb->select($jaktable3, "*", ["depid" => [0, $JAK_FORM_DATA["depid"]]]);
 
       // Get all options
-      $TOPTIONS_ALL = $jakdb->select($jaktable8, "*", ["depid" => [0, $JAK_FORM_DATA["depid"]]]);
+      $TOPTIONS_ALL = $jakdb->select($jaktable8, "*", ["depid" => [0, $JAK_FORM_DATA["depid"]], "priorityid" => [0, $JAK_FORM_DATA["priorityid"]]]);
 
       // Get all operators in cc
       $OPERATOR_CC = $jakdb->select($jaktable9, "operatorid", ["ticketid" => $page2]);
@@ -1592,6 +1632,7 @@ switch ($page1) {
 
       // Get the custom fields if any
       $JAK_CUSTOM_FIELD_DATA = $jakdb->get($jaktable, "*", ["id" => $page2]);
+
       $custom_fields = jak_get_custom_fields($JAK_CUSTOM_FIELD_DATA, 2, $JAK_FORM_DATA["depid"], $jakuser->getVar("language"), false, false, false, false);
 
       // Get the attachments if any

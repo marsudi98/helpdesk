@@ -178,20 +178,20 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     $_SERVER['HTTP_REFERER'] = '';
 }
 
-$is_dp = $jakclient->getVar("is_dp");
+$is_dp = $jakuser->getVar("is_dp");
 
-if (!JAK_CLIENTID) {
-	jak_redirect(BASE_URL_HOME.'index.php?p=login');
+if (!JAK_USERID) {
+	jak_redirect(BASE_URL_HOME);
 } else {
 	if ($is_dp == 0 || $is_dp == null) {
-		jak_redirect(BASE_URL_HOME);
+		jak_redirect(BASE_URL_HOME.'operator');
 	} else {
 		// home
 		if ($page == '') {
 			#show login page only if the admin is not logged in
 			#else show homepage
-			if (!JAK_CLIENTID) {
-				jak_redirect('http://10.100.80.21/helpdesk/index.php?p=login');
+			if (!JAK_USERID) {
+				jak_redirect(BASE_URL_HOME.'operator');
 			} else {
 				require_once 'support.php';
 				$JAK_PAGE_ACTIVE = 1;
@@ -203,19 +203,16 @@ if (!JAK_CLIENTID) {
 		if ($page == 'logout') {
 			$checkp = 1;
 
-			// Get the user Agent, one more time
-			$valid_agent = filter_var($_SERVER['HTTP_USER_AGENT'], FILTER_SANITIZE_STRING);
-
 			// Write the log file each time someone login after to show success
-			JAK_base::jakWhatslog('', 0, JAK_CLIENTID, 6, 0, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $jakclient->getVar("email"), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
+            JAK_base::jakWhatslog('', JAK_USERID, 0, 3, 0, (isset($_COOKIE['WIOgeoData']) ? $_COOKIE['WIOgeoData'] : ''), $jakuser->getVar("username"), $_SERVER['REQUEST_URI'], $ipa, $valid_agent);
 
-			// Client will be logged out
-			$jakclientlogin->jakLogout(JAK_CLIENTID);
-			// Write the success message
-			$_SESSION["successmsg"] = $jkl['g14'];
+            // User will be logged out
+            $jakuserlogin->jakLogout(JAK_USERID);
 
-			$_SESSION["successmsg"] = $jkl['s'];
-			jak_redirect(BASE_URL);
+            // Write the success message
+            $_SESSION["successmsg"] = $jkl['g14'];
+
+			jak_redirect(BASE_URL_HOME."operator");
 		}	
 		// forgot password
 		if ($page == 'forgot-password') {
