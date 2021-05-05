@@ -59,6 +59,16 @@
 				</select>
 			</div>
 
+			<div class="form-group">
+				<p><label><?php echo 'DP Account';?></label></p>
+				<select name="is_dp" class="selectpicker" title="DP Account">
+					<option value="" disabled>Choose</option>
+					<option value="0"<?php if ($JAK_FORM_DATA["is_dp"] == '0') echo ' selected';?>>No</option>
+					<option value="1"<?php if ($JAK_FORM_DATA["is_dp"] == '1') echo ' selected';?>>Yes</option>
+				</select>
+			</div>
+
+
 			<h4 class="card-title"><?php echo $jkl["u10"];?></h4>
             <div class="form-group form-file-upload form-file-simple">
                 <input type="text" class="form-control inputFileVisible" placeholder="<?php echo $jkl['g8'];?>">

@@ -19,19 +19,19 @@
 
 /*      light colors         */
 
-.btn,
-.navbar .navbar-nav>a.btn {
+.btn, 
+.navbar.navbar-nav>a.btn {
   border-width: 2px;
   font-weight: 400;
-  font-size: 0.8571em;
+  font-size: 0.8971em;
   line-height: 1.35em;
-  border: none;
+  border: 1px solid #E3E3E3;
   margin: 10px 1px;
   border-radius: 0.1875rem;
   padding: 11px 22px;
   cursor: pointer;
-  background-color: #888;
-  color: #FFFFFF;
+  background-color: #ffffff;
+  color: #2c2c2c;
 }
 
 .btn:hover,
@@ -2165,7 +2165,8 @@ a.text-gray:hover {
 
 body {
   color: #3f4254;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 420;
   font-family: "Poppins", sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -6850,7 +6851,7 @@ img {
 }
 
 .card label {
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 5px;
   color: #9A9A9A;
 }

@@ -2165,7 +2165,8 @@ a.text-gray:hover {
 
 body {
   color: #3f4254;
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 425;
   font-family: "Poppins", sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

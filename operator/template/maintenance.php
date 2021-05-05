@@ -124,70 +124,7 @@
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
 <div class="content">
 	<div class="row">
-    	<div class="col-md-6">
-        	<div class="card">
-        		<div class="card-header">
-        			<h3 class="card-title"><i class="fa fa-id-badge"></i> <?php echo $jkl["g332"];?></h3>
-        		</div>
-            	<div class="card-body">
-            		<div class="alert alert-info">
-                  <span><?php echo $licmsg;?></span>
-                </div>
-                <?php if ($verify_response['status'] != true) { ?>
-	              <div class="form-group">
-							   <label for="jaklic"><?php echo $jkl["g333"];?></label>
-							   <input type="text" name="jak_lic" id="jaklic" class="form-control<?php if (isset($errors["e1"])) echo " is-invalid";?>" autocomplete="off">
-						    </div>
-
-						<div class="form-group">
-							<label for="jaklicusr"><?php echo $jkl["g334"];?></label>
-							<input type="text" name="jak_licusr" id="jaklicusr" class="form-control<?php if (isset($errors["e2"])) echo " is-invalid";?>" autocomplete="off">
-						</div>
-						<button type="submit" name="regLicense" class="btn btn-primary"><?php echo $jkl["g4"];?></button>
-                	<?php } else { ?>
-                		<button type="submit" name="deregLicense" class="btn btn-danger"><?php echo $jkl["g335"];?></button>
-                	<?php } ?>
-                </div>
-            </div>
-            <div class="card">
-        		<div class="card-header">
-        			<h3 class="card-title"><i class="fa fa-file-certificate"></i> <?php echo $jkl["g236"];?></h3>
-        		</div>
-        		<div class="card-body">
-        			<?php if ($verify_response['status']) { $update_data = $jaklic->check_update();?>
-        			<div class="alert alert-info">
-        				<span><?php echo $update_data['message'];?></span>
-        			</div>
-        			<?php if ($update_data['status']) { ?>
-					<p><?php echo $update_data['changelog'];?></p><?php 
-                	$update_id = null;
-                	$has_sql = null;
-                	$version = null;
-                	if (!empty($_POST['update_id'])) {
-                  	$update_id = strip_tags(trim($_POST["update_id"]));
-                  	$has_sql = strip_tags(trim($_POST["has_sql"]));
-                  	$version = strip_tags(trim($_POST["version"]));
-                  	?>
-                  	<div class="progress-container progress-primary mb-3">
-                      <span class="progress-badge"><?php echo $jkl['g336'];?></span>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" id="updprog" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                          <span class="progress-value" id="updprogval">0%</span>
-                        </div>
-                      </div>
-                    </div>
-                    <?php
-                  	$jaklic->download_update($_POST['update_id'], $_POST['has_sql'], $_POST['version']);
-        			} else { ?>
-        			  <input type="hidden" value="<?php echo $update_data['update_id'];?>" name="update_id">
-                <input type="hidden" value="<?php echo $update_data['has_sql'];?>" name="has_sql">
-                <input type="hidden" value="<?php echo $update_data['version'];?>" name="version">
-                <button type="submit" name="updSoftware" class="btn btn-success"><?php echo $jkl["g235"];?></button>
-              <?php } } } ?>
-        		</div>
-        	</div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-9">
 			<div class="card">
 				<div class="card-header">
         			<h3 class="card-title"><i class="fa fa-tools"></i> <?php echo $jkl["m19"];?></h3>

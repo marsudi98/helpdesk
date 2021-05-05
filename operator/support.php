@@ -2101,6 +2101,17 @@ switch ($page1) {
             jak_redirect(JAK_rewrite::jakParseurl('support'));
           }
 
+          if (isset($jkp['action']) && $jkp['action'] == "stat_filter") {
+            if (isset($jkp['jak_statfilter']) && is_numeric($jkp['jak_statfilter']) && $jkp['jak_statfilter'] != 0) {
+                $_SESSION["jak_statfilter"] = $jkp['jak_statfilter'];
+
+                // echo json_encode($_SESSION["jak_statfilter"]);
+                // exit;
+                jak_redirect(JAK_rewrite::jakParseurl('support', 'stat', $_SESSION["jak_statfilter"]));
+            }
+            jak_redirect(JAK_rewrite::jakParseurl('support'));
+          }
+
           if (isset($jkp['action']) && $jkp['action'] == "delete") {
 
             if (!JAK_USERID || !JAK_SUPERADMINACCESS) jak_redirect(BASE_URL);

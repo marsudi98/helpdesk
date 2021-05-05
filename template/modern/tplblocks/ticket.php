@@ -13,22 +13,22 @@
 				<div class="card bg-rose" style="margin-bottom:0;">
 					<div class="card-body">
 						<h6 class="card-category text-dark">
-							<i class="material-icons">trending_up</i> <?php if (isset($JAK_FORM_DATA["department"])) echo $JAK_FORM_DATA["department"];?>
+							<p style="font-size:12px;text-transform:capitalize;font-weight:700;"><?php if (isset($JAK_FORM_DATA["department"])) echo $JAK_FORM_DATA["department"];?></p>
 						</h6>
-						<h3 class="card-title">
+						<h3 class="card-title card-title-fs">
 							<a href="javascript:void(0)"><?php echo $JAK_FORM_DATA["title"];?></a>
 						</h3>
 						
-						<div style="font-size:14px;"><?php echo $JAK_FORM_DATA["content"];?></div>
+						<div style="font-size:13px;background:#ecf0f1;padding:10px;border-radius:5px;"><?php echo $JAK_FORM_DATA["content"];?></div>
 					</div>
 					<div class="card-footer ">
 						<div class="author">
 							<a href="javascript:void(0)">
 								<img src="<?php echo BASE_URL.JAK_FILES_DIRECTORY.$JAK_FORM_DATA["picture"];?>" alt="<?php echo $JAK_FORM_DATA["name"];?>" class="avatar img-raised">
-								<span style="color:#000;"><?php echo $JAK_FORM_DATA["name"];?></span>
+								<span style="color:#000;font-size:12px;"><?php echo $JAK_FORM_DATA["name"];?></span>
 							</a>
 						</div>
-						<div class="stats ml-auto">
+						<div class="stats ml-auto" style="font-size:12px;">
 							<i class="material-icons">schedule</i> <?php echo JAK_base::jakTimesince($JAK_FORM_DATA['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?>
 						</div>
 					</div>
@@ -44,7 +44,7 @@
 				<div class="card<?php echo ($a["oname"] ? ' bg-info' : ' bg-secondary');?>" style="color:#fffff !important;">
 					<div class="card-body">
 						<!-- <h4 class="card-title"> -->
-							<div id="edit-content<?php echo $a["id"];?>" style="font-size:14px;"><?php echo $a["content"];?></div>
+							<div id="edit-content<?php echo $a["id"];?>" style="font-size:13px;font-weight:400;background:#ecf0f1;padding:10px;border-radius:5px;"><?php echo $a["content"];?></div>
 						<!-- </h4> -->
 					</div>
 					<div class="card-footer ">
@@ -150,21 +150,21 @@
 			<div class="card-body">
 
 				<?php if (isset($JAK_PRIORITY_DATA["title"])) { ?>
-					<h4 class="info-title"><?php echo $jkl['hd12'];?> <small style="font-size:80%"><?php echo $JAK_PRIORITY_DATA["title"];?></small></h4>
+					<h5 class="info-title"><?php echo $jkl['hd12'];?> : <small style="font-size:90%;font-weight:450!important;"><?php echo $JAK_PRIORITY_DATA["title"];?></small></h5>
 				<?php } if (isset($JAK_OPTION_DATA["title"])) { ?>
-					<h4 class="info-title"><?php echo $jkl['hd98'];?> <small style="font-size:80%"><?php echo $JAK_OPTION_DATA["title"]; if (!empty($JAK_OPTION_DATA["icon"])) {?> <i class="fa <?php echo $JAK_OPTION_DATA["icon"];?>"><?php } ?></i></small></h4>
+					<h5 class="info-title"><?php echo 'Rincian Complaint';?> : <small style="font-size:90%;font-weight:450!important;"><?php echo $JAK_OPTION_DATA["title"]; if (!empty($JAK_OPTION_DATA["icon"])) {?> <i class="fa <?php echo $JAK_OPTION_DATA["icon"];?>"><?php } ?></i></small></h5>
 				<?php } ?>
-				<h4 class="info-title"><?php echo $jkl['hd83'];?> <small style="font-size:80%"><?php echo $JAK_FORM_DATA["name"];?></small></h4>
+				<h5 class="info-title"><?php echo $jkl['hd83'];?> : <small style="font-size:90%;font-weight:450!important;"><?php echo $JAK_FORM_DATA["name"];?></small></h5>
 
-				<h4 class="info-title"><?php echo $jkl['hd79'];?> <small style="font-size:80%"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['updated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h4>
+				<h5 class="info-title"><?php echo $jkl['hd79'];?> : <small style="font-size:90%;font-weight:450!important;"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['updated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h5>
 
-				<h4 class="info-title"><?php echo $jkl['hd80'];?> <small style="font-size:80%"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h4>
+				<h5 class="info-title"><?php echo $jkl['hd80'];?> : <small style="font-size:90%;font-weight:450!important;"><?php echo JAK_base::jakTimesince($JAK_FORM_DATA['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></small></h5>
 
-				<h4 class="info-title"><?php echo $jkl['hd81'];?> <small style="font-size:80%"><?php echo ($JAK_FORM_DATA['ended'] ? JAK_base::jakTimesince($JAK_FORM_DATA['ended'], JAK_DATEFORMAT, JAK_TIMEFORMAT) : '-');?></small></h4>
+				<h5 class="info-title"><?php echo $jkl['hd81'];?> : <small style="font-size:90%;font-weight:450!important;"><?php echo ($JAK_FORM_DATA['ended'] ? JAK_base::jakTimesince($JAK_FORM_DATA['ended'], JAK_DATEFORMAT, JAK_TIMEFORMAT) : '-');?></small></h5>
 
 				<?php if ($ticketwrite && $ticketopen) { ?>
 
-					<h4 class="info-title"><?php echo $jkl['hd11'];?></h4>
+					<h5 class="info-title"><?php echo $jkl['hd11'];?>  : </h5>
 
 					<div class="form-group">
 						<label for="jak_status" class="bmd-label-floating sr-only"><?php echo $jkl['hd11'];?></label>
@@ -188,7 +188,7 @@
 					</form>
 				<?php } else { ?>
 
-					<h4 class="info-title"><?php echo $jkl['hd11'];?> <small><?php echo ($JAK_FORM_DATA["status"] == 1 ? $jkl['hd14'] : ($JAK_FORM_DATA["status"] == 2 ? $jkl['hd15'] : $jkl['hd16']));?></small></h4>
+					<h5 class="info-title"><?php echo $jkl['hd11'];?> <small style="font-size:90%;font-weight:450!important;"><?php echo ($JAK_FORM_DATA["status"] == 1 ? $jkl['hd14'] : ($JAK_FORM_DATA["status"] == 2 ? $jkl['hd15'] : $jkl['hd16']));?></small></h5>
 
 				<?php } ?>
 

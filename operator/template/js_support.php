@@ -13,6 +13,10 @@ $(document).ready(function() {
     $(document).on("change", "#jak_depid", function() {
         $("#jak_statform").submit();
     });
+
+    $(document).on("change", "#jak_statfilter", function() {
+        $("#stat_form").submit();
+    });
  
 	// DataTables initialisation
 	$('#dynamic-data').DataTable( {
@@ -41,7 +45,7 @@ $(document).ready(function() {
                 $(row).addClass('table-primary');
             } else if (data.tdc == 2) {
                 $(row).addClass('table-warning');
-            } else if (data.check_duedate < 0 && (data.tdc == 3 || data.tdc == 4)) {    
+            } else if (data.check_duedate < 0 || (data.tdc == 3 || data.tdc == 4)) {    
                 $(row).addClass('table-success');
             }
         }

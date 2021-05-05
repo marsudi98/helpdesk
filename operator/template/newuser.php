@@ -49,6 +49,15 @@
 			</select>
 		</div>
 
+		<div class="form-group">
+            <p><label><?php echo 'DP Account';?></label></p>
+            <select name="is_dp" class="selectpicker" title="DP Account">
+				<option value="0" disabled>Choose</option>
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+			</select>
+		</div>
+
 		<label><?php echo $jkl["u3"];?></label>
 		<div class="form-check form-check-radio">
            	<label class="form-check-label">

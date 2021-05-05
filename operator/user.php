@@ -20,7 +20,7 @@ $jaktable = 'user';
 $jaktable1 = 'user_stats';
 $jaktable2 = 'departments';
 $jaktable3 = 'clients';
-$jaktable4 = 'support_departments';
+$jaktable4 = 'support_departments'; 
 $jaktable5 = 'faq_categories';
 $jaktable6 = 'customfields';
 $jaktable7 = 'support_tickets';
@@ -546,6 +546,7 @@ switch ($page1) {
 				"invitationmsg" => $jkp['jak_inv'],
 				"permissions" => $tw_roles,
 				"access" => $jkp['jak_access'],
+				"is_dp" => $jkp['is_dp'],
 				"time" => $jakdb->raw("NOW()")]);
 
 			$lastid = $jakdb->id();
@@ -824,13 +825,13 @@ switch ($page1) {
 		    }
 		    
 		    if (!empty($jkp['jak_password']) || !empty($jkp['jak_confirm_password'])) {    
-		    if ($jkp['jak_password'] != $jkp['jak_confirm_password']) {
-		    	$errors['e5'] = $jkl['e10'];
-		    } elseif (strlen($jkp['jak_password']) <= '7') {
-		    	$errors['e6'] = $jkl['e11'];
-		    } else {
-		    	$updatepass = true;
-		    }
+				if ($jkp['jak_password'] != $jkp['jak_confirm_password']) {
+					$errors['e5'] = $jkl['e10'];
+				} elseif (strlen($jkp['jak_password']) <= '7') {
+					$errors['e6'] = $jkl['e11'];
+				} else {
+					$updatepass = true;
+				}
 		    }
 		    
 		    // Delete Avatar if yes
@@ -1001,6 +1002,7 @@ switch ($page1) {
 				"themecolour" => $jkp['jak_themecolour'],
 				"language" => $jkp['jak_lang'],
 				"invitationmsg" => $jkp['jak_inv'],
+				"is_dp" => $jkp['is_dp'],
 				"hours_array" => $bhours,
 				"email" => filter_var($jkp['jak_email'], FILTER_SANITIZE_EMAIL)], ["id" => $page2]);
 			
@@ -1023,6 +1025,7 @@ switch ($page1) {
 				"themecolour" => $jkp['jak_themecolour'],
 				"language" => $jkp['jak_lang'],
 				"invitationmsg" => $jkp['jak_inv'],
+				"is_dp" => $jkp['is_dp'],
 				"hours_array" => $bhours,
 				"email" => filter_var($jkp['jak_email'], FILTER_SANITIZE_EMAIL)], ["id" => $page2]);
 			

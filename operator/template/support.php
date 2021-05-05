@@ -119,7 +119,7 @@
     <p><a class="btn btn-primary" href="<?php echo JAK_rewrite::jakParseurl('support', 'new');?>"><?php echo $jkl["hd166"];?></a></p>
   </div>
   <div class="col-md-2">
-    <label>Filter</label>
+    <p>
     <?php if (isset($dep_filter) && is_array($dep_filter) && !empty($dep_filter)) { ?>
     <form id="jak_statform" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
       <select name="jak_depid" id="jak_depid" class="selectpicker">
@@ -131,20 +131,21 @@
       <input type="hidden" name="action" value="depid">
     </form>
     <?php } ?>
+    </p>
   </div>
   <div class="col-md-2">
-    <label>Filter</label>
-    <?php if (isset($dep_filter) && is_array($dep_filter) && !empty($dep_filter)) { ?>
-    <form id="jak_statform" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
-      <select name="jak_depid" id="jak_depid" class="selectpicker">
-        <option value="0"><?php echo $jkl['g105'];?></option>
-        <?php foreach ($dep_filter as $v) { ?>
-        <option value="<?php echo $v["id"];?>"<?php if (isset($page1) && $page1 == $v["id"]) echo ' selected';?>><?php echo $v["title"];?></option>
-        <?php } ?>
+    <p>
+    <form id="stat_form" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
+      <select name="jak_statfilter" id="jak_statfilter" class="selectpicker">
+        <option value="0"><?php echo $jkl['g105'];?> Status</option>
+        <option value="1">Open</option>
+        <option value="2">Await Reply</option>
+        <option value="3">Close</option>
+        <option value="4">Closed</option>
       </select>
-      <input type="hidden" name="action" value="depid">
+      <input type="hidden" name="action" value="stat_filter">
     </form>
-    <?php } ?>
+    </p>
   </div>
 </div>
 

@@ -73,9 +73,9 @@
       <div class="card<?php echo (!empty($faq["class"]) && $faq["class"] != "white" ? ' bg-'.$faq["class"] : '');?>">
         <div class="card-body">
           <a href="<?php echo $faqparseurl;?>">
-            <h3 class="card-title card-title-fs"><?php echo $faq["title"];?></h3>
+            <h3 class="card-title card-title-fs" style="padding-bottom:10px;text-align:justify;"><?php echo $faq["title"];?></h3>
           </a>
-          <p><?php echo jak_cut_text($faq["content"], 200, '...');?></p>
+          <p style="text-align:justify;"><?php echo jak_cut_text($faq["content"], 200, '...');?></p>
         </div>
         <div class="card-footer justify-content-center">
           <div class="author">

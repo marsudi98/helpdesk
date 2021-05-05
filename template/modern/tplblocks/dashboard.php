@@ -28,14 +28,14 @@
   <div class="row">
     <div class="col-md-9">
       <div class="table-responsive">
-        <table id="sortable-data" class="table">
+        <table id="sortable-data" class="table table-striped">
           <thead class="table-custom-dark">
             <th><?php echo $jkl['hd7'];?></th>
             <th><?php echo $jkl['hd9'];?></th>
             <th><?php echo $jkl['hd6'];?></th>
             <th><?php echo $jkl['hd10'];?></th>
-            <th><?php echo $jkl['hd11'].'/'.$jkl['hd12'];?></th>
-            <th><?php echo $jkl['hd13'];?></th>
+            <th style="text-align:center;"><?php echo $jkl['hd11'].'/'.$jkl['hd12'];?></th>
+            <th style="text-align:center;"><?php echo $jkl['hd13'];?></th>
           </thead>
           <?php foreach($allcsupport as $sup) {
             $supparseurl = JAK_rewrite::jakParseurl(JAK_SUPPORT_URL, 't', $sup["id"], JAK_rewrite::jakCleanurl($sup["subject"]));
@@ -45,7 +45,7 @@
               <td><?php echo $sup["titledep"];?></td>
               <td class="text-center"><?php echo $sup["id"];?></td>
               <td><?php echo JAK_base::jakTimesince($sup['initiated'], JAK_DATEFORMAT, JAK_TIMEFORMAT);?></td>
-              <td><?php echo ($sup["status"] == 1 ? '<span class="badge badge-info">'.$jkl['hd14'].'</span>' : ($sup["status"] == 2 ? '<span class="badge badge-warning">'.$jkl['hd15'].'</span>' : '<span class="badge badge-success">'.$jkl['hd16'].'</span>'));?>/<span class="badge badge-<?php echo $sup["class"];?>"><?php echo $sup["titleprio"];?></span></td>
+              <td style="text-align:center;"><?php echo ($sup["status"] == 1 ? '<span class="badge badge-info">'.$jkl['hd14'].'</span>' : ($sup["status"] == 2 ? '<span class="badge badge-warning">'.$jkl['hd15'].'</span>' : '<span class="badge badge-success">'.$jkl['hd16'].'</span>'));?> <span class="badge badge-<?php echo $sup["class"];?>"><?php echo $sup["titleprio"];?></span></td>
               <td><a href="<?php echo $supparseurl;?>" class="btn btn-sm btn-secondary"><?php echo $jkl['hd13'];?></a></td>
             </tr>
           <?php } ?>
@@ -149,8 +149,8 @@
             <img class="img" src="<?php echo BASE_URL.JAK_FILES_DIRECTORY.$jakclient->getVar("picture");?>" alt="profile-picture">
           </a>
         </div>
-        <div class="card-body">
-          <h4 class="card-title"><?php echo $jakclient->getVar("name");?></h4>
+        <div class="card-body" style="padding-top:60px;">
+          <h4 class="card-title" style="text-transform:capitalize;"><?php echo $jakclient->getVar("name");?></h4>
           <?php if (JAK_BILLING_MODE == 1 || JAK_BILLING_MODE == 2) { ?>
             <h6 class="card-category text-gray"><?php echo $jkl['hd46'];?></h6>
             <?php if (JAK_BILLING_MODE == 1) { ?>

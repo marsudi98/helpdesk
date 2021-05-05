@@ -59,9 +59,9 @@
 				<hr style="border: 2px solid #eee;">
 				
 				<?php if ($JAK_NAV_PREV) { ?>																																				
-					<a class="btn btn-rounded btn-sm btn-primary" href="<?php echo $JAK_NAV_PREV;?>" title="<?php echo $JAK_NAV_PREV_TITLE;?>"><i class="material-icons">arrow_back_ios</i> <?php echo (strlen($JAK_NAV_PREV_TITLE) > 50) ? substr($JAK_NAV_PREV_TITLE,0,50).'...' :$JAK_NAV_PREV_TITLE;?></a>
+					<a class="btn btn-rounded btn-sm btn-primary" style="text-transform:capitalize;font-size:12px;" href="<?php echo $JAK_NAV_PREV;?>" title="<?php echo $JAK_NAV_PREV_TITLE;?>"><i class="material-icons">arrow_back_ios</i> <?php echo (strlen($JAK_NAV_PREV_TITLE) > 50) ? substr($JAK_NAV_PREV_TITLE,0,50).'...' :$JAK_NAV_PREV_TITLE;?></a>
 				<?php } if ($JAK_NAV_NEXT) { ?>
-					<a class="btn btn-rounded btn-sm btn-primary float-right" href="<?php echo $JAK_NAV_NEXT;?>" title="<?php echo $JAK_NAV_NEXT_TITLE;?>"><?php echo (strlen($JAK_NAV_NEXT_TITLE) > 50) ? substr($JAK_NAV_NEXT_TITLE,0,50).'...' :$JAK_NAV_NEXT_TITLE;?> <i class="material-icons">arrow_forward_ios</i></a>
+					<a class="btn btn-rounded btn-sm btn-primary float-right" style="text-transform:capitalize;font-size:12px;" href="<?php echo $JAK_NAV_NEXT;?>" title="<?php echo $JAK_NAV_NEXT_TITLE;?>"><?php echo (strlen($JAK_NAV_NEXT_TITLE) > 50) ? substr($JAK_NAV_NEXT_TITLE,0,50).'...' :$JAK_NAV_NEXT_TITLE;?> <i class="material-icons">arrow_forward_ios</i></a>
 				<?php } ?>
 			</div>
 		</div>

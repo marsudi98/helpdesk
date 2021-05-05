@@ -2739,7 +2739,7 @@ fieldset:disabled a.btn {
 
 .btn-secondary:hover {
   color: #ffffff;
-  background-color: #5a6268;
+  background-color: #5a6268;  
   border-color: #545b62;
 }
 
@@ -8947,7 +8947,7 @@ button:focus {
   color: #fff;
   background-color: #ff4d4d;
   border-color: #ff4d4d;
-  box-shadow: 0 2px 2px 0 rgba(255, 56, 56, 0.14), 0 3px 1px -2px rgba(255, 56, 56, 0.2), 0 1px 5px 0 rgba(255, 56, 56, 0.12);
+  box-shadow: 0 14px 26px -12px rgb(250 250 250 / 42%), 0 4px 23px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(250 250 250 / 20%);
 }
 
 .btn.btn-primary:hover {
@@ -9035,23 +9035,23 @@ button:focus {
 
 .btn.btn-secondary {
   color: rgba(0, 0, 0, 0.87);
-  background-color: #fafafa;
-  border-color: #ccc;
+  background-color: #cdd0d4;
+  border-color: #cdd0d4;
   box-shadow: 0 2px 2px 0 rgba(250, 250, 250, 0.14), 0 3px 1px -2px rgba(250, 250, 250, 0.2), 0 1px 5px 0 rgba(250, 250, 250, 0.12);
 }
 
 .btn.btn-secondary:hover {
   color: rgba(0, 0, 0, 0.87);
-  background-color: #f2f2f2;
-  border-color: #adadad;
+  background-color: #bbbdbf;
+  border-color: #bbbdbf;
 }
 
 .btn.btn-secondary:focus,
 .btn.btn-secondary.focus,
 .btn.btn-secondary:hover {
   color: rgba(0, 0, 0, 0.87);
-  background-color: #f2f2f2;
-  border-color: #adadad;
+  background-color: #b9bbbd;
+  border-color: #b9bbbd;
 }
 
 .btn.btn-secondary:active,
@@ -9059,8 +9059,8 @@ button:focus {
 .open>.btn.btn-secondary.dropdown-toggle,
 .show>.btn.btn-secondary.dropdown-toggle {
   color: rgba(0, 0, 0, 0.87);
-  background-color: #f2f2f2;
-  border-color: #adadad;
+  background-color: #b9bbbd;
+  border-color: #b9bbbd;
   box-shadow: 0 2px 2px 0 rgba(250, 250, 250, 0.14), 0 3px 1px -2px rgba(250, 250, 250, 0.2), 0 1px 5px 0 rgba(250, 250, 250, 0.12);
 }
 
@@ -9127,7 +9127,8 @@ button:focus {
   color: #fff;
   background-color: #bdc3c7;
   border-color: #bdc3c7;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 14px 26px -12px rgb(250 250 250 / 42%), 0 4px 23px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(250 250 250 / 20%);
+  
 }
 
 .btn.btn-info:hover {
@@ -13648,8 +13649,8 @@ fieldset[disabled][disabled] .has-rose .form-control,
 .bmd-form-group input::placeholder,
 .bmd-form-group textarea::placeholder {
   line-height: 1.1;
-  font-size: 0.80rem;
-  font-weight: 350;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 #smart-search {
@@ -14172,8 +14173,8 @@ textarea.form-control {
 
 .page-header .title {
   color: #3f4254;
-  font-size: 20px;
-  font-weight: 650;
+  font-size: 18px;
+  font-weight: 610;
   background: rgba(238, 238, 238, 0.9);
   padding: 10px;
   border-radius: 4px;
@@ -14332,7 +14333,7 @@ footer .pull-center {
 }
 
 .img-raised {
-  box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px -8px rgba(0, 0, 0, 0.24), 0 5px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
 .rounded {
@@ -15162,8 +15163,9 @@ h6,
 }
 
 p {
-  font-size: 14px;
+  font-size: 13px;
   margin: 0 0 10px;
+  font-weight: 400;
 }
 
 b {
@@ -17854,11 +17856,13 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   padding: 12px 8px;
   vertical-align: middle;
   border-color: #ddd;
-  font-size: 0.875rem;
+  font-size: 13px;
+  font-weight: 410;
 }
 
 .table thead tr th {
-  font-size: 0.75rem;
+  font-size: 13px;
+  font-weight: 410 !important;
   font-weight: normal;
   text-transform: uppercase;
 }
@@ -18358,7 +18362,7 @@ thead.thead-inverse th,
   width: 100%;
   border-radius: 6px;
   pointer-events: none;
-  box-shadow: 0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px -8px rgba(0, 0, 0, 0.24), 0 3px 10px -5px rgba(0, 0, 0, 0.2);
 }
 
 .card .card-header.card-header-image .card-title {

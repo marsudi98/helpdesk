@@ -123,14 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	        // Unset the recover message
 			if (isset($_SESSION['password_recover'])) unset($_SESSION['password_recover']);
 
-			$is_dp = $jakdb->get("clients", ["id"], ["AND" => ["email" => $email, "access" => 1, "is_dp" => 1]]);   
-
 			if (isset($_SESSION['LCRedirect'])) {
-				if (!empty($is_dp)) {
-					jak_redirect(BASE_URL.'droppoint');
-				} else {
-					jak_redirect($_SESSION['LCRedirect']);
-				}
+				jak_redirect($_SESSION['LCRedirect']);
 			} else {
 				jak_redirect(BASE_URL);
 			}
@@ -141,7 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			} else {
 				$ErrLogin = $jkl['l'];
 			}
-			
+
+
 		}
 	}
 
@@ -230,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	 }
 
 	// Register
-	elseif (!empty($jkp['action']) && $jkp['action'] == 'register') {
+	 elseif (!empty($jkp['action']) && $jkp['action'] == 'register') {
 
 	 	if (empty($jkp["name"])) {
 	 		$errors['e'] = $jkl['e'].'<br>';
