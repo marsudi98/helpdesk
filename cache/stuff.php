@@ -15,6 +15,10 @@ $botserialize = 'eJxNjV0Kg0AMhK9ScgItrbSzDz1LIEEDsv7EIkW8u5tSpA/DfAzDDKPGZqgSo8H
 
 $JAK_BOT_ANSWER = unserialize(gzuncompress(base64_decode($botserialize)));
 
+$filesgserialize = 'eJxLtDK0qs60MrBOtDK2qi62MrJSykxRsi4GCisZgmgTK6WCxJIMMBMopl9ckpiXkliUom9oZmRgbmBpYmwaH+AR4FqRnJqja6hnoaBhqKlXlVkA1ZuXmJsKYlpYKcFUKVnX1gIAxTkh0Q==';
+
+$HD_FILES = unserialize(gzuncompress(base64_decode($filesgserialize)));
+
 $departmentgserialize = 'eJxFjDEKgDAQBP9yL4iiETalvV+QQ6MexMLkrCR/NwHBanamWEaDR2Acw+JJaEGykkslU1PZg1Q0+Lo70HiwftmfLIHcVGwAbXzNd/x9iX4VTd+VqbSg/fZJ+f/P+QVuBiWP';
 
 $HD_DEPARTMENTS = unserialize(gzuncompress(base64_decode($departmentgserialize)));

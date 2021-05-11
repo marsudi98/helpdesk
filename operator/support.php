@@ -1016,7 +1016,7 @@ switch ($page1) {
       if (is_numeric($page2) && jak_row_exist($page2,$jaktable)) {
 
         // Get the ticket data first ~ this is where the data fetched
-        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.awb", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "clients.name", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
+        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.awb", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "clients.name", "clients.phone", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $jkp = $_POST;
@@ -2084,11 +2084,85 @@ switch ($page1) {
         $template = 'mergeticket.php';
 
       break;
-      default:
-
+      default:       
         // Let's go on with the script
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $jkp = $_POST;
+
+          // import excel
+          if (isset($jkp['action']) && $jkp['action'] == "import_excel") {
+            ini_set("memory_limit","512M");
+            include '../class/PHPExcel/IOFactory.php';
+            
+            $file = $_FILES['file_import'];
+            $objReader = PHPExcel_IOFactory::createReaderForFile($file['tmp_name']);
+            $objPHPExcel = $objReader->load($file['tmp_name']);
+
+            $worksheet = $objPHPExcel->getActiveSheet();
+            $maxrow = $objPHPExcel->getActiveSheet()->getHighestRow();
+
+            foreach ($objPHPExcel->getWorksheetIterator() as $worksheet){
+              $totalrow = $worksheet->getHighestRow();
+              for($row = 2; $row <= $totalrow; $row++){
+                $name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+                $phone = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+                $email = $worksheet->getCellByColumnAndRow(2, $row)->getValue();                
+                $judul_tiket = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+                $isi_tiket = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+                $awb = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+                $status = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
+                $sumber_complaint = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
+                $kategori_complaint = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
+                $rincian_complaint = $worksheet->getCellByColumnAndRow(9, $row)->getValue();
+                $dp_bersalah = $worksheet->getCellByColumnAndRow(10, $row)->getValue();
+                $tipe_denda = $worksheet->getCellByColumnAndRow(11, $row)->getValue();
+                $nominal_denda = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
+                $created_date = $worksheet->getCellByColumnAndRow(13, $row)->getValue();
+                $created_date = new DateTime($created_date);
+                $created_date = $created_date->getTimestamp();
+                $operatorid = $worksheet->getCellByColumnAndRow(14, $row)->getValue();
+                $clientid = $worksheet->getCellByColumnAndRow(15, $row)->getValue();
+
+                // insert to db
+                $result = $jakdb->insert($jaktable, ["depid" => $sumber_complaint,
+                  "subject" => $judul_tiket,
+                  "awb" => $awb,
+                  "content" => $isi_tiket,
+                  "operatorid" => $operatorid,
+                  "clientid" => $clientid,
+                  "name" => $name,
+                  "phone" => $phone,
+                  "email" => $email,
+                  "referrer" => '',
+                  "notes" => '',
+                  "private" => 1,
+                  "priorityid" => $kategori_complaint,
+                  "toptionid" => $rincian_complaint,
+                  "status" => $status,
+                  "tipe_denda" => $tipe_denda,
+                  "nominal_denda" => $nominal_denda,
+                  "ip" => 0,
+                  "updated" => $created_date,
+                  "initiated" => $created_date,
+                  "duedate" => ''
+                ]);                
+              }
+              if (!$result) {
+                $_SESSION["infomsg"] = 'Failed!';
+                jak_redirect($_SESSION['LCRedirect']);
+              } else {
+                $_SESSION["successmsg"] = 'Import success!';
+                jak_redirect($_SESSION['LCRedirect']);
+              }
+            }
+            
+            // if (isset($jkp['jak_statfilter']) && is_numeric($jkp['jak_statfilter']) && $jkp['jak_statfilter'] != 0) {
+            //   $_SESSION["jak_statfilter"] = $jkp['jak_statfilter'];
+            //   jak_redirect(JAK_rewrite::jakParseurl('support', $jkp["jak_statfilter"]));
+            // }
+            // unset($_SESSION["jak_statfilter"]);
+            // jak_redirect(JAK_rewrite::jakParseurl('support'));
+          }
 
           if (isset($jkp['action']) && $jkp['action'] == "depid") {
             if (isset($jkp['jak_depid']) && is_numeric($jkp['jak_depid']) && $jkp['jak_depid'] != 0) {
@@ -2100,15 +2174,13 @@ switch ($page1) {
             unset($_SESSION["sortdepid"]);
             jak_redirect(JAK_rewrite::jakParseurl('support'));
           }
-
+        
           if (isset($jkp['action']) && $jkp['action'] == "stat_filter") {
             if (isset($jkp['jak_statfilter']) && is_numeric($jkp['jak_statfilter']) && $jkp['jak_statfilter'] != 0) {
-                $_SESSION["jak_statfilter"] = $jkp['jak_statfilter'];
-
-                // echo json_encode($_SESSION["jak_statfilter"]);
-                // exit;
-                jak_redirect(JAK_rewrite::jakParseurl('support', 'stat', $_SESSION["jak_statfilter"]));
+              $_SESSION["jak_statfilter"] = $jkp['jak_statfilter'];
+              jak_redirect(JAK_rewrite::jakParseurl('support', $jkp["jak_statfilter"]));
             }
+            unset($_SESSION["jak_statfilter"]);
             jak_redirect(JAK_rewrite::jakParseurl('support'));
           }
 

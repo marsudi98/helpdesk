@@ -27,6 +27,11 @@
 		</div>
 
 		<div class="form-group">
+			<label for="phone">Phone Number</label>
+			<input type="text" name="phone" id="phone" class="form-control" value="<?php if (isset($_REQUEST["phone"])) echo $_REQUEST["phone"];?>">
+		</div>
+
+		<div class="form-group">
 			<label for="email"><?php echo $jkl["u1"];?></label>
 			<input type="text" name="jak_email" id="email" class="form-control<?php if (isset($errors["e2"])) echo " is-invalid";?>" value="<?php if (isset($_REQUEST["jak_email"])) echo $_REQUEST["jak_email"];?>">
 		</div>

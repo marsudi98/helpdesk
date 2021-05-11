@@ -23088,7 +23088,7 @@ a.text-dark:hover {
   /* line 441, ../scss/emojionearea.scss */
   .emojionearea .emojionearea-picker.emojionearea-picker-position-top {
     margin-top: -246px;
-    left: 10px; }
+    left: -14px; }
     /* line 445, ../scss/emojionearea.scss */
     .emojionearea .emojionearea-picker.emojionearea-picker-position-top .emojionearea-wrapper:after {
       width: 19px;
@@ -23100,7 +23100,7 @@ a.text-dark:hover {
     .emojionearea .emojionearea-picker.emojionearea-picker-position-top .emojionearea-wrapper:after {
       background-position: -2px -80px; }
 /* line 502, ../scss/emojionearea.scss */
-.emojionearea .emojionearea-button.active + .emojionearea-picker {
+.emojionearea .emojionearea-button.active + .emojionearea-piPcker {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1; }
 /* line 520, ../scss/emojionearea.scss */

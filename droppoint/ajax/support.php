@@ -49,7 +49,7 @@ $columns = array(
 		} ),
 	array( 'db' => 't2.title', 'dbjoin' => 'title', 'dt' => 2 ),
 	array( 'db' => 't1.name', 'dbjoin' => 'name', 'dt' => 3 ),
-	array( 'db' => 't1.denda', 'dbjoin' => 'denda', 'dt' => 4 ),
+	array( 'db' => 't1.nominal_denda', 'dbjoin' => 'nominal_denda', 'dt' => 4 ),
 	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 5, 'formatter' => function( $d, $row ) {
 			if ($d == 1) {
 				return '<span class="badge badge-info">Open</span>';

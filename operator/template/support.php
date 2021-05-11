@@ -116,9 +116,36 @@
 
 <div class="row">
   <div class="col-md-8">
-    <p><a class="btn btn-primary" href="<?php echo JAK_rewrite::jakParseurl('support', 'new');?>"><?php echo $jkl["hd166"];?></a></p>
+    <p>
+      <a class="btn btn-primary" href="<?php echo JAK_rewrite::jakParseurl('support', 'new');?>"><?php echo $jkl["hd166"];?></a>
+      <btn type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">Import Ticket</btn>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <form id="form_import" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Import Ticket</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <a style="font-size:11px;" href="<?php echo BASE_URL_HOME.'files/standard/ticketimport_template.xlsx'; ?>">DOWNLOAD TEMPLATE</a></br>
+                <input type="file" id="file_import" name="file_import" accept=".xls,.xlsx">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+              <input type="hidden" name="action" value="import_excel">
+            </form>
+          </div>
+        </div>
+      </div>
+    </p>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2" style="visibility:hidden;">
     <p>
     <?php if (isset($dep_filter) && is_array($dep_filter) && !empty($dep_filter)) { ?>
     <form id="jak_statform" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
@@ -135,16 +162,16 @@
   </div>
   <div class="col-md-2">
     <p>
-    <form id="stat_form" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
-      <select name="jak_statfilter" id="jak_statfilter" class="selectpicker">
-        <option value="0"><?php echo $jkl['g105'];?> Status</option>
-        <option value="1">Open</option>
-        <option value="2">Await Reply</option>
-        <option value="3">Close</option>
-        <option value="4">Closed</option>
-      </select>
-      <input type="hidden" name="action" value="stat_filter">
-    </form>
+      <form id="stat_form" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
+        <select name="jak_statfilter" id="jak_statfilter" class="selectpicker">
+          <option value="0"><?php echo $jkl['g105'];?> Status</option>
+          <option value="1" <?php if ($_SESSION["jak_statfilter"] == 1) echo ' selected'; ?>>Open</option>
+          <option value="2" <?php if ($_SESSION["jak_statfilter"] == 2) echo ' selected'; ?>>Await Reply</option>
+          <option value="3" <?php if ($_SESSION["jak_statfilter"] == 3) echo ' selected'; ?>>Close</option>
+          <option value="4" <?php if ($_SESSION["jak_statfilter"] == 4) echo ' selected'; ?>>Closed</option>
+        </select>
+        <input type="hidden" name="action" value="stat_filter">
+      </form>
     </p>
   </div>
 </div>

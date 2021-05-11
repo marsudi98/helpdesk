@@ -136,6 +136,37 @@ class SSP {
 		return $order;
 	}
 
+	static function order_custom ( $request, $columns )
+	{
+		$order = '';
+
+		if ( isset($request['order']) && count($request['order']) ) {
+			$orderBy = array();
+			$dtColumns = self::pluck( $columns, 'dt' );
+
+			for ( $i=0, $ien=count($request['order']) ; $i<$ien ; $i++ ) {
+				// Convert the column index into the column data property
+				$columnIdx = intval($request['order'][$i]['column']);
+				$requestColumn = $request['columns'][$columnIdx];
+
+				$columnIdx = array_search( $requestColumn['data'], $dtColumns );
+				$column = $columns[ $columnIdx ];
+
+				if ( $requestColumn['orderable'] == 'true' ) {
+					$dir = $request['order'][$i]['dir'] === 'asc' ?
+						'ASC' :
+						'DESC';
+
+					$orderBy[] = $column['db'].' '.$dir;
+				}
+			}
+
+			$order = ' '.implode(', ', $orderBy);
+		}
+
+		return $order;
+	}
+
 
 	/**
 	 * Searching / Filtering
@@ -270,7 +301,7 @@ class SSP {
 
 		// Build the SQL query string from the request
 		$limit = self::limit( $request, $columns );
-		$order = self::order( $request, $columns );
+		$order = self::order_custom( $request, $columns );
 		$where = self::filter( $request, $columns, $bindings );
 
 		$whereResult = self::_flatten( $whereResult );

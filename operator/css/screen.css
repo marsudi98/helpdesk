@@ -936,10 +936,16 @@ fieldset[disabled] .btn-link.active {
   padding: 14px 47px;
 }
 
-.btn-sm {
+/* .btn-sm {
   font-size: 14px;
   border-radius: 0.1875rem;
   padding: 5px 15px;
+} */
+
+.btn-sm {
+  font-size: 12px;
+  border-radius: 0.1875rem;
+  padding: 3px 10px;
 }
 
 .btn-sm[class*="btn-outline-"] {

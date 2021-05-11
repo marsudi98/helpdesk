@@ -17,16 +17,24 @@ if (!file_exists('../../class/ssp.class.php')) die('ajax/[ssp.class.php] config.
 require_once '../../class/ssp.class.php';
 
 $where = '';
+if(isset($_SESSION["jak_statfilter"])){
+	$where = 't1.status = '.$_SESSION["jak_statfilter"].'';
+}
 if (isset($_SESSION["sortdepid"]) && is_numeric($_SESSION["sortdepid"])) {
-	$where = '(t1.operatorid = '.$jakuser->getVar("id").' AND t1.depid = '.$_SESSION["sortdepid"].') OR t1.depid = '.$_SESSION["sortdepid"];
+	$where = '(t1.operatorid = '.$jakuser->getVar("id").' AND t1.depid = '.$_SESSION["sortdepid"].' AND t1.status = '.$_SESSION["jak_statfilter"].') OR ( t1.depid = '.$_SESSION["sortdepid"].' AND t1.status = '.$_SESSION["jak_statfilter"].')';
 } else {
 	// and then we filter the support departments
 	if (is_numeric($jakuser->getVar("support_dep")) && $jakuser->getVar("support_dep") != 0) {
+		var_dump('test2');
+		exit;
 		$where = 't1.operatorid = '.$jakuser->getVar("id").' OR t1.depid = '.$jakuser->getVar("support_dep");
 	} elseif (!((boolean)$jakuser->getVar("support_dep")) && $jakuser->getVar("support_dep") != 0) {
+		var_dump('test3');
+		exit;
 		$where = 't1.operatorid = '.$jakuser->getVar("id").' OR t1.depid IN ('.$jakuser->getVar("support_dep").')';
 	}
 }
+
 
 // DB table to use
 $table = JAKDB_PREFIX.'support_tickets AS t1 ';
@@ -92,10 +100,7 @@ $columns = array(
 );
 // echo json_encode($_GET.'-'.$table.'-'.$table2.'-'.$table3.'-'.$primaryKey.'-'.$columns.'-'.$where.'-'.$where);
 // exit;
-// foreach ($_GET as $g) {
-// 	echo json_encode($g);
-	
-// }
+
 die(json_encode(SSP::join_custom( $_GET, $table, $table2, $table3, $primaryKey, $columns, $where, $where )));
 
 ?>

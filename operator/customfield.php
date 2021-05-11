@@ -310,6 +310,7 @@ switch ($page1) {
 				    	$result = $jakdb->update($jaktable1, ["title" => $jkp['jak_title'],
 							"depid" => $jkp['jak_depid'],
 							"field_html" => $jkp['jak_field_html'],
+							"fieldlocation" => $jkp['jak_fieldloc'],
 							"fieldtype" => $jkp['jak_fieldtype'],
 							"mandatory" => $jkp['jak_mandatory'],
 							"onregister" => $jkp['jak_onregister'],
@@ -319,6 +320,15 @@ switch ($page1) {
 						    $_SESSION["infomsg"] = $jkl['i'];
 				    		jak_redirect($_SESSION['LCRedirect']);
 						} else {
+
+							// Now we create the field in the appropriate table
+							if ($jkp['jak_fieldloc'] == 1) {
+								$jakdb->query("ALTER TABLE ".JAKDB_PREFIX."support_tickets DROP `".$jkp['jak_slug'] ."`;");
+								$jakdb->query("ALTER TABLE ".JAKDB_PREFIX."clients ADD `".$jkp['jak_slug'] ."` TEXT NULL AFTER `language`;");
+							} elseif ($jkp['jak_fieldloc'] == 2) {
+								$jakdb->query("ALTER TABLE ".JAKDB_PREFIX."clients DROP `".$jkp['jak_slug'] ."`;");
+								$jakdb->query("ALTER TABLE ".JAKDB_PREFIX."support_tickets ADD `".$jkp['jak_slug'] ."` TEXT NULL AFTER `content`;");
+							}
 							
 							// Now let us delete the define cache file
 							$cachestufffile = APP_PATH.JAK_CACHE_DIRECTORY.'/stuff.php';
@@ -540,7 +550,7 @@ switch ($page1) {
 			    }
 			    
 			    if (count($errors) == 0) {
-
+					
 			    	$result = $jakdb->update($jaktable, ["depid" => $jkp['jak_depid'],
 				        "title" => $jkp['jak_title'],
 						"class" => $jkp['jak_class'],
@@ -548,13 +558,12 @@ switch ($page1) {
 						"credits" => $jkp['credits'],
 						"dorder" => $jkp['jak_order'],
 						"duetime" => $jkp['due_time'],
-		          		"edited" => $jakdb->raw("NOW()")], ["id" => $page2]);
-			
+		          		"edited" => $jakdb->raw("NOW()")], ["id" => $page2]); 
+						
 					if (!$result) {
 					    $_SESSION["infomsg"] = $jkl['i'];
 			    		jak_redirect($_SESSION['LCRedirect']);
 					} else {
-						
 						// Now let us delete the define cache file
 						$cachestufffile = APP_PATH.JAK_CACHE_DIRECTORY.'/stuff.php';
 						if (file_exists($cachestufffile)) {

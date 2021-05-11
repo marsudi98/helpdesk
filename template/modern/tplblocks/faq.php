@@ -50,7 +50,7 @@
   <div class="container my-3">
     <div class="row">
       <div class="col-md-8 ml-auto mr-auto text-center">
-        <ul class="nav nav-pills nav-pills-primary">
+        <ul class="nav nav-pills nav-pills-primary" style="padding-left: 0;">
           <li class="nav-item">
             <a class="nav-link<?php if (empty($page1)) echo ' active';?>" href="<?php echo JAK_rewrite::jakParseurl(JAK_FAQ_URL);?>"><?php echo $jkl['hd122'];?></a>
           </li>

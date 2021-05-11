@@ -58,21 +58,23 @@
 			<!--- Input form -->
 			<form name="messageInput" id="MessageInput" action="javascript:sendInput(activeConvID);">
 				
-				<div class="form-group">
+				<div class="form-group clearfix">
 					<label for="message"><?php echo $jkl["g135"];?></label>
 					<textarea name="message" id="message" class="form-control" rows="1"></textarea>
 
-					<a href="javascript:void(0)" id="message_btn" class="chat-send"><i class="fa fa-paper-plane"></i></a>
+					<div class="card float-right" style="15%;">
+						<a href="javascript:void(0)" id="message_btn" class="chat-send"><i class="fa fa-paper-plane"></i></a>
 
-					<div class="emoji-picker">
-						<div id="emoji"></div>
-					</div>
+						<div class="emoji-picker">
+							<div id="emoji"></div>
+						</div>
 
-					<?php if ($jakuser->getVar("files")) { ?>
-					<div class="chat-upload">
-						<i class="area fa fa-paperclip" id="cUploadDrop"></i>
+						<?php if ($jakuser->getVar("files")) { ?>
+						<div class="chat-upload">
+							<i class="area fa fa-paperclip" id="cUploadDrop"></i>
+						</div>
+						<?php } ?>
 					</div>
-					<?php } ?>
 				</div>
 
 				<div class="row chat-extra-input">

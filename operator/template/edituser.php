@@ -22,7 +22,7 @@
 
 		<div class="card">
               <div class="card-header">
-                <h3 class="card-title"><i class="fa fa-user"></i> <?php echo $jkl["g40"];?></h3>
+                <h3 class="card-title"><i class="fa fa-user"></i> User Information</h3>
               </div>
               <div class="card-body">
 
