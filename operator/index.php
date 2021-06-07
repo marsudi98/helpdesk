@@ -406,6 +406,11 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
             $JAK_PAGE_ACTIVE = 1;
             $checkp = 1;
         }
+        if ($page == 'report') {
+            require_once 'report.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
         if ($page == 'logs') {
             require_once 'logs.php';
             $JAK_PAGE_ACTIVE = 1;
@@ -421,8 +426,17 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
             $JAK_PAGE_ACTIVE = 1;
             $checkp = 1;
         }
+        if ($page == 'custom_dashboard') {
+            require_once 'custom_dashboard.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
+        if ($page == 'custom_suud') {
+            require_once 'custom_suud.php';
+            $JAK_PAGE_ACTIVE = 1;
+            $checkp = 1;
+        }
         if ($page == 'ps') {
-            
             if ($page1 == "success") {
                 $_SESSION["successmsg"] = $jkl["g299"];
             } else {

@@ -16,8 +16,8 @@
                 </div>
               </div>
               <div class="col-7 text-right">
-                <h3 class="info-title"><?php echo ($verify_response['status'] == true ? $jkl['g339'] : $jkl['g340']);?></h3>
-                <h6 class="stats-title"><?php echo $jkl["stat_s41"];?></h6>
+                <h3 class="info-title">-</h3>
+                <h6 class="stats-title">-</h6>
               </div>
             </div>
           </div>
@@ -26,7 +26,7 @@
       <hr>
       <div class="card-footer">
         <div class="stats">
-          <i class="fa fa-id-badge"></i> <?php echo $jkl["stat_s41"];?>
+          <i class="fa fa-id-badge"></i> -
         </div>
       </div>
     </div>
@@ -43,8 +43,8 @@
                 </div>
               </div>
               <div class="col-7 text-right">
-                <h3 class="info-title"><?php echo JAK_VERSION;?></h3>
-                <h6 class="stats-title"><?php echo $jkl["g118"];?></h6>
+                <h3 class="info-title">-</h3>
+                <h6 class="stats-title">-</h6>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
       <hr>
       <div class="card-footer">
         <div class="stats">
-          <i class="fa fa-history"></i> <?php echo $jkl["g118"];?>
+          <i class="fa fa-history"></i> -
         </div>
       </div>
     </div>
@@ -70,8 +70,8 @@
                 </div>
               </div>
               <div class="col-9 text-right">
-                <h3 class="info-title"><?php echo $totalPND;?></h3>
-                <h6 class="stats-title"><?php echo $jkl["g313"];?></h6>
+                <h3 class="info-title">-</h3>
+                <h6 class="stats-title">-</h6>
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@
       <hr>
       <div class="card-footer">
         <div class="stats">
-          <i class="fa fa-mobile"></i> <?php echo $jkl["g313"];?>
+          <i class="fa fa-mobile"></i> -
         </div>
       </div>
     </div>

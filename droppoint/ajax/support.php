@@ -54,7 +54,7 @@ $columns = array(
 			if ($d == 1) {
 				return '<span class="badge badge-info">Open</span>';
 			} else if ($d == 2) {
-				return '<span class="badge badge-warning">Await Reply</span>';
+				return '<span class="badge badge-warning">On Process</span>';
 			} else if ($d == 3) {
 				return '<span class="badge badge-success">Close</span>';
 			} else if ($d == 4) {

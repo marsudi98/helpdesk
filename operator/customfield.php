@@ -315,7 +315,7 @@ switch ($page1) {
 							"mandatory" => $jkp['jak_mandatory'],
 							"onregister" => $jkp['jak_onregister'],
 							"dorder" => $jkp['order']], ["id" => $page3]);
-				
+		
 						if (!$result) {
 						    $_SESSION["infomsg"] = $jkl['i'];
 				    		jak_redirect($_SESSION['LCRedirect']);

@@ -6,7 +6,6 @@
 
   <div class="row">
     <div class="col-md-12">
-
           <div class="row">
             <a class="col-md-3" href="<?php echo JAK_rewrite::jakParseurl('leads');?>">
               <div class="card card-stats card-hover">

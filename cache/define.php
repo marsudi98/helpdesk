@@ -96,7 +96,7 @@ define('JAK_TWOCO_SECRET', '');
 define('JAK_BLOGPOSTAPPROVE', '');
 define('JAK_STANDARD_TICKET_PRIORITY', '0');
 define('JAK_STANDARD_TICKET_OPTION', '0');
-define('JAK_TICKET_PRIVATE', '0');
+define('JAK_TICKET_PRIVATE', '1');
 define('JAK_TICKET_GUEST_WEB', '0');
 define('JAK_CALENDAR_TICKETS', '1');
 define('JAK_CALENDAR_CHATS', '0');

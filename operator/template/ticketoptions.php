@@ -166,7 +166,7 @@
 					</div>
 					
 					<div class="form-group">
-					    <p><label for="jak_depid"><?php echo $jkl["g131"];?></label></p>
+					    <label for="jak_depid"><?php echo $jkl["g131"];?></label>
 					    <select name="jak_depid" id="jak_depid" class="selectpicker" data-size="4" data-live-search="true">
 					    	<option value="0"<?php if (isset($_REQUEST["jak_depid"]) && $_REQUEST["jak_depid"] == 0) echo ' selected="selected"';?>><?php echo $jkl["g105"];?></option>
 					    <?php if (isset($JAK_DEPARTMENTS) && is_array($JAK_DEPARTMENTS)) foreach($JAK_DEPARTMENTS as $z) { ?>
@@ -176,7 +176,7 @@
 					</div>
 
           <div class="form-group">
-					    <p><label for="jak_priority">Category<?php //echo $jkl["g131"];?></label></p>
+					    <label for="jak_priority">Jenis Complaint<?php //echo $jkl["g131"];?></label>
               <select name="jak_priority" id="jak_priority" class="selectpicker">
                 <?php foreach ($PRIORITY_ALL as $p) {
                   echo '<option value="'.$p["id"].'-'.$p["duetime"].'">'.$p["title"].((JAK_BILLING_MODE == 1 && $p["credits"] != 0) ? ' ('.sprintf($jkl['hd232'], $p["credits"]).')' : '').'</option>';
@@ -226,7 +226,7 @@
 						<th>#</th>
 						<th><?php echo $jkl["g16"];?></th>
 						<th><?php echo $jkl["g102"];?></th>
-						<th><?php echo "Category";?></th>
+						<th><?php echo "Jenis Complaint";?></th>
 						<th><?php echo $jkl["g47"];?></th>
 						<th><?php echo $jkl["g48"];?></th>
 					</tr>
@@ -236,7 +236,7 @@
 						<th>#</th>
 						<th><?php echo $jkl["g16"];?></th>
 						<th><?php echo $jkl["g102"];?></th>
-						<th><?php echo "Category";?></th>
+						<th><?php echo "Jenis Complaint";?></th>
 						<th><?php echo $jkl["g47"];?></th>
 						<th><?php echo $jkl["g48"];?></th>
 					</tr>

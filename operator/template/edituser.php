@@ -293,12 +293,34 @@
 	<div class="col-md-6">
 
 		<?php if (jak_get_access("usrmanage", $jakuser->getVar("permissions"), JAK_SUPERADMINACCESS)) { ?>
+		<?php if($JAK_FORM_DATA["is_dp"] != 1) { ?>
+		<div class="card">
+			<div class="card-header">
+				<h3 class="card-title"><i class="fa fa-ticket-alt"></i> Jenis Complaint</h3>
+			</div><!-- /.box-header -->
+			<div class="card-body">
+				<div class="form-group">
+					<p><label>Jenis Complaint</label> <a href="javascript:void(0)" class="jakweb-help" data-content="<?php echo $jkl["h6"];?>" data-original-title="<?php echo $jkl["t"];?>"><i class="fa fa-question-circle"></i></a></p>
+					<select name="op_category[]" multiple="multiple" class="selectpicker" data-size="4" data-live-search="true">
+						<option value="0"<?php if ($JAK_FORM_DATA["op_category"] == 0) { ?> selected="selected"<?php } ?>><?php echo $jkl["g105"];?></option>
+						<?php if (isset($JAK_PRIORITY) && is_array($JAK_PRIORITY)) foreach($JAK_PRIORITY as $z) { ?>
+						<option value="<?php echo $z["id"];?>"<?php if (in_array($z["id"], explode(',', $JAK_FORM_DATA["op_category"]))) echo ' selected';?>><?php echo $z["title"];?></option>
+						
+						<?php } ?>
+					
+					</select>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button type="submit" name="save" class="btn btn-primary form-submit"><?php echo $jkl["g38"];?></button>
+			</div>
+		</div>
+		<?php } ?>
 		<div class="card">
 		<div class="card-header">
 		  <h3 class="card-title"><i class="fa fa-city"></i> <?php echo $jkl["u36"];?></h3>
 		</div><!-- /.box-header -->
 		<div class="card-body">
-
 			<div class="form-group">
             <p><label><?php echo $jkl["hd2"];?></label> <a href="javascript:void(0)" class="jakweb-help" data-content="<?php echo $jkl["h6"];?>" data-original-title="<?php echo $jkl["t"];?>"><i class="fa fa-question-circle"></i></a></p>
 			
@@ -430,6 +452,13 @@
   				<label class="form-check-label">
     			<input class="form-check-input" type="checkbox" name="jak_roles[]" value="statistic"<?php if (in_array("statistic", explode(',', $JAK_FORM_DATA["permissions"]))) { ?> checked="checked"<?php } ?>>
     			<span class="form-check-sign"></span> <?php echo $jkl["u32"];?>
+    			</label>
+    		</div>
+			
+			<div class="form-check form-check-inline">
+  				<label class="form-check-label">
+    			<input class="form-check-input" type="checkbox" name="jak_roles[]" value="report"<?php if (in_array("report", explode(',', $JAK_FORM_DATA["permissions"]))) { ?> checked="checked"<?php } ?>>
+    			<span class="form-check-sign"></span> <?php echo 'Report';?>
     			</label>
     		</div>
 

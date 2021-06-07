@@ -8,7 +8,7 @@
 $(document).ready(function() {
 	tinymce.init({
     selector: '#content-editor',
-    height: 300,
+    height: 200,
     menubar: false,
     plugins: [
       'advlist autolink lists link image charmap print preview anchor textcolor',
@@ -73,11 +73,9 @@ $(document).ready(function() {
       },
       cache: false,
       success: function(result) {
-        console.log(result);
         if (result === "-") {
             $("#sc-label, #sc-select").css('display','none');
         } else {
-          console.log('haish');
           $("#sc-label, #sc-select").css('display','block');
           $("#jak_toption").empty(); 
           var res = JSON.parse(result);

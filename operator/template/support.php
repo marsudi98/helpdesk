@@ -65,12 +65,39 @@
           <div class="info info-horizontal">
             <div class="row">
               <div class="col-5">
-                <div class="icon icon-success icon-circle">
+                <div class="icon icon-warning icon-circle">
                   <i class="fa fa-ticket-alt"></i>
                 </div>
               </div>
               <div class="col-7 text-right">
                 <h3 class="info-title"><?php echo $totalAllWT;?></h3>
+                <h6 class="stats-title"><?php echo 'On Process Tickets'; ?></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="card-footer">
+        <div class="stats">
+          <i class="fa fa-history"></i> <?php echo 'On Process Tickets';?>
+        </div>
+      </div>
+    </div>
+  </div><!-- ./col -->
+  <div class="col-md-3">
+    <div class="card card-stats">
+      <div class="card-body">
+        <div class="statistics statistics-horizontal">
+          <div class="info info-horizontal">
+            <div class="row">
+              <div class="col-5">
+                <div class="icon icon-success icon-circle">
+                  <i class="fa fa-ticket-alt"></i>
+                </div>
+              </div>
+              <div class="col-7 text-right">
+                <h3 class="info-title"><?php echo $totalAllCT;?></h3>
                 <h6 class="stats-title"><?php echo $jkl["hd138"];?></h6>
               </div>
             </div>
@@ -85,37 +112,10 @@
       </div>
     </div>
   </div><!-- ./col -->
-  <div class="col-md-3">
-    <div class="card card-stats">
-      <div class="card-body">
-        <div class="statistics statistics-horizontal">
-          <div class="info info-horizontal">
-            <div class="row">
-              <div class="col-5">
-                <div class="icon icon-warning icon-circle">
-                  <i class="fa fa-star"></i>
-                </div>
-              </div>
-              <div class="col-7 text-right">
-                <h3 class="info-title"><?php echo ($total_voted ? round($total_vote / $total_voted, 1).'/5' : '-');?></h3>
-                <h6 class="stats-title"><?php echo $jkl["stat_s7"];?></h6>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
-      <div class="card-footer">
-        <div class="stats">
-          <i class="fa fa-history"></i> <?php echo $jkl["stat_s7"];?>
-        </div>
-      </div>
-    </div>
-  </div><!-- ./col -->
 </div><!-- /.row -->
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-6">
     <p>
       <a class="btn btn-primary" href="<?php echo JAK_rewrite::jakParseurl('support', 'new');?>"><?php echo $jkl["hd166"];?></a>
       <btn type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">Import Ticket</btn>
@@ -131,12 +131,13 @@
                 </button>
               </div>
               <div class="modal-body">
-                <a style="font-size:11px;" href="<?php echo BASE_URL_HOME.'files/standard/ticketimport_template.xlsx'; ?>">DOWNLOAD TEMPLATE</a></br>
+                <a class="btn btn-sm btn-info" style="font-size:11px;" href="<?php echo BASE_URL_HOME.'files/standard/ticketimport_template.xls'; ?>">Download Template</a></br>
+                <button class="btn btn-sm btn-info" style="font-size:11px;" onclick="download_template()">Download Template 2</button>
                 <input type="file" id="file_import" name="file_import" accept=".xls,.xlsx">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Import</button>
               </div>
               <input type="hidden" name="action" value="import_excel">
             </form>
@@ -160,13 +161,16 @@
     <?php } ?>
     </p>
   </div>
+  <div class="col-md-2 my-auto">
+    <label for="" class="float-right">Status Filter : </label>
+  </div>
   <div class="col-md-2">
     <p>
       <form id="stat_form" method="post" action="<?php echo $_SERVER['REQUEST_URI'];?>">
         <select name="jak_statfilter" id="jak_statfilter" class="selectpicker">
           <option value="0"><?php echo $jkl['g105'];?> Status</option>
           <option value="1" <?php if ($_SESSION["jak_statfilter"] == 1) echo ' selected'; ?>>Open</option>
-          <option value="2" <?php if ($_SESSION["jak_statfilter"] == 2) echo ' selected'; ?>>Await Reply</option>
+          <option value="2" <?php if ($_SESSION["jak_statfilter"] == 2) echo ' selected'; ?>>On Process</option>
           <option value="3" <?php if ($_SESSION["jak_statfilter"] == 3) echo ' selected'; ?>>Close</option>
           <option value="4" <?php if ($_SESSION["jak_statfilter"] == 4) echo ' selected'; ?>>Closed</option>
         </select>
@@ -197,6 +201,7 @@
     <th style="width: 4%">#</th>  
     <th style="width: 3%"><input type="checkbox" id="jak_delete_all"></th>
     <th >Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
+    <th >AWB <i class="fal fa-ticket-alt" title="<?php echo 'AWB'?>;"></i></th>
     <th >Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
     <th >User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
     <th style="text-align: center;">Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>
@@ -210,6 +215,7 @@
     <th style="width: 4%">#</th>
     <th style="width: 3%"><input type="checkbox" id="jak_delete_all"></th>
     <th>Ticket Title <i class="fal fa-ticket-alt" title="<?php echo $jkl["g16"];?>"></i></th>
+    <th >AWB <i class="fal fa-ticket-alt" title="<?php echo 'AWB'?>;"></i></th>
     <th>Complaint Source <i class="fal fa-building" title="<?php echo $jkl["g131"];?>"></i></th>
     <th>User <i class="fal fa-user" title="<?php echo $jkl["hd77"];?>"></i></th>
     <th style="text-align: center;">Status <i class="fal fa-toggle-on" title="<?php echo $jkl["hd167"];?>"></i></th>

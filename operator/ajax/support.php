@@ -56,26 +56,27 @@ $columns = array(
 	array( 'db' => 't1.subject', 'dbjoin' => 'subject', 'dt' => 2, 'formatter' => function( $d, $row ) {
 			return '<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'read', $row['id'])).'">'.$d.'</a>'.($row['mergeid'] ? ' <a class="badge badge-info" href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'read', $row['mergeid'])).'"><i class="far fa-code-merge"></i></a>' : '');
 		} ),
-	array( 'db' => 't2.title', 'dbjoin' => 'title', 'dt' => 3 ),
-	array( 'db' => 't1.name', 'dbjoin' => 'name', 'dt' => 4 ),
-	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 5, 'formatter' => function( $d, $row ) {
+	array( 'db' => 't1.awb', 'dbjoin' => 'awb', 'dt' => 3 ),
+	array( 'db' => 't2.title', 'dbjoin' => 'title', 'dt' => 4 ),
+	array( 'db' => 't1.name', 'dbjoin' => 'name', 'dt' => 5 ),
+	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 6, 'formatter' => function( $d, $row ) {
 		if ($d == 1) {
 			return '<span class="badge badge-info">Open</span>';
 		} else if ($d == 2) {
-			return '<span class="badge badge-warning">Await Reply</span>';
+			return '<span class="badge badge-warning">On Process</span>';
 		} else if ($d == 3) {
 			return '<span class="badge badge-success">Close</span>';
 		} else if ($d == 4) {
 			return '<span class="badge badge-success">Closed</span>';
 		}
 	} ),
-	array( 'db' => 't1.initiated', 'dbjoin' => 'initiated', 'dt' => 6, 'formatter' => function( $d, $row ) {
+	array( 'db' => 't1.initiated', 'dbjoin' => 'initiated', 'dt' => 7, 'formatter' => function( $d, $row ) {
 			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
 		} ),
-	array( 'db' => 't1.duedate', 'dbjoin' => 'duedate', 'dt' => 7, 'formatter' => function( $d, $row ) {
+	array( 'db' => 't1.duedate', 'dbjoin' => 'duedate', 'dt' => 8, 'formatter' => function( $d, $row ) {
 			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
 		} ),
-	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 8, 'formatter' => function( $d, $row ) {
+	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 9, 'formatter' => function( $d, $row ) {
 			if (isset($_SESSION['jak_lcp_lang']) && file_exists(APP_PATH.JAK_OPERATOR_LOC.'/lang/'.$_SESSION['jak_lcp_lang'].'.php')) {
 				include (APP_PATH.JAK_OPERATOR_LOC.'/lang/'.$_SESSION['jak_lcp_lang'].'.php');
 			} else {

@@ -108,7 +108,7 @@
 </ul>
 </div>
 </li>
-<li<?php if (in_array($page, array('uonline', 'statistics', 'logs', 'chats'))) echo ' class="active"';?>>
+<li<?php if (in_array($page, array('uonline', 'statistics', 'logs', 'chats', 'report'))) echo ' class="active"';?>>
 <a data-toggle="collapse" href="#navstatistics">
               <i class="fas fa-analytics"></i>
               <p>
@@ -116,7 +116,7 @@
                 <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse<?php if (in_array($page, array('uonline', 'statistics', 'logs', 'chats'))) echo ' show';?>" id="navstatistics">
+            <div class="collapse<?php if (in_array($page, array('uonline', 'statistics', 'logs', 'chats', 'report'))) echo ' show';?>" id="navstatistics">
             <ul class="nav">
 <li<?php if ($page == 'uonline') echo ' class="active"';?>><a href="<?php echo JAK_rewrite::jakParseurl('uonline');?>">
 <span class="sidebar-mini-icon"><?php echo $jkl["g122"][0];?></span>
@@ -126,6 +126,11 @@
 <li<?php if ($page == 'statistics') echo ' class="active"';?>><a href="<?php echo JAK_rewrite::jakParseurl('statistics');?>">
 	<span class="sidebar-mini-icon"><?php echo $jkl["m10"][0];?></span>
     <span class="sidebar-normal"> <?php echo $jkl["m10"];?></span>
+</a></li>
+<?php } if (jak_get_access("report", $jakuser->getVar("permissions"), JAK_SUPERADMINACCESS)){?>
+<li<?php if ($page == 'report') echo ' class="active"';?>><a href="<?php echo JAK_rewrite::jakParseurl('report');?>">
+	<span class="sidebar-mini-icon">R</span>
+    <span class="sidebar-normal">Report</span>
 </a></li>
 <?php } if (jak_get_access("logs", $jakuser->getVar("permissions"), JAK_SUPERADMINACCESS)){?>
 <li<?php if ($page == 'logs') echo ' class="active"';?>><a href="<?php echo JAK_rewrite::jakParseurl('logs');?>">

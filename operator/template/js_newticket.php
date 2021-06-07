@@ -6,7 +6,7 @@
 $(document).ready(function() {
 	tinymce.init({
     selector: '#content-editor',
-    height: 300,
+    height: 200,
     menubar: false,
     plugins: [
       'advlist autolink lists link image charmap print preview anchor textcolor',
@@ -40,7 +40,7 @@ $(document).ready(function() {
       }
     });
   }
-  $("#sc-label, #sc-select").css('display','none');
+  $("#sc-label, #sc-select, #sc-space").css('display','none');
   url_sc = '<?php echo BASE_URL_ADMIN.'index.php?p=support&amp;sp=sub-category'?>';
   $('#jak_priority').on('change', function() {
     var priorityid = this.value;
@@ -52,12 +52,10 @@ $(document).ready(function() {
       },
       cache: false,
       success: function(result) {
-        console.log(result);
         if (result === "-") {
-            $("#sc-label, #sc-select").css('display','none');
+          $("#sc-label, #sc-select, #sc-space").css('display','none');
         } else {
-          console.log('haish');
-          $("#sc-label, #sc-select").css('display','block');
+          $("#sc-label, #sc-select, #sc-space").css('display','block');
           $("#jak_toption").empty(); 
           var res = JSON.parse(result);
           $.each(res, function(key, value) { 

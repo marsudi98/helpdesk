@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="form-group">
-		<p><label for="category"><?php echo "Category"?></label></p>
+		<p><label for="category"><?php echo "Jenis Complaint"?></label></p>
 		<select name="jak_priority" id="jak_priority" class="selectpicker">
 		<?php foreach($PRIORITY_ALL as $z) { ?>
 	

@@ -5,6 +5,7 @@
 <?php if ($errors) { ?>
 <div class="alert alert-danger">
 <?php if (isset($errors["e"])) echo '(!) '.$errors["e"];
+	  if (isset($errors["e_awb"])) echo '(!) '.$errors["e_awb"];
 	  if (isset($errors["e1"])) echo '(!) '.$errors["e1"];
 	  if (isset($errors["jp"])) echo '(!) '.$errors["jp"];?>
 </div>
@@ -26,47 +27,57 @@
 			</div><!-- /.box-header -->
 			<div class="card-body">
 				<dl class="row">
-					<dt class="col-sm-5"><?php echo $jkl['g130'];?></dt>
-				  	<dd class="col-sm-7">
+					
+					<dt class="col-sm-5 my-auto my-auto"><?php echo $jkl['g130'];?></dt>
+				  	<dd class="col-sm-7 my-auto">
+					  	<?php  
+							$username = $jakuser->getVar("username"); 
+							if($username != 'admin') {
+							$operator = $jakdb->select("user", ["id", "name", "email"], ["id" => JAK_USERID]);
+							foreach($operator as $o){  
+						?>
+						<input type="text" class="form-control" name="jak_operator_show" value="<?php echo $o['name'].' ('.$o['email'].')'; ?>" title="<?php echo $o['name'].' ('.$o['email'].')'; ?>" readonly>
+						<input type="hidden" class="form-control" name="jak_operator" value="<?php echo JAK_USERID; ?>" title="<?php echo $o['name'].' ('.$o['email'].')'; ?>" readonly>
+						<?php } } else { ?>
 				  		<select name="jak_operator" id="jak_operator" class="selectpicker" data-live-search="true">
 							<?php foreach ($OPERATOR_ALL as $o) {
 								echo '<option value="'.$o["id"].'"'.($o["id"] == JAK_USERID ? ' selected' : '').'>'.$o["name"].' ('.$o["email"].')</option>';
 							} ?>
 						</select>
+						<?php } ?>
 				  	</dd>
-
-					<dt class="col-sm-5"><?php echo $jkl['hd288'];?></dt>
-				  	<dd class="col-sm-7">
+					<div class="col-sm-12 py-1"></div>
+					<dt class="col-sm-5 my-auto"><?php echo $jkl['hd288'];?></dt>
+				  	<dd class="col-sm-7 my-auto">
 				  		<select name="jak_opidcc[]" id="jak_opidcc" class="selectpicker" data-live-search="true" multiple>
 							<?php foreach ($OPERATOR_ALL as $o) {
 								echo '<option value="'.$o["id"].'"'.(in_array($o["id"], $OPERATOR_CC) ? ' selected' : '').'>'.$o["name"].' ('.$o["email"].')</option>';
 							} ?>
 						</select>
 				  	</dd>
-
-					<dt class="col-sm-5"><?php echo $jkl['hd167'];?></dt>
-				  	<dd class="col-sm-7">
+					<div class="col-sm-12 py-1"></div>
+					<dt class="col-sm-5 my-auto"><?php echo $jkl['hd167'];?></dt>
+				  	<dd class="col-sm-7 my-auto">
 				  		<select name="jak_status" id="jak_status" class="selectpicker">
 							<option value="1" selected><?php echo $jkl["hd169"];?></option>
 							<option value="2"><?php echo $jkl["hd170"];?></option>
 							<option value="3"><?php echo $jkl["hd171"];?></option>
 						</select>
 				  	</dd>	
-
-
-					<dt class="col-sm-5"><?php echo 'Sumber Complaint'; ?></dt>
-					<dd class="col-sm-7">
+					<div class="col-sm-12 py-1"></div>
+					<dt class="col-sm-5 my-auto"><?php echo 'Sumber Complaint'; ?></dt>
+					<dd class="col-sm-7 my-auto">
 					<select name="jak_depid" data-placeholder="<?php echo $jkl["hd195"];?>" id="jak_depid" class="selectpicker" data-live-search="true">
 						<?php foreach ($DEPARTMENTS_ALL as $d) {
 							echo '<option value="'.$d["id"].'">'.$d["title"].'</option>';
 						} ?>
 					</select>
 					</dd> 
-
+					<div class="col-sm-12 py-1"></div>
 					<form>		
 						<?php if (isset($PRIORITY_ALL) && !empty($PRIORITY_ALL)) { ?>
-						<dt class="col-sm-5">Jenis Complaint<?php //echo $jkl['hd149'];?></dt>
-						<dd class="col-sm-7">
+						<dt class="col-sm-5 my-auto">Jenis Complaint<?php //echo $jkl['hd149'];?></dt>
+						<dd class="col-sm-7 my-auto">
 							<select name="jak_priority" id="jak_priority" class="selectpicker<?php if (isset($errors["jp"])) echo " is-invalid";?>">
 								<option value="-">Nothing selected</option>
 								<?php foreach ($PRIORITY_ALL as $p) {
@@ -76,17 +87,16 @@
 						</dd>
 						<?php } ?>
 					</form>
-
-					<dt id="sc-label" class="col-sm-5">Rincian Complaint</dt>
-					<dd id="sc-select" class="col-sm-7">
+					<div id="sc-space" class="col-sm-12 py-1"></div>
+					<dt id="sc-label" class="col-sm-5 my-auto">Rincian Complaint</dt>
+					<dd id="sc-select" class="col-sm-7 my-auto">
 						<select name="jak_toption" id="jak_toption" class="selectpicker">
 							<option value="">Nothing selected</option>
 						</select>
 					</dd>
-
-				  	<dt class="col-sm-5"><?php echo $jkl['hd172'];?></dt>
-				  	<dd class="col-sm-7">
-
+					<div class="col-sm-12 py-1"></div>
+				  	<dt class="col-sm-5 my-auto" style="display:none;"><?php echo $jkl['hd172'];?></dt>
+				  	<dd class="col-sm-7 my-auto" style="display:none;">
 					<div class="form-check form-check-radio" style="padding-left:0;">
 				   	    <label class="form-check-label">
 				        	<input class="form-check-input" type="radio" name="jak_private" value="1"<?php if (isset($_REQUEST["jak_private"]) && $_REQUEST["jak_private"] == 1 || !isset($_REQUEST["jak_private"])) echo " checked";?>>
@@ -101,14 +111,13 @@
 				            <?php echo $jkl["g18"];?>
 				        </label>
 				    </div>
-
 				  	</dd>
-
-				  	<dt class="col-sm-5"><?php echo $jkl['g169'];?></dt>
-				  	<dd class="col-sm-7"><input type="text" class="form-control" name="jak_referrer" value="<?php if (isset($_REQUEST["jak_referrer"]) && !empty($_REQUEST["jak_referrer"])) echo $_REQUEST["jak_referrer"];?>"></dd>
-
-				  	<dt class="col-sm-5" style="display:none"><?php echo $jkl['hd291'];?></dt>
-				  	<dd class="col-sm-7" style="display:none"><input type="text" name="jak_duedate" class="form-control datepicker" value="<?php echo ($_REQUEST["jak_duedate"] ? $_REQUEST["jak_duedate"] : date($duedateformat[0], strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day')));?>" autocomplete="off"></dd>
+					<!-- <div class="col-sm-12 py-1"></div>								 -->
+				  	<dt class="col-sm-5 my-auto"><?php echo $jkl['g169'];?></dt>
+				  	<dd class="col-sm-7 my-auto"><input type="text" class="form-control" name="jak_referrer" value="<?php if (isset($_REQUEST["jak_referrer"]) && !empty($_REQUEST["jak_referrer"])) echo $_REQUEST["jak_referrer"];?>"></dd>
+					<div class="col-sm-12 py-1"></div>
+				  	<dt class="col-sm-5 my-auto" style="display:none"><?php echo $jkl['hd291'];?></dt>
+				  	<dd class="col-sm-7 my-auto" style="display:none"><input type="text" name="jak_duedate" class="form-control datepicker" value="<?php echo ($_REQUEST["jak_duedate"] ? $_REQUEST["jak_duedate"] : date($duedateformat[0], strtotime('+'.JAK_TICKET_DUEDATE_PRESET.'day')));?>" autocomplete="off"></dd>
 
 				</dl>
 			</div>
@@ -181,9 +190,9 @@
 				<div class="form-group">
 					<label style="color:#3f4254;"><?php echo 'Select Client';?></label>
 					<select name="jak_clients" title="<?php echo $jkl["hd194"];?>" id="jak_clients" class="selectpicker" data-live-search="true">
-						<option disabled><?php echo $jkl["hd194"];?></option>
+						<option><?php echo $jkl["hd194"];?></option>
 						<?php foreach ($CLIENTS_ALL as $v) {
-							echo '<option value="'.$v["id"].':#:'.$v["support_dep"].':#:'.$v["name"].'"'.($v["id"].':#:'.$v["support_dep"].':#:'.$v["name"] == $_POST["jak_client"] ? ' selected' : '').'>'.$v["name"].' ('.$v["email"].')</option>';
+							echo '<option value="'.$v["id"].':#:'.$v["support_dep"].':#:'.$v["name"].'"'.($v["id"] == 1 ? ' selected' : '').'>'.$v["name"].' ('.$v["email"].')</option>';
 						} ?>
 					</select>
 				</div>
@@ -196,7 +205,7 @@
 					<span class="form-check-sign"></span> <label style="color:#3f4254;"><?php echo 'or New Client';?></label>
 				</label>
 			</div>
-			</div><!-- /.box-header -->`
+			</div><!-- /.box-header -->
 			<div class="card-body">
 
 				<div class="form-group">
@@ -243,7 +252,7 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="subject">AWB Number</label>
-							<input type="text" name="awb" id="awb" class="form-control<?php if (isset($errors["e"])) echo " is-invalid";?>" value="<?php if (isset($_POST["awb"]) && !empty($_POST["awb"])) echo $_POST["awb"];?>">
+							<input type="text" name="awb" id="awb" class="form-control<?php if (isset($errors["e_awb"])) echo " is-invalid";?>" value="<?php if (isset($_POST["awb"]) && !empty($_POST["awb"])) echo $_POST["awb"];?>">
 						</div>	
 					</div>
 				</div>
@@ -258,7 +267,7 @@
 
 				<div class="form-group">
 					<label for="content-editor"><?php echo $jkl["g321"];?></label>
-					<textarea name="content" id="content-editor" rows="5" class="form-control"><?php if (isset($_REQUEST["content"]) && !empty($_REQUEST["content"])) echo $_REQUEST["content"];?></textarea>
+					<textarea name="content" id="content-editor" rows="3" class="form-control"><?php if (isset($_REQUEST["content"]) && !empty($_REQUEST["content"])) echo $_REQUEST["content"];?></textarea>
 				</div>
 				<div class="form-check form-check-inline">
 					<label class="form-check-label">

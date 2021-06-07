@@ -42,7 +42,7 @@
 		</div>
 
 		<div class="form-group">
-            <p><label><?php echo $jkl["g22"];?></label></p>
+            <label><?php echo $jkl["g22"];?></label>
             <select name="jak_lang" class="selectpicker" title="<?php echo $jkl["g22"];?>" data-size="4" data-live-search="true">
 				<option value=""><?php echo $jkl["u11"];?></option>
 				<?php if (isset($lang_files) && is_array($lang_files)) foreach($lang_files as $lf) { ?><option value="<?php echo $lf;?>"><?php echo ucwords($lf);?></option><?php } ?>
@@ -50,7 +50,7 @@
 		</div>
 
 		<div class="form-group">
-            <p><label><?php echo 'DP Account';?></label></p>
+            <label><?php echo 'DP Account';?></label>
             <select name="is_dp" class="selectpicker" title="DP Account">
 				<option value="0" disabled>Choose</option>
 				<option value="0">No</option>
@@ -379,6 +379,13 @@
 	    				<span class="form-check-sign"></span> <?php echo $jkl["u32"];?>
 	    			</label>
 	    		</div>
+
+					<div class="form-check form-check-inline">
+	  					<label class="form-check-label">
+	    					<input class="form-check-input" type="checkbox" name="jak_roles[]" value="report"<?php if (isset($_REQUEST["jak_roles"]) && in_array("report", $_REQUEST["jak_roles"])) { ?> checked="checked"<?php } ?>>
+	    					<span class="form-check-sign"></span> <?php echo 'Report';?>
+	    				</label>
+	    			</div>
 
 					<div class="form-check form-check-inline">
 	  					<label class="form-check-label">

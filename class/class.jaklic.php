@@ -30,6 +30,10 @@ define("LB_TEXT_UPDATE_WITH_SQL_DONE", 'Update successful, files and database ha
 define("LB_TEXT_UPDATE_WITHOUT_SQL_DONE", 'Update successful, files have been updated there were no database updates.');
 
 if(!LB_API_DEBUG){
+	// ini_set('display_errors', '1');
+	// ini_set('display_startup_errors', '1');
+	// error_reporting(E_ALL);
+
 	@ini_set('display_errors', 0);
 }
 

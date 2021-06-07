@@ -288,6 +288,11 @@ if (!JAK_USERID) {
 			$JAK_PAGE_ACTIVE = 1;
 			$checkp = 1;
 		}
+		if ($page == 'report') {
+			require_once 'report.php';
+			$JAK_PAGE_ACTIVE = 1;
+			$checkp = 1;
+		}
 		if ($page == '404') {
 			if (!JAK_USERID) jak_redirect(BASE_URL);
 			// Go to the 404 Page

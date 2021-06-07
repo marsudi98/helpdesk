@@ -25,7 +25,7 @@
   </nav>
   <!-- End Navbar -->
   <div class="wrapper wrapper-full-page ">
-    <div class="full-page login-page section-image" filter-color="green" style="background: url('img/login.jpg') no-repeat center center fixed;background-size: cover;height: 100%;overflow: hidden;">
+    <div class="full-page login-page section-image" style="background: url('img/login.jpg') no-repeat center center fixed;background-color: #f3f5f9;background-size: cover;height: 100%;overflow: hidden;">
       <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
 
       <div class="content">
@@ -43,7 +43,7 @@
                   <?php echo $jkl["l"];?>
                   </div>
                   <?php } ?>
-                  <div class="input-group no-border form-control-lg">
+                  <div class="input-group no-border form-control-lg mb-3">
                     <span class="input-group-prepend">
                       <div class="input-group-text">
                         <i class="fa fa-user"></i>

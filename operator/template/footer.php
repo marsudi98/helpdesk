@@ -9,8 +9,8 @@
 <footer class="footer">
 	<div class=" container-fluid ">
 		<div class="copyright" id="copyright">
-		<?php echo date("Y");?> <i class="fa fa-heart"></i> 
-		<a href="https://www.jakweb.ch" target="_blank">J&T Express Jawa Timur</a>.
+		<?php echo date("Y");?> &copy;
+		<a href="https://www.jntjatim.com" target="_blank">J&T Express Jawa Timur</a>.
 		</div>
 	</div>
 </footer>

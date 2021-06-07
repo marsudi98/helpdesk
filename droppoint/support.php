@@ -946,8 +946,8 @@ switch ($page1) {
       if (is_numeric($page2) && jak_row_exist($page2,$jaktable)) {
 
         // Get the ticket data first ~ this is where the data fetched
-        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.awb", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "support_tickets.denda", "support_tickets.dp_bersalah", "clients.name", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
-
+        $JAK_FORM_DATA = $jakdb->get($jaktable, ["[>]".$jaktable1 => ["depid" => "id"], "[>]".$jaktable5 => ["clientid" => "id"]], ["support_tickets.id", "support_tickets.depid", "support_tickets.operatorid", "support_tickets.subject", "support_tickets.content", "support_tickets.clientid", "support_tickets.ip", "support_tickets.referrer", "support_tickets.notes", "support_tickets.private", "support_tickets.status", "support_tickets.attachments", "support_tickets.initiated", "support_tickets.awb", "support_tickets.ended", "support_tickets.updated", "support_tickets.priorityid", "support_tickets.duedate", "support_tickets.toptionid", "support_departments.title", "support_tickets.nominal_denda", "support_tickets.dp_bersalah", "support_tickets.sumber_denda", "support_tickets.tipe_denda", "clients.name", "clients.email", "clients.picture", "clients.support_dep", "clients.credits", "clients.paid_until"], ["support_tickets.id" => $page2]);
+      
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           $jkp = $_POST;
 

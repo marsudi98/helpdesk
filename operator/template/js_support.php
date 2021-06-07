@@ -26,7 +26,7 @@ $(document).ready(function() {
 	    columnDefs: [
             { "orderable": false, "targets": [1] },
             { "className": "font-weight-bold", "targets": [2]},
-            { "className": "dt-body-center", "targets": [0, 1, 5, 8]}
+            { "className": "dt-body-center", "targets": [0, 1, 6, 9]}
   		],
         <?php if ($USER_LANGUAGE != "en") { ?>
         language: {
@@ -50,8 +50,47 @@ $(document).ready(function() {
             }
         }
 	});
-					
+
+    // $("#download_template").submit(function(e) {
+	// 	e.preventDefault();
+	// 	// datas = new FormData(this);
+
+	// 	$.ajax({
+	// 		url: "<?= BASE_URL_ORIG ?>operator/index.php?p=support&sp=download_template",
+	// 		method: "POST",
+	// 		dataType: "JSON",
+	// 		processData: false,
+	// 		contentType: false,
+	// 		cache: false,
+	// 		async:false,
+	// 		// data: datas,
+	// 		success: function(data) {
+    //             console.log(data)
+    //             // window.open(data,'_blank' );
+	// 		},
+	// 		error: function() { 
+	// 			alert("Failed!"); 
+	// 		}     
+	// 	});
+	// });
 });
+
+// function download_template() {
+//     // var priorityid = this.value;
+//     $.ajax({
+//         url: "<?= BASE_URL_ORIG ?>operator/index.php?p=support&sp=download_template",
+//         method: "POST",
+// 		dataType: "JSON",
+        
+//         // data: {
+//         //     priorityid: priorityid
+//         // },
+//         // cache: false,
+//         success: function(result) {
+//             console.log(result)
+//         }
+//     });
+// }
 
 //
 // Pipelining function for DataTables. To be used to the `ajax` option of DataTables

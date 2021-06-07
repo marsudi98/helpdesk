@@ -105,7 +105,10 @@ function jak_get_user_all($table, $userid, $supero) {
 
 	global $jakdb;
 	if ($userid && $supero) {
-		$datausr = $jakdb->select($table, "*", ["OR" => ["id" => $userid, "id[!]" => $supero]]);
+		// $datausr = $jakdb->select($table, "*", ["OR" => ["id" => $userid, "id[!]" => $supero]]);
+		$datausr = $jakdb->query("SELECT * FROM hd_user WHERE id = $userid OR id != $supero AND is_dp = '0'")->fetchAll();
+		// echo json_encode($datausr);
+		// exit;
 	} elseif ($userid) {
 		$datausr = $jakdb->select($table, "*", ["id" => $userid]);
 	} elseif ($supero) {
@@ -113,7 +116,25 @@ function jak_get_user_all($table, $userid, $supero) {
 	} else {
 		$datausr = $jakdb->select($table, "*");
 	}
-	
+	// echo "<pre>";
+	// var_dump($datausr);
+	// echo "</pre>";
+	// exit;
+    return $datausr;
+}
+
+function jak_get_user_dp($table, $userid, $supero) {
+
+	global $jakdb;
+	if ($userid && $supero) {
+		$datausr = $jakdb->query("SELECT * FROM hd_user WHERE id != $supero AND is_dp = 1 AND is_admin = 0")->fetchAll();
+	} elseif ($userid) {
+		$datausr = $jakdb->select($table, "*", ["id" => $userid]);
+	} elseif ($supero) {
+		$datausr = $jakdb->select($table, "*", ["id[!]" => $supero]);
+	} else {
+		$datausr = $jakdb->select($table, "*");
+	}
     return $datausr;
 }
 

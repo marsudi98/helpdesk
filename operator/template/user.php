@@ -123,6 +123,9 @@
   <li class="nav-item">
     <a class="nav-link" href="<?php echo JAK_rewrite::jakParseurl('users', 'clients');?>"><?php echo $jkl["hd6"];?></a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?php echo JAK_rewrite::jakParseurl('users', 'droppoints');?>"><?php echo 'Droppoints';?></a>
+  </li>
   <?php } ?>
 </ul>
 </p>

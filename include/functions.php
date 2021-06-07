@@ -742,12 +742,12 @@ function jak_get_custom_fields($data, $location, $depid, $lang, $readonly, $admi
 					($table ? '</td></tr>' : '</div>');
         	} elseif ($v["fieldtype"] == 2) {
         		// RADIO
-        		$fields .= ($table ? '<tr><td>'.$v["title"].'</td><td>' : '<label for="'.$v["val_slug"].'">'.$v["title"].'</label>');
+        		$fields .= ($table ? '<tr><td>'.$v["title"].'</td><td>' : '<div class="form-group"><label for="'.$v["val_slug"].'">'.$v["title"].'</label>');
         		if (isset($fieldoptions) && !empty($fieldoptions)) foreach ($fieldoptions as $k => $z) {
                     $value = ($tl ? $k : $z);
-        			$fields .= '<div class="form-check form-check-radio"><label class="form-check-label"><input type="radio" class="form-check-input" name="'.$v["val_slug"].'" value="'.$value.'"'.(isset($data[$v["val_slug"]]) && $data[$v["val_slug"]] == $value ? ' checked' : '').''.($readonly ? ' readonly' : '').'><span class="form-check-sign"></span> '.$z.'</label></div>';
+        			$fields .= '<div class="form-check form-check-radio pl-0"><label class="form-check-label"><input type="radio" class="form-check-input" name="'.$v["val_slug"].'" value="'.$value.'"'.(isset($data[$v["val_slug"]]) && $data[$v["val_slug"]] == $value ? ' checked' : '').''.($readonly ? ' readonly' : '').'><span class="form-check-sign"></span> '.$z.'</label></div>';
         		}
-                $fields .= ($table ? '</td></tr>' : '');
+                $fields .= ($table ? '</td></tr>' : '</div>');
         	} elseif ($v["fieldtype"] == 3) {
         		// CHECKBOX
         		$fields .= ($table ? '<tr><td>'.$v["title"].'</td><td>' : '<label for="'.$v["val_slug"].'">'.$v["title"].'</label>');

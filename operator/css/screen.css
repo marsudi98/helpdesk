@@ -23,7 +23,7 @@
 .navbar.navbar-nav>a.btn {
   border-width: 2px;
   font-weight: 400;
-  font-size: 0.8971em;
+  font-size: 12px; /* 0.8971em */
   line-height: 1.35em;
   border: 1px solid #E3E3E3;
   margin: 10px 1px;
@@ -1461,7 +1461,7 @@ fieldset[disabled] .btn-link.active {
   color: #2c2c2c;
   line-height: normal;
   height: auto;
-  font-size: 0.8571em;
+  font-size: 12px;
   -webkit-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
   -moz-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
   -o-transition: color 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -1652,7 +1652,7 @@ fieldset[disabled] .btn-link.active {
 .form-group.no-border .form-control+.input-group-append .input-group-text,
 .input-group.no-border .form-control+.input-group-prepend .input-group-text,
 .input-group.no-border .form-control+.input-group-append .input-group-text {
-  padding: 11px 19px 11px 0;
+  padding: 12px;
 }
 
 .login-link {
@@ -2172,7 +2172,7 @@ a.text-gray:hover {
 body {
   color: #3f4254;
   font-size: 13px;
-  font-weight: 420;
+  font-weight: 400;
   font-family: "Poppins", sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -9702,7 +9702,7 @@ select.selectpicker {
 }
 
 .bootstrap-select .dropdown-menu li.selected {
-  background: #888;
+  background: rgba(136, 136, 136, 0.6);
   color: #fff;
 }
 
