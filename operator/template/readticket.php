@@ -137,7 +137,8 @@
 							$operator = $jakdb->select("user", ["id", "name", "email"], ["id" => [$JAK_FORM_DATA["operatorid"]]]);
 							foreach($operator as $o){  
 						?>
-						<input type="text" class="form-control" name="jak_opid" value="<?php echo $o['name'].' ('.$o['email'].')'; ?>" title="<?php echo $o['name'].' ('.$o['email'].')'; ?>" readonly>
+						<input type="text" class="form-control" name="jak_opid_show" value="<?php echo $o['name'].' ('.$o['email'].')'; ?>" title="<?php echo $o['name'].' ('.$o['email'].')'; ?>" readonly>
+						<input type="hidden" class="form-control" name="jak_opid" value="<?php echo $o['id']; ?>" title="<?php echo $o['name'].' ('.$o['email'].')'; ?>" readonly>
 						<?php } } else { ?>
 							<select name="jak_opid" id="jak_opid" class="selectpicker" data-live-search="true">
 								<?php foreach ($OPERATOR_ALL as $o) {
@@ -212,7 +213,7 @@
 					</dd>
 					<div class="col-sm-12 py-1"></div>
 				  	<dt class="col-sm-5 my-auto"><?php echo $jkl['hd181'];?></dt>
-				  	<dd class="col-sm-7 my-auto"><input class="form-control" value="<?php echo JAK_base::jakTimesince($JAK_FORM_DATA["updated"], JAK_DATEFORMAT), '';?>" readonly></dd>
+				  	<dd class="col-sm-7 my-auto"><input class="form-control" value="<?php echo JAK_base::jakTimesince($JAK_FORM_DATA["updated"], JAK_DATEFORMAT, '');?>" readonly></dd>
 					<div class="col-sm-12 py-1"></div>
 				  	<dt class="col-sm-5 my-auto"><?php echo $jkl['hd182'];?></dt>
 				  	<dd class="col-sm-7 my-auto"><input class="form-control" value="<?php echo ($JAK_FORM_DATA["ended"] != 0 ? JAK_base::jakTimesince($JAK_FORM_DATA["ended"], JAK_DATEFORMAT, '') : '-');?>" readonly></dd>

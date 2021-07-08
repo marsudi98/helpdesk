@@ -357,7 +357,14 @@ class SSP {
 				0,
 			"recordsTotal"    => intval( $recordsTotal ),
 			"recordsFiltered" => intval( $recordsFiltered ),
-			"data"            => self::data_output_join( $columns, $data )
+			"data"            => self::data_output_join( $columns, $data ),
+			"sql" 			  => "SELECT ".implode(", ", self::pluck($columns, 'db')).",
+			DATEDIFF(CONCAT(t1.duedate,' 23:59:59'), CURRENT_TIMESTAMP()) AS check_duedate
+			FROM $table$table2$table3
+			$where
+			ORDER BY t1.status ASC,
+			(UNIX_TIMESTAMP(CONCAT(t1.duedate,' 23:59:59')) - UNIX_TIMESTAMP(CURRENT_TIMESTAMP())) ASC
+			$limit"
 		);
 	}
 

@@ -128,8 +128,8 @@
           </nav>
           <?php if (isset($jakhs['copyright']) && !empty($jakhs['copyright'])) { ?>
           <div class="copyright" id="copyright">
-            <i class="fa fa-copyright"></i>
-            <?php echo date("Y");?> Designed with <i class="fa fa-heart"></i>
+            
+            <?php echo date("Y");?> <i class="fa fa-copyright"></i>
             <a href="https://www.jakweb.ch" target="_blank">J&T Express Jawa Timur</a>.
           </div>
         <?php } ?>

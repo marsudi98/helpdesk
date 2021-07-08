@@ -23,6 +23,8 @@ $jaktable3 = 'clients';
 $jaktable4 = 'support_tickets';
 $jaktable5 = 'translations';
 $jaktable6 = 'ticketoptions';
+$jaktable7 = 'user';
+
 
 // Call the language function
 $lang_files = jak_get_lang_files(JAK_LANG);
@@ -544,7 +546,16 @@ switch ($page1) {
 		
 			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			    $jkp = $_POST;
+				
 
+				// operator id for PIC jenis complaint
+				if (!isset($jkp['op_id']) OR in_array("0", $jkp['op_id'])) {
+					$op_id = 0;
+				} else {
+					$op_id = join(',', $jkp['op_id']);
+				}
+
+				// check if title empty
 			    if (empty($jkp['jak_title'])) {
 			        $errors['e'] = $jkl['e2'];
 			    }
@@ -558,6 +569,7 @@ switch ($page1) {
 						"credits" => $jkp['credits'],
 						"dorder" => $jkp['jak_order'],
 						"duetime" => $jkp['due_time'],
+						"op_id" => $op_id,
 		          		"edited" => $jakdb->raw("NOW()")], ["id" => $page2]); 
 						
 					if (!$result) {
@@ -602,7 +614,11 @@ switch ($page1) {
 			// Title and Description
 			$SECTION_TITLE = $jkl["hd152"];
 			$SECTION_DESC = "";
-				
+			
+			$JAK_OPERATORS = $jakdb->select($jaktable7, ["id", "name", "email"], ["is_dp" => 0, "ORDER" => ["name" => "ASC"]]);
+			// var_dump($JAK_OPERATORS);
+			// exit;
+
 			// Get all departments
 			$JAK_DEPARTMENTS = $jakdb->select($jaktable2, ["id", "title"], ["ORDER" => ["dorder" => "ASC"]]);
 

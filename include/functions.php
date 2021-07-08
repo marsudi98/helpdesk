@@ -711,10 +711,8 @@ function jak_get_custom_fields($data, $location, $depid, $lang, $readonly, $admi
     if (isset($formfields) && !empty($formfields)) {
 
         foreach ($formfields as $v) {
-
-
-            if ($v["fieldtype"] == 2 || $v["fieldtype"] == 3 || $v["fieldtype"] == 4) {
-                $fieldoptions = explode(",", $v["field_html"]);
+            if ($v["fieldtype"] == 2 || $v["fieldtype"] == 3 || $v["fieldtype"]     == 4) {
+                $fieldoptions = explode(",", $v["field_html"]); 
                 // Set translation to false because it does not exist
                 $tl = false;
             }
@@ -763,6 +761,16 @@ function jak_get_custom_fields($data, $location, $depid, $lang, $readonly, $admi
                             $fields .= '<option value="" disabled selected>-- Pilih --</option>';
         		if (isset($fieldoptions) && !empty($fieldoptions)) foreach ($fieldoptions as $k => $z) {
                     $value = ($tl ? $k : $z);
+                   
+                    if($v['val_slug'] == 'dp_bersalah'){
+                        $m_dp = $jakdb->query("SELECT * FROM m_dp")->fetchAll();
+                        foreach($m_dp as $dp){
+                            if($dp['id_dp'] == $data[$v["val_slug"]]) {
+                                // echo json_encode($data[$v["val_slug"]]);
+                                $data[$v["val_slug"]] = $dp['droppoint'];
+                            }
+                        }
+                    }           
         			$fields .= '<option value="'.$value.'"'.(isset($data[$v["val_slug"]]) && $data[$v["val_slug"]] == $value ? ' selected' : '').''.($readonly ? ' readonly' : '').'>'.$z.'</option>';
         		}
         		$fields .= '</select>'.($table ? '</td></tr>' : '</div>');
@@ -776,6 +784,7 @@ function jak_get_custom_fields($data, $location, $depid, $lang, $readonly, $admi
         	if ($admin) $fields .= '</td></tr>';
 
         }
+        // exit;
 
     }
 

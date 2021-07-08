@@ -69,6 +69,12 @@ a:hover {
   -webkit-box-shadow: 2px 3px 4px rgb(0 0 0 / 25%);
           box-shadow: 2px 3px 4px rgb(0 0 0 / 25%);
 }
+@media (max-width: 400px) {
+  .live-chat-button-container .tooltip {
+    right: 65px;
+    top: 15px;
+  }
+}
 /* This bridges the gap so you can mouse into the tooltip without it disappearing */
 .live-chat-button-container .tooltip:before {
   bottom: -10px;

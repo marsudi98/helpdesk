@@ -9,7 +9,7 @@
 <footer class="footer">
 	<div class=" container-fluid ">
 		<div class="copyright" id="copyright">
-		<?php echo date("Y");?> &copy;
+		<?php echo date("Y");?> <i class="fa fa-copyright"></i>
 		<a href="https://www.jntjatim.com" target="_blank">J&T Express Jawa Timur</a>.
 		</div>
 	</div>

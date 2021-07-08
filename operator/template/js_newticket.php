@@ -128,10 +128,13 @@ $('#newclient_cb').change(function() {
   // $('#namec, #phonec, #emailc, #send_email').attr('disabled', !this.checked)
   if($('#newclient_cb').prop('checked')){
     $('#namec, #phonec, #emailc, #send_email').removeAttr('disabled');
+    $('#complainer_name, #complainer_cp').attr('disabled', 'disabled');
     $('#jak_clients').attr('disabled', true);
     $('#jak_clients').selectpicker('refresh');
   } else {
     $('#namec, #phonec, #emailc, #send_email').attr('disabled', 'disabled');
+    $('#complainer_name, #complainer_cp').removeAttr('disabled');
+
     $('#jak_clients').attr('disabled', false);
     $('#jak_clients').selectpicker('refresh');
   }

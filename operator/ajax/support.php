@@ -17,10 +17,30 @@ if (!file_exists('../../class/ssp.class.php')) die('ajax/[ssp.class.php] config.
 require_once '../../class/ssp.class.php';
 
 $where = '';
+if($jakuser->getVar("is_admin") == 0) {
+	$where = 't1.operatorid = '.$jakuser->getVar("id").'';
+}
 if(isset($_SESSION["jak_statfilter"])){
 	$where = 't1.status = '.$_SESSION["jak_statfilter"].'';
 }
+if(isset($_SESSION["jak_catfilter"])){
+	$where = 't1.priorityid = '.$_SESSION["jak_catfilter"].'';
+}
+// date filter
+if(isset($_SESSION["jak_start_datefilter"]) && $_SESSION["jak_start_datefilter"] != "" && isset($_SESSION["jak_end_datefilter"]) && $_SESSION["jak_end_datefilter"] != ""){
+	$and = ($where == '') ? "" : " AND";
+	$where .= $and.' FROM_UNIXTIME(t1.initiated) BETWEEN \''.$_SESSION["jak_start_datefilter"].'\' AND \''.$_SESSION["jak_end_datefilter"].' 23:59:59\'';
+} elseif(isset($_SESSION["jak_start_datefilter"]) && $_SESSION["jak_start_datefilter"] != ""){
+	$and = ($where == '') ? "" : " AND";
+	$where .= $and.' FROM_UNIXTIME(t1.initiated) BETWEEN \''.$_SESSION["jak_start_datefilter"].'\' AND \''.$_SESSION["jak_start_datefilter"].' 23:59:59\'';
+} elseif(isset($_SESSION["jak_end_datefilter"]) && $_SESSION["jak_end_datefilter"] != ""){
+	$and = ($where == '') ? "" : " AND";
+	$where .= $and.' FROM_UNIXTIME(t1.initiated) BETWEEN \''.$_SESSION["jak_end_datefilter"].'\' AND \''.$_SESSION["jak_end_datefilter"].' 23:59:59\'';
+}
+// end date filter
 if (isset($_SESSION["sortdepid"]) && is_numeric($_SESSION["sortdepid"])) {
+	echo 'test';
+	exit;
 	$where = '(t1.operatorid = '.$jakuser->getVar("id").' AND t1.depid = '.$_SESSION["sortdepid"].' AND t1.status = '.$_SESSION["jak_statfilter"].') OR ( t1.depid = '.$_SESSION["sortdepid"].' AND t1.status = '.$_SESSION["jak_statfilter"].')';
 } else {
 	// and then we filter the support departments
@@ -35,10 +55,9 @@ if (isset($_SESSION["sortdepid"]) && is_numeric($_SESSION["sortdepid"])) {
 	}
 }
 
-
 // DB table to use
 $table = JAKDB_PREFIX.'support_tickets AS t1 ';
-$table2 = ' LEFT JOIN '.JAKDB_PREFIX.'support_departments AS t2 ON (t1.depid = t2.id)';
+$table2 = ' LEFT JOIN '.JAKDB_PREFIX.'support_departments AS t2 ON (t1.depid = t2.id) LEFT JOIN '.JAKDB_PREFIX.'ticketpriority AS t3 ON (t1.priorityid = t3.id)';
 $table3 = '';
 
 // Table's primary key
@@ -57,7 +76,7 @@ $columns = array(
 			return '<a href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'read', $row['id'])).'">'.$d.'</a>'.($row['mergeid'] ? ' <a class="badge badge-info" href="'.str_replace('ajax/', '', JAK_rewrite::jakParseurl('support', 'read', $row['mergeid'])).'"><i class="far fa-code-merge"></i></a>' : '');
 		} ),
 	array( 'db' => 't1.awb', 'dbjoin' => 'awb', 'dt' => 3 ),
-	array( 'db' => 't2.title', 'dbjoin' => 'title', 'dt' => 4 ),
+	array( 'db' => 't3.title', 'dbjoin' => 'title', 'dt' => 4 ),
 	array( 'db' => 't1.name', 'dbjoin' => 'name', 'dt' => 5 ),
 	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 6, 'formatter' => function( $d, $row ) {
 		if ($d == 1) {
@@ -71,10 +90,10 @@ $columns = array(
 		}
 	} ),
 	array( 'db' => 't1.initiated', 'dbjoin' => 'initiated', 'dt' => 7, 'formatter' => function( $d, $row ) {
-			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
+			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, '');
 		} ),
 	array( 'db' => 't1.duedate', 'dbjoin' => 'duedate', 'dt' => 8, 'formatter' => function( $d, $row ) {
-			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, JAK_TIMEFORMAT);
+			return JAK_base::jakTimesince($d, JAK_DATEFORMAT, '');
 		} ),
 	array( 'db' => 't1.status', 'dbjoin' => 'status', 'dt' => 9, 'formatter' => function( $d, $row ) {
 			if (isset($_SESSION['jak_lcp_lang']) && file_exists(APP_PATH.JAK_OPERATOR_LOC.'/lang/'.$_SESSION['jak_lcp_lang'].'.php')) {
@@ -99,8 +118,6 @@ $columns = array(
 	array( 'db' => "DATEDIFF(CONCAT(t1.duedate,' 23:59:59'), CURRENT_TIMESTAMP()) AS check_duedate", 'dbjoin' => 'check_duedate', 'dt' => 'check_duedate' )
 
 );
-// echo json_encode($_GET.'-'.$table.'-'.$table2.'-'.$table3.'-'.$primaryKey.'-'.$columns.'-'.$where.'-'.$where);
-// exit;
 
 die(json_encode(SSP::join_custom( $_GET, $table, $table2, $table3, $primaryKey, $columns, $where, $where )));
 

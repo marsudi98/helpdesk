@@ -187,7 +187,7 @@
 			<h3 class="card-title"><?php echo 'Client';?></h3>
 			</div><!-- /.box-header -->
 			<div class="card-body">
-				<div class="form-group">
+				<div class="form-group" style="margin-bottom:0;">
 					<label style="color:#3f4254;"><?php echo 'Select Client';?></label>
 					<select name="jak_clients" title="<?php echo $jkl["hd194"];?>" id="jak_clients" class="selectpicker" data-live-search="true">
 						<option><?php echo $jkl["hd194"];?></option>
@@ -205,23 +205,26 @@
 					<span class="form-check-sign"></span> <label style="color:#3f4254;"><?php echo 'or New Client';?></label>
 				</label>
 			</div>
+
 			</div><!-- /.box-header -->
 			<div class="card-body">
 
 				<div class="form-group">
-					<label for="namec"><?php echo $jkl["u"];?></label>
+					<label for="namec"><?php echo 'Complainer Name';?></label>
 					<input disabled type="text" name="jak_namec" id="namec" class="form-control<?php if (isset($errors["e1"])) echo " is-invalid";?>" value="<?php if (isset($_REQUEST["jak_namec"])) echo $_REQUEST["jak_namec"];?>">
 				</div>
 
 				<div class="form-group">
-					<label for="phonec"><?php echo 'Phone Number';?></label>
+					<label for="phonec"><?php echo 'Complainer CP';?></label>
 					<input disabled type="text" name="jak_phonec" id="phonec" class="form-control" value="<?php if (isset($_REQUEST["jak_phonec"])) echo $_REQUEST["jak_phonec"];?>">
 				</div>
 
-				<div class="form-group">
+				<div class="form-group" style="margin-bottom:0;">
 					<label for="emailc"><?php echo $jkl["u1"];?></label>
 					<input disabled type="text" name="jak_emailc" id="emailc" class="form-control<?php if (isset($errors["e2"])) echo " is-invalid";?>" value="<?php if (isset($_REQUEST["jak_emailc"])) echo $_REQUEST["jak_emailc"];?>">
 				</div>
+
+				<p class="text-muted" style="font-size:11px;margin-bottom:0;">Email tidak wajib diisi jika hanya ingin mengisi keterangan Nama dan CP Complainer.</p>
 
 				<div class="form-check" style="padding-left: 0;">
 					<label class="form-check-label">

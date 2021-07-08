@@ -952,7 +952,7 @@ switch ($page1) {
 			}
 
 			header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
-			header("Content-Disposition: attachment; filename=abc.xls");  //File name extension was wrong
+			header("Content-Disposition: attachment; filename=report_".$jakuser->getVar('username')."_".date("Ymd").".xls");  //File name extension was wrong
 			header("Expires: 0");
 			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 			header("Cache-Control: private",false);
@@ -964,6 +964,165 @@ switch ($page1) {
 		// echo "<pre>";
 		// var_dump($d_bulan_lalu);
 		// var_dump($result3);
+		exit;
+  	break;
+
+  	case 'support_ticket':
+		$whr_priorityid = ($_GET["priorityid"] != 0 && $_GET["priorityid"] != "") ? "AND st.priorityid = '".$_GET["priorityid"]."'" : "";
+		$whr_status 	= ($_GET["status"] != 0 && $_GET["status"] != "") ? "AND st.status = '".$_GET["priorityid"]."'" : "";
+		$whr_date 		= ($_GET["start_date"] != null && $_GET["end_date"] != null) ? "AND FROM_UNIXTIME(st.initiated) BETWEEN '".$_GET["start_date"]."' AND '".$_GET["end_date"]."'" : "";
+
+		$whr_level = "";
+		$level 			= (JAK_SUPERADMINACCESS) ? "admin" : (($jakuser->getVar('is_dp')) ? "dp" : "op");
+		if ($level == "op") {
+			$whr_level 	= " AND st.operatorid = '".$jakuser->getVar('id')."' ";
+			$join_level = " AND st.operatorid = '".$jakuser->getVar('id')."' ";
+		} elseif ($level == "dp") {
+			$join_level = " AND st.dp_bersalah = '".$jakuser->getVar('username')."' ";
+		}
+
+  		$query = $jakdb->query("
+  			SELECT st.name,
+  				st.email,
+  				st.phone,
+  				st.subject as judul_komplain,
+  				st.content as isi_komplain,
+	  			st.awb,
+	  			sd.title as sumber_komplain,
+	  			ts.name as status_komplain,
+	  			tp.title as kategori_komplain,
+	  			too.title as subkat_komplain,
+	  			st.dp_bersalah,
+	  			st.sumber_denda,
+	  			st.tipe_denda,
+	  			st.nominal_denda,
+	  			FROM_UNIXTIME(st.initiated) as created_at,
+	  			FROM_UNIXTIME(st.ended) as ended_at
+  			FROM hd_support_tickets st
+  				LEFT JOIN hd_user u ON st.operatorid = u.id
+				LEFT JOIN hd_ticketpriority tp ON st.priorityid = tp.id
+				LEFT JOIN hd_ticketoptions too ON tp.id = too.priorityid
+				LEFT JOIN hd_ticket_status ts ON st.status = ts.id
+				LEFT JOIN hd_support_departments sd ON st.depid = sd.id
+  			WHERE true
+  				$whr_date
+  				$whr_status
+  				$whr_priorityid
+  				$whr_level
+  		")->fetchAll();
+
+  		if ($query != null && !empty($query)) {
+	  		include '../class/PHPExcel/IOFactory.php';
+  			$start_col = 0; $col = $start_col;
+			$start_row = 1; $row = $start_row;
+			$report_excel = new PHPExcel();
+			$report_excel->setActiveSheetIndex(0);
+			$report_excel->getActiveSheet()->setTitle("");
+
+			$from_date 	= date("d M Y", strtotime($_GET["start_date"]));
+			$to_date 	= date("d M Y", strtotime($_GET["end_date"]));
+
+			if ($_GET["priorityid"]=="0" && $_GET["status"]=="0") {
+				$sub_title = " (Tanpa Filter Jenis dan Status)";
+			} else {
+				if ($_GET["priorityid"] != 0) {
+					$get_title = $jakdb->query("SELECT title FROM hd_ticketpriority WHERE id='".$_GET["priorityid"]."'")->fetchAll();
+					$get_title = ($get_title != null && !empty($get_title)) ? $get_title[0]["title"] : "";
+					$sub_title = " (Jenis Komplain : ".$get_title." )";
+				} elseif ($_GET["status"] != 0) {
+					$get_title = $jakdb->query("SELECT name FROM hd_ticket_status WHERE id='".$_GET["priorityid"]."'")->fetchAll();
+					$get_title = ($get_title != null && !empty($get_title)) ? $get_title[0]["name"] : "";
+					$sub_title = " (Status : ".$get_title." )";
+				} else {
+					$sub_title = "";
+				}
+			}
+
+			$report_excel->getActiveSheet()->mergeCells((PHPExcel_Cell::stringFromColumnIndex($col)).$row.':'.(PHPExcel_Cell::stringFromColumnIndex($col+9)).$row);
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "Ticket from ".$from_date." to ".$to_date.". ".$sub_title);
+			$row++;
+
+			$thin_border = [
+				'borders' => [
+					'allborders' => [
+						'style' => PHPExcel_Style_Border::BORDER_THIN
+					]
+				],
+			];
+
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "COMPLAINER NAME"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "COMPLAINER CP"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "COMPLAINER EMAIL"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "JUDUL TIKET"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "ISI TIKET (COMPLAINT DESCRIPTION)"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "AWB"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "STATUS"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "SUMBER COMPLAINT"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "KATEGORI JENIS COMPLAINT"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "SUB-KATEGORI RINCIAN COMPLAINT"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "DP BERSALAH (KODE DP)"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "SUMBER DENDA"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "TIPE DENDA"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "NOMINAL DENDA"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "CREATED DATE"); $col++;
+			$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, "ENDED DATE");
+			$report_excel->getActiveSheet()->getStyle("A2:".(PHPExcel_Cell::stringFromColumnIndex($col))."2")->getFont()->setBold( true );
+			$report_excel->getActiveSheet()->getStyle("A2:".(PHPExcel_Cell::stringFromColumnIndex($col))."2")->applyFromArray([
+				'fill' => [
+					'type' => PHPExcel_Style_Fill::FILL_SOLID,
+					'color' => ['rgb' => 'B4C6E7']
+				]
+			]);
+			for ($i = 'A'; $i !=  $report_excel->getActiveSheet()->getHighestColumn(); $i++) {
+				$report_excel->getActiveSheet()->getColumnDimension($i)->setAutoSize(TRUE);
+			}
+			$row++;
+
+			foreach ($query as $data) {
+				$col = $start_col;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["name"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["phone"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["email"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["judul_komplain"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, str_replace("</p>", "", str_replace("<p>", "", $data["isi_komplain"]) )); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["awb"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["status_komplain"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["sumber_komplain"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["kategori_komplain"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["subkat_komplain"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["dp_bersalah"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["sumber_denda"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["tipe_denda"]); $col++;
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data["nominal_denda"]); $col++;
+				$created_date 	= date("d M Y", strtotime($data["created_at"]));
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $created_date); $col++;
+				$ended_at 		= ($data["ended_at"]) ? date("d M Y", strtotime($data["ended_at"])) : "-";
+				$report_excel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $ended_at); $col++;
+				$row++;
+			}
+
+			$thin_border = [
+				'borders' => [
+					'allborders' => [
+						'style' => PHPExcel_Style_Border::BORDER_THIN
+					]
+				],
+			];
+			
+			$report_excel->getActiveSheet()->getStyle("A2:".(PHPExcel_Cell::stringFromColumnIndex($col-1)).($row-1))->applyFromArray($thin_border);
+
+			header("Content-Type:   application/vnd.ms-excel; charset=utf-8");
+			header("Content-Disposition: attachment; filename=Tickets_".$jakuser->getVar('username')."_".date("Ymd").".xls");  //File name extension was wrong
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Cache-Control: private",false);
+			$objWriter = PHPExcel_IOFactory::createWriter($report_excel, 'Excel5');
+
+			$objWriter->save('php://output');
+			unset($objWriter);
+			unset($report_excel);
+  		}
+		
 		exit;
   	break;
 	default:

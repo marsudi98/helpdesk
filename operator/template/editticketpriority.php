@@ -84,6 +84,18 @@
 		<small class="text-muted">*day</small>
 	</div>
 
+	<div class="form-group">
+		<p><label>PIC Jenis Complaint </label> <a href="javascript:void(0)" class="jakweb-help" data-content="<?php echo $jkl["h6"];?>" data-original-title="<?php echo $jkl["t"];?>"><i class="fa fa-question-circle"></i></a></p>
+		<select name="op_id[]" multiple="multiple" class="selectpicker" data-size="4" data-live-search="true">
+			<option value="0"<?php if ($JAK_FORM_DATA["op_id"] == 0) { ?> selected="selected"<?php } ?>><?php echo $jkl["g105"];?></option>
+			<?php if (isset($JAK_OPERATORS) && is_array($JAK_OPERATORS)) foreach($JAK_OPERATORS as $z) { ?>
+			<option value="<?php echo $z["id"];?>"<?php if (in_array($z["id"], explode(',', $JAK_FORM_DATA["op_id"]))) echo ' selected';?>><?php echo $z["name"];?></option>
+			
+			<?php } ?>
+		
+		</select>
+	</div>
+
 </div>
 <div class="card-footer">
 	<a href="<?php echo JAK_rewrite::jakParseurl('customfield');?>" class="btn btn-default"><?php echo $jkl["g103"];?></a>

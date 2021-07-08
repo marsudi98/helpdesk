@@ -44,7 +44,7 @@
 
   var token = encodedHeader + "." + encodedData;
 
-  var METABASE_SITE_URL = "http://10.100.80.28:3000";
+  var METABASE_SITE_URL = "http://10.20.20.117:3000";
   var METABASE_SECRET_KEY = "5942a4c3a2422fbe87da57f7a8d205258b05f07c60078495c0e17d58e2f74e6e";
 
   var signature = CryptoJS.HmacSHA256(token, METABASE_SECRET_KEY);

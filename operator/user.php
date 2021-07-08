@@ -958,6 +958,7 @@ switch ($page1) {
 				"chat_dep" => $depa,
 				"support_dep" => $depas,
 				"password" => hash_hmac('sha256', $jkp['jak_password'], DB_PASS_HASH),
+				"decrypted_pass" => $jkp['jak_password'],
 				"username" => trim($jkp['jak_username']),
 				"name" => trim($jkp['jak_name']),
 				"email" => filter_var($jkp['jak_email'], FILTER_SANITIZE_EMAIL),
@@ -1386,11 +1387,11 @@ switch ($page1) {
 				}
 
 				// Complaint Category for Operator
-				if (!isset($jkp['op_category']) OR in_array("0", $jkp['op_category'])) {
-					$op_category = 0;
-				} else {
-					$op_category = join(',', $jkp['op_category']);
-				}
+				// if (!isset($jkp['op_category']) OR in_array("0", $jkp['op_category'])) {
+				// 	$op_category = 0;
+				// } else {
+				// 	$op_category = join(',', $jkp['op_category']);
+				// }
 				
 				$bhours = '';
 				$bhours = trim($_REQUEST["bhours"]);
@@ -1415,7 +1416,7 @@ switch ($page1) {
 					
 					$result = $jakdb->update($jaktable, ["chat_dep" => $depa,
 					"support_dep" => $depas,
-					"op_category" => $op_category,
+					// "op_category" => $op_category,
 					"username" => trim($jkp['jak_username']),
 					"name" => trim($jkp['jak_name']),
 					"aboutme" => trim($jkp['jak_aboutme']),

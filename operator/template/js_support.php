@@ -1,4 +1,6 @@
 <!-- JavaScript for select all -->
+<script src="<?= BASE_URL;?>js/datepicker.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
         
@@ -10,6 +12,47 @@ $(document).ready(function() {
 		});
 	});
 
+    $('#jak_start_datefilter').datetimepicker({
+      // format: '',
+      <?php if(isset($_SESSION["jak_start_datefilter"])) echo "defaultDate: \"".$_SESSION["jak_start_datefilter"]."\"," ?>
+      format: 'YYYY-MM-DD',
+      icons: {
+        time: "fa fa-clock",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
+    }).on('dp.change', function (e) {
+        $('#jak_end_datefilter').data("DateTimePicker").minDate(e.date);
+        $("#start_date_form").submit();
+    });
+
+    $('#jak_end_datefilter').datetimepicker({
+      // format: '',
+      <?php if(isset($_SESSION["jak_end_datefilter"])) echo "defaultDate: \"".$_SESSION["jak_end_datefilter"]."\"," ?>
+      useCurrent: false,
+      format: 'YYYY-MM-DD',
+      icons: {
+        time: "fa fa-clock",
+        date: "fa fa-calendar",
+        up: "fa fa-chevron-up",
+        down: "fa fa-chevron-down",
+        previous: 'fa fa-chevron-left',
+        next: 'fa fa-chevron-right',
+        today: 'fa fa-screenshot',
+        clear: 'fa fa-trash',
+        close: 'fa fa-remove'
+      }
+    }).on('dp.change', function (e) {
+        $('#jak_start_datefilter').data("DateTimePicker").maxDate(e.date);
+        $("#end_date_form").submit();
+    });;
+
     $(document).on("change", "#jak_depid", function() {
         $("#jak_statform").submit();
     });
@@ -17,9 +60,15 @@ $(document).ready(function() {
     $(document).on("change", "#jak_statfilter", function() {
         $("#stat_form").submit();
     });
+
+    $(document).on("change", "#jak_catfilter", function() {
+        $("#cat_form").submit();
+    });
  
 	// DataTables initialisation
-	$('#dynamic-data').DataTable( {
+    
+
+	var table = $('#dynamic-data').DataTable( {
 	    processing: true,
 	    serverSide: true,
         responsive: true,
@@ -48,49 +97,63 @@ $(document).ready(function() {
             } else if (data.check_duedate < 0 || (data.tdc == 3 || data.tdc == 4)) {    
                 $(row).addClass('table-success');
             }
+        },
+        // no reset page
+        "bStateSave": true,
+        "fnStateSave": function (oSettings, oData) {
+            localStorage.setItem('offersDataTables', JSON.stringify(oData));
+        },
+        "fnStateLoad": function (oSettings) {
+            return JSON.parse(localStorage.getItem('offersDataTables'));
         }
+        // end no reset page
 	});
+    // table.ajax.reload(null, false);
+    // table.ajax.reload( null, false );
 
-    // $("#download_template").submit(function(e) {
-	// 	e.preventDefault();
-	// 	// datas = new FormData(this);
 
-	// 	$.ajax({
-	// 		url: "<?= BASE_URL_ORIG ?>operator/index.php?p=support&sp=download_template",
-	// 		method: "POST",
-	// 		dataType: "JSON",
-	// 		processData: false,
-	// 		contentType: false,
-	// 		cache: false,
-	// 		async:false,
-	// 		// data: datas,
-	// 		success: function(data) {
-    //             console.log(data)
-    //             // window.open(data,'_blank' );
-	// 		},
-	// 		error: function() { 
-	// 			alert("Failed!"); 
-	// 		}     
-	// 	});
-	// });
+    $("#export_table").on("click", function(){
+        if ($("#jak_start_datefilter").val() != "" && $("#jak_end_datefilter").val() != "") {
+            let start_date  = $("#jak_start_datefilter").val().split('-');
+            console.log(start_date);
+            start_date      = parseInt((new Date(start_date[0], start_date[1] - 1, start_date[2]).getTime() / 1000).toFixed(0));
+            let end_date    = $("#jak_end_datefilter").val().split('-');
+            console.log(end_date);
+            end_date        = parseInt((new Date(end_date[0], end_date[1] - 1, end_date[2]).getTime() / 1000).toFixed(0));
+            console.log(start_date);
+            console.log(end_date);
+            console.log(end_date-start_date);
+            if ((end_date-start_date) <= 2592000 ) {
+                let link = "<?= BASE_URL_ORIG ?>operator/index.php?p=custom_dashboard&sp=support_ticket";
+                link += "&priorityid="+$("#jak_catfilter").val();
+                link += "&status="+$("#jak_statfilter").val();
+                link += "&start_date="+$("#jak_start_datefilter").val();
+                link += "&end_date="+$("#jak_end_datefilter").val();
+                window.location = link;
+                // alert(link);
+            } else {
+                alert("Selisih From dan To tidak boleh lebih dari 31 hari.");
+            }
+        } else {
+            alert("Tanggal From/To Kosong!");
+        }
+    });
 });
 
-// function download_template() {
-//     // var priorityid = this.value;
-//     $.ajax({
-//         url: "<?= BASE_URL_ORIG ?>operator/index.php?p=support&sp=download_template",
-//         method: "POST",
-// 		dataType: "JSON",
+function download_template() {
+    // var priorityid = this.value;
+    $.ajax({
+        url: "<?= BASE_URL_ORIG ?>operator/index.php?p=support&sp=download_template",
+        method: "POST",
+        dataType: "JSON",
         
-//         // data: {
-//         //     priorityid: priorityid
-//         // },
-//         // cache: false,
-//         success: function(result) {
-//             console.log(result)
-//         }
-//     });
-// }
+        cache: false,
+        success: function(result) {
+            window.open(result,'_blank' );
+        }
+    });
+}
+
 
 //
 // Pipelining function for DataTables. To be used to the `ajax` option of DataTables
